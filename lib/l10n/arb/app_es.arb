@@ -1,0 +1,11 @@
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Contador",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    },
+    "exampleText": "Testeando",
+    "@exampleText": {
+        "description": "Texto de prueba"
+    }
+}
