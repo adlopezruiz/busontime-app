@@ -3,6 +3,8 @@ import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:go_router/go_router.dart';
 
 class CounterPage extends StatelessWidget {
   const CounterPage({super.key});
@@ -22,6 +24,7 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -35,7 +38,11 @@ class CounterView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => context.read<CounterCubit>().increment(),
+            heroTag: 'counterPageHero1',
+            onPressed: () {
+              print('button pressed');
+              GetIt.I<GoRouter>().push('/home');
+            },
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AppColors {
@@ -6,3 +7,7 @@ class AppColors {
   static const secondaryGrey = Color.fromRGBO(246, 248, 250, 1);
   static const primaryBlack = Color.fromRGBO(0, 0, 0, 1);
 }
+
+//Firebase constants
+final userRef = FirebaseFirestore.instance.collection('users');
+const kGoogleMapsApi = 'AIzaSyCQY900CUko2JTQV2idWz2SeUZuTSaCeyo';
