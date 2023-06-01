@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  bloc: ^8.1.1
+  bloc:
   cloud_firestore: ^4.8.0
   equatable: ^2.0.5
   firebase_auth: ^4.6.2
@@ -25,7 +25,7 @@ dependencies:
   validators: ^3.0.0
 
 dev_dependencies:
-  bloc_test: ^9.1.1
+  bloc_test:
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0

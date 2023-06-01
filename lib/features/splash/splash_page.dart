@@ -6,10 +6,10 @@ import 'package:go_router/go_router.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
-  static const String routeName = '/';
 
   @override
   Widget build(BuildContext context) {
+    print('stop');
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         final router = GetIt.I<GoRouter>();

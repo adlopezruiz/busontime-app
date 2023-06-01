@@ -19,14 +19,14 @@ void setupDI() {
     )
     ..registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance)
     ..registerSingleton<FirebaseAuth>(FirebaseAuth.instance)
-    ..registerSingleton<AuthRepository>(
-      AuthRepository(
+    ..registerLazySingleton<AuthRepository>(
+      () => AuthRepository(
         firebaseFirestore: getIt<FirebaseFirestore>(),
         firebaseAuth: getIt<FirebaseAuth>(),
       ),
     )
-    ..registerSingleton<ProfileRepository>(
-      ProfileRepository(
+    ..registerLazySingleton<ProfileRepository>(
+      () => ProfileRepository(
         firebaseFirestore: getIt<FirebaseFirestore>(),
       ),
     )
@@ -45,8 +45,8 @@ void setupDI() {
         authRepository: getIt<AuthRepository>(),
       ),
     )
-    ..registerSingleton<ProfileCubit>(
-      ProfileCubit(
+    ..registerLazySingleton<ProfileCubit>(
+      () => ProfileCubit(
         profileRepository: getIt<ProfileRepository>(),
       ),
     );
