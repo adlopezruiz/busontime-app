@@ -13,7 +13,7 @@ class AuthRepository {
   });
 
   //FirebaseAuth has a userChanges method that we can listen to act depending on user status
-  Stream<fb_auth.User?> get user => firebaseAuth.userChanges();
+  fb_auth.User? get currentUser => firebaseAuth.currentUser;
 
   //Register function
   Future<void> register({

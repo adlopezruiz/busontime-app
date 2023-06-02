@@ -36,6 +36,7 @@ GoRouter setupRouter() {
   ];
 
   return GoRouter(
+    initialLocation: '/',
     routes: routes,
   );
 }

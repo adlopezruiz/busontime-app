@@ -1,4 +1,6 @@
+import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
+import 'package:bot_main_app/repository/auth/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -9,10 +11,9 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('stop');
+    final router = GetIt.I<GoRouter>();
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        final router = GetIt.I<GoRouter>();
         if (state.authStatus == AuthStatus.unauthenticated) {
           router.go('/login');
         } else if (state.authStatus == AuthStatus.authenticated) {
@@ -20,6 +21,9 @@ class SplashPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        getIt<AuthBloc>().add(
+          InitialCheckEvent(currentUser: getIt<AuthRepository>().currentUser),
+        );
         return const Scaffold(
           body: Center(child: CircularProgressIndicator()),
         );

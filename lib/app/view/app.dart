@@ -4,8 +4,6 @@ import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/l10n/l10n.dart';
-import 'package:bot_main_app/repository/auth/auth_repository.dart';
-import 'package:bot_main_app/repository/auth/profile_repository.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,43 +17,33 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     final goRouter = GetIt.I<GoRouter>();
     //Mateapp with goRouter settings
-    return MultiRepositoryProvider(
+    return MultiBlocProvider(
       providers: [
-        RepositoryProvider<AuthRepository>(
-          create: (context) => getIt<AuthRepository>(),
+        BlocProvider<AuthBloc>(
+          create: (context) => getIt<AuthBloc>(),
         ),
-        RepositoryProvider<ProfileRepository>(
-          create: (context) => getIt<ProfileRepository>(),
+        BlocProvider<LoginCubit>(
+          create: (context) => getIt<LoginCubit>(),
+        ),
+        BlocProvider<RegisterCubit>(
+          create: (context) => getIt<RegisterCubit>(),
+        ),
+        BlocProvider<ProfileCubit>(
+          create: (context) => getIt<ProfileCubit>(),
         ),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<AuthBloc>(
-            create: (context) => getIt<AuthBloc>(),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          fontFamily: 'Poppins',
+          appBarTheme: const AppBarTheme(color: AppColors.primaryGreen),
+          colorScheme: ColorScheme.fromSwatch(
+            accentColor: AppColors.primaryGreen,
           ),
-          BlocProvider<LoginCubit>(
-            create: (context) => getIt<LoginCubit>(),
-          ),
-          BlocProvider<RegisterCubit>(
-            create: (context) => getIt<RegisterCubit>(),
-          ),
-          BlocProvider<ProfileCubit>(
-            create: (context) => getIt<ProfileCubit>(),
-          ),
-        ],
-        child: MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            fontFamily: 'Poppins',
-            appBarTheme: const AppBarTheme(color: AppColors.primaryGreen),
-            colorScheme: ColorScheme.fromSwatch(
-              accentColor: AppColors.primaryGreen,
-            ),
-          ),
-          localizationsDelegates: AppLocalizations.localizationsDelegates,
-          supportedLocales: AppLocalizations.supportedLocales,
-          routerConfig: goRouter,
         ),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        routerConfig: goRouter,
       ),
     );
   }

@@ -18,3 +18,13 @@ class AuthStateChangedEvent extends AuthEvent {
 }
 
 class SignOutRequestedEvent extends AuthEvent {}
+
+class InitialCheckEvent extends AuthEvent {
+  const InitialCheckEvent({
+    this.currentUser,
+  });
+  final fb_auth.User? currentUser;
+
+  @override
+  List<Object?> get props => [currentUser];
+}
