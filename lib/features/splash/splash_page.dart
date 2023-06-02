@@ -1,10 +1,12 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/repository/auth/auth_repository.dart';
+import 'package:bot_main_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
@@ -21,11 +23,19 @@ class SplashPage extends StatelessWidget {
         }
       },
       builder: (context, state) {
-        getIt<AuthBloc>().add(
-          InitialCheckEvent(currentUser: getIt<AuthRepository>().currentUser),
-        );
-        return const Scaffold(
-          body: Center(child: CircularProgressIndicator()),
+        Future.delayed(const Duration(seconds: 5), () {
+          getIt<AuthBloc>().add(
+            InitialCheckEvent(currentUser: getIt<AuthRepository>().currentUser),
+          );
+        });
+        return Scaffold(
+          backgroundColor: AppColors.primaryGrey,
+          body: Center(
+            child: Lottie.asset(
+              'assets/images/logo_animation.json',
+              fit: BoxFit.fill,
+            ),
+          ),
         );
       },
     );

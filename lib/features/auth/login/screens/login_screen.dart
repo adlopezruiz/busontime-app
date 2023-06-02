@@ -1,8 +1,10 @@
+import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/register/screens/register_screen.dart';
 import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -30,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
     if (form == null || !form.validate()) return;
 
     form.save();
-    print('email: $_email | password: $_password');
     context.read<LoginCubit>().login(email: _email!, password: _password!);
   }
 
@@ -58,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       shrinkWrap: true,
                       children: [
                         Image.asset(
-                          'assets/images/flutter_logo.png',
+                          'assets/images/logo_final.png',
                           width: 250,
                           height: 250,
                         ),
@@ -127,10 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextButton(
                           onPressed: state.loginStatus == LoginStatus.submitting
                               ? null
-                              : () => Navigator.pushNamed(
-                                    context,
-                                    RegisterScreen.routeName,
-                                  ),
+                              : () => getIt<GoRouter>().push('/register'),
                           style: TextButton.styleFrom(
                             textStyle: const TextStyle(
                               fontSize: 20,

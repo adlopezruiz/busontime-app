@@ -19,7 +19,7 @@ class ProfileRepository {
     print('Bearer: ${bearer.toString()}');
     final token = 'Bearer $bearer';
 
-    final apiUrl = Uri.parse('http://10.0.2.2:3000/users');
+    final apiUrl = Uri.parse('$kApiUrl/users');
 
     final response = await http.get(apiUrl, headers: {'Authorization': token});
 

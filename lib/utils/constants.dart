@@ -11,3 +11,6 @@ class AppColors {
 //Firebase constants
 final userRef = FirebaseFirestore.instance.collection('users');
 const kGoogleMapsApi = 'AIzaSyCQY900CUko2JTQV2idWz2SeUZuTSaCeyo';
+
+//My API constants
+const kApiUrl = 'http://10.0.2.2:3000';
