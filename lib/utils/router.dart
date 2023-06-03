@@ -1,6 +1,7 @@
 import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/register_screen.dart';
 import 'package:bot_main_app/features/home/screens/home_screen.dart';
+import 'package:bot_main_app/features/onboarding/onboarding_screen.dart';
 import 'package:bot_main_app/features/profile/screens/profile_page.dart';
 import 'package:bot_main_app/features/splash/splash_page.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,11 @@ GoRouter setupRouter() {
       path: '/',
       builder: (BuildContext context, GoRouterState state) =>
           const SplashPage(),
+    ),
+    GoRoute(
+      path: '/onboarding',
+      builder: (BuildContext context, GoRouterState state) =>
+          const OnboardingScreen(),
     ),
     GoRoute(
       path: '/login',

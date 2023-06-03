@@ -17,7 +17,7 @@ class SplashPage extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state.authStatus == AuthStatus.unauthenticated) {
-          router.go('/login');
+          router.go('/onboarding');
         } else if (state.authStatus == AuthStatus.authenticated) {
           router.go('/home');
         }

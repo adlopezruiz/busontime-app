@@ -20,6 +20,7 @@ class NavigationText extends StatelessWidget {
         style: const TextStyle(
           color: Color.fromRGBO(66, 155, 103, 1),
           decoration: TextDecoration.underline,
+          fontWeight: FontWeight.w900,
         ),
       ),
     );

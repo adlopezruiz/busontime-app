@@ -4,7 +4,7 @@ class Buttons {
   //Primary button atom
   static Widget primary({
     required VoidCallback onPressed,
-    required String text,
+    required Text text,
   }) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -14,7 +14,7 @@ class Buttons {
         ),
       ),
       onPressed: onPressed,
-      child: Text(text),
+      child: text,
     );
   }
 
