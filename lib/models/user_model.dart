@@ -1,51 +1,64 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class UserModel extends Equatable {
   final String id;
   final String name;
   final String email;
   final String profileImage;
-  final int point;
-  final String rank;
+  final int createdAt;
+  final LatLng? lastLocation;
+  final List<String> favoriteStops;
 
   const UserModel({
     required this.id,
     required this.name,
     required this.email,
     required this.profileImage,
-    required this.point,
-    required this.rank,
+    required this.createdAt,
+    required this.favoriteStops,
+    this.lastLocation,
   });
 
-  factory UserModel.fromDoc(DocumentSnapshot userDoc) {
-    final userData = userDoc.data() as Map<String, dynamic>?;
+  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        id: json['id'] as String,
+        createdAt: json['createdAt'] as int,
+        name: json['name'] as String,
+        lastLocation: json['lastLocation'] == null
+            ? const LatLng(0, 0)
+            : json['lastLocation'] as LatLng,
+        favoriteStops: (json['favoriteStops'] as List<dynamic>)
+            .map((item) => item.toString())
+            .toList(),
+        profileImage: json['profileImage'] as String,
+        email: json['email'] as String,
+      );
 
-    return UserModel(
-      id: userDoc.id,
-      name: userData!['name'] as String,
-      email: userData['email'] as String,
-      profileImage: userData['profileImage'] as String,
-      point: userData['point'] as int,
-      rank: userData['rank'] as String,
-    );
-  }
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'createdAt': createdAt,
+        'name': name,
+        'lastLocation': lastLocation,
+        'favoriteStops': List<dynamic>.from(favoriteStops.map((x) => x)),
+        'profileImage': profileImage,
+        'email': email,
+      };
 
   factory UserModel.initialUser() {
-    return const UserModel(
+    return UserModel(
       id: '',
       name: '',
       email: '',
       profileImage: '',
-      point: -1,
-      rank: '',
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      favoriteStops: const [],
     );
   }
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, profileImage: $profileImage, point: $point, rank: $rank,)';
+    return 'User(id: $id, name: $name, email: $email, profileImage: $profileImage, createdAt: $createdAt, favoriteStops: $favoriteStops, lastLocation: $lastLocation)';
   }
 
   @override
@@ -55,8 +68,9 @@ class UserModel extends Equatable {
       name,
       email,
       profileImage,
-      point,
-      rank,
+      createdAt,
+      favoriteStops,
+      lastLocation ?? '',
     ];
   }
 }

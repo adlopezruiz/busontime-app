@@ -17,8 +17,6 @@ class AuthStateChangedEvent extends AuthEvent {
   List<Object?> get props => [user];
 }
 
-class SignOutRequestedEvent extends AuthEvent {}
-
 class InitialCheckEvent extends AuthEvent {
   const InitialCheckEvent({
     this.currentUser,
@@ -28,3 +26,5 @@ class InitialCheckEvent extends AuthEvent {
   @override
   List<Object?> get props => [currentUser];
 }
+
+class SignOutRequestedEvent extends AuthEvent {}

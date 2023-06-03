@@ -79,12 +79,16 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        '- point: ${state.user.point}',
+                        '- createdAt: ${state.user.createdAt}',
                         style: const TextStyle(fontSize: 18),
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        '- rank: ${state.user.rank}',
+                        '- favoriteStops: ${state.user.favoriteStops}',
+                        style: const TextStyle(fontSize: 18),
+                      ),
+                      Text(
+                        '- lastLocation: ${state.user.lastLocation ?? 'No hay posicion'}',
                         style: const TextStyle(fontSize: 18),
                       ),
                       const SizedBox(height: 10),

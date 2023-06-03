@@ -1,15 +1,14 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
-import 'package:bot_main_app/features/auth/register/screens/register_screen.dart';
 import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  static const String routeName = '/login';
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -32,7 +31,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (form == null || !form.validate()) return;
 
     form.save();
-    context.read<LoginCubit>().login(email: _email!, password: _password!);
+    context
+        .read<LoginCubit>()
+        .loginWithEmailAndPassword(email: _email!, password: _password!);
   }
 
   @override
@@ -123,6 +124,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: state.loginStatus == LoginStatus.submitting
                               ? const CircularProgressIndicator()
                               : const Text('Login'),
+                        ),
+                        ElevatedButton(
+                          onPressed: state.loginStatus == LoginStatus.submitting
+                              ? null
+                              : getIt<LoginCubit>().loginWithGoogle,
+                          style: ElevatedButton.styleFrom(
+                            textStyle: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                          ),
+                          child: state.loginStatus == LoginStatus.submitting
+                              ? const CircularProgressIndicator()
+                              : SvgPicture.asset(
+                                  'assets/icons/google.svg',
+                                  semanticsLabel: 'Acme Logo',
+                                ),
                         ),
                         const SizedBox(height: 10),
                         TextButton(

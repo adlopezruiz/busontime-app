@@ -11,6 +11,7 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit({required this.profileRepository})
       : super(ProfileState.initial()) {
+    print(getIt<AuthBloc>().state.user!.uid);
     final uid = getIt<AuthBloc>().state.user!.uid;
     getProfile(uid: uid);
   }

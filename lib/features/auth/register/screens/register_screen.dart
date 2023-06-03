@@ -6,7 +6,6 @@ import 'package:validators/validators.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
-  static const String routeName = '/signup';
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();

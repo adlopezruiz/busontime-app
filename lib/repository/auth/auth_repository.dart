@@ -1,15 +1,22 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthRepository {
   final FirebaseFirestore firebaseFirestore;
   final fb_auth.FirebaseAuth firebaseAuth;
+  final GoogleSignIn googleSignIn;
   AuthRepository({
     required this.firebaseFirestore,
     required this.firebaseAuth,
+    required this.googleSignIn,
   });
 
   //FirebaseAuth has a userChanges method that we can listen to act depending on user status
@@ -37,7 +44,7 @@ class AuthRepository {
         'email': email,
         'profileImage': 'https://picsum.photos/300',
         'favoriteStops': <String>[],
-        'lastLocation': '', //TODO get user location
+        'createdAt': DateTime.now().millisecondsSinceEpoch,
       });
     } on fb_auth.FirebaseAuthException catch (e) {
       throw CustomError(
@@ -55,7 +62,7 @@ class AuthRepository {
   }
 
   //Signin function
-  Future<void> login({
+  Future<void> loginWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -80,8 +87,45 @@ class AuthRepository {
     }
   }
 
+  //Google sign in
+  Future<void> signInWithGoogle() async {
+    try {
+      final googleUser = await getIt<GoogleSignIn>().signIn();
+
+      final googleAuth = await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      final result =
+          await getIt<FirebaseAuth>().signInWithCredential(credential);
+
+      if (result.additionalUserInfo!.isNewUser) {
+        final userData = result.additionalUserInfo!.profile;
+        await userRef.doc(result.user!.uid).set({
+          'name': userData!['name'],
+          'email': userData['email'],
+          'profileImage': userData['picture'],
+          'favoriteStops': <String>[],
+          'createdAt': DateTime.now().millisecondsSinceEpoch,
+        });
+        getIt<AuthBloc>().add(AuthStateChangedEvent(user: currentUser));
+      }
+    } catch (e) {
+      throw CustomError(
+        code: 'Exception',
+        message: e.toString(),
+        plugin: 'flutter_error/google_signin_error',
+      );
+    }
+  }
+
   //Signout
   Future<void> logout() async {
     await firebaseAuth.signOut();
+    //TODO Trigger are you sure dialog
+    getIt<GoRouter>().go('/login');
   }
 }

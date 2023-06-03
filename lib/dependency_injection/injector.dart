@@ -9,6 +9,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 GetIt getIt = GetIt.instance;
 
@@ -19,10 +20,12 @@ void setupDI() {
     )
     ..registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance)
     ..registerSingleton<FirebaseAuth>(FirebaseAuth.instance)
+    ..registerSingleton<GoogleSignIn>(GoogleSignIn())
     ..registerLazySingleton<AuthRepository>(
       () => AuthRepository(
         firebaseFirestore: getIt<FirebaseFirestore>(),
         firebaseAuth: getIt<FirebaseAuth>(),
+        googleSignIn: getIt<GoogleSignIn>(),
       ),
     )
     ..registerLazySingleton<ProfileRepository>(

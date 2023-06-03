@@ -16,26 +16,18 @@ class ProfileRepository {
 
   Future<UserModel> getProfile({required String uid}) async {
     final bearer = await FirebaseAuth.instance.currentUser!.getIdToken();
-    print('Bearer: ${bearer.toString()}');
+    //Forming string auth key for the api
     final token = 'Bearer $bearer';
 
-    final apiUrl = Uri.parse('$kApiUrl/users');
-
-    final response = await http.get(apiUrl, headers: {'Authorization': token});
-
-    final responseJson = jsonDecode(response.body);
-    print('Response: $responseJson');
+    final apiUrl = Uri.parse('$kApiUrl/users/$uid');
 
     try {
-      //TODO REFACTOR USE API TO GET USER DATA
-      final DocumentSnapshot userDoc = await userRef.doc(uid).get();
+      final response =
+          await http.get(apiUrl, headers: {'Authorization': token});
+      final jsonResponseObject =
+          (jsonDecode(response.body) as Map<String, dynamic>)['data'];
 
-      if (userDoc.exists) {
-        final currentUser = UserModel.fromDoc(userDoc);
-        return currentUser;
-      }
-
-      throw 'User not found';
+      return UserModel.fromJson(jsonResponseObject as Map<String, dynamic>);
     } on FirebaseException catch (e) {
       throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
     } catch (e) {

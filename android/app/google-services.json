@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "1017991836538-37uoavth52duv781ths2efpmf39gsnhn.apps.googleusercontent.com",
+          "client_id": "1017991836538-sn3v91kvjaghtc9n47q9g5jp596g38b8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -50,7 +50,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "1017991836538-37uoavth52duv781ths2efpmf39gsnhn.apps.googleusercontent.com",
+          "client_id": "1017991836538-g8f0jpiv9r563p07fa4lvm2fmcc64hjp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.verygoodcore.bot_main_app",
+            "certificate_hash": "d05239a052000d76100059e486b622a254591e0d"
+          }
+        },
+        {
+          "client_id": "1017991836538-sn3v91kvjaghtc9n47q9g5jp596g38b8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

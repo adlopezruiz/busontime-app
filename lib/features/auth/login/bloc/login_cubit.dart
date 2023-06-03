@@ -11,7 +11,8 @@ class LoginCubit extends Cubit<LoginState> {
   LoginCubit({required this.authRepository}) : super(LoginState.initial());
   final AuthRepository authRepository;
 
-  Future<void> login({
+  //Login with mail and pw
+  Future<void> loginWithEmailAndPassword({
     required String email,
     required String password,
   }) async {
@@ -20,12 +21,36 @@ class LoginCubit extends Cubit<LoginState> {
 
     try {
       //Doing signin and emiting success state
-      await authRepository.login(email: email, password: password);
+      await authRepository.loginWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       emit(state.copyWith(loginStatus: LoginStatus.success));
       getIt<GoRouter>().go('/home');
     } on CustomError catch (e) {
       //on signin error emit error status with custom error
       emit(state.copyWith(loginStatus: LoginStatus.error, error: e));
+    }
+  }
+
+  //Google login
+  Future<void> loginWithGoogle() async {
+    emit(state.copyWith(loginStatus: LoginStatus.submitting));
+    try {
+      await authRepository.signInWithGoogle();
+      emit(
+        state.copyWith(
+          loginStatus: LoginStatus.success,
+        ),
+      );
+
+      getIt<GoRouter>().go('/home');
+    } catch (e) {
+      throw CustomError(
+        code: 'Exception',
+        message: e.toString(),
+        plugin: 'google_auth_cubit',
+      );
     }
   }
 }
