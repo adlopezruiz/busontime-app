@@ -1,6 +1,6 @@
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
-import 'package:bot_main_app/features/auth/register/bloc/register_cubit.dart';
+import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth/auth_repository.dart';
 import 'package:bot_main_app/repository/auth/profile_repository.dart';

@@ -1,7 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
-import 'package:bot_main_app/features/auth/register/bloc/register_cubit.dart';
+import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/utils/constants.dart';

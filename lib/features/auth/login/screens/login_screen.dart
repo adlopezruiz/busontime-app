@@ -1,6 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
+import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -9,7 +10,6 @@ import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:validators/validators.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -76,22 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
           return WillPopScope(
             onWillPop: () async => false,
             child: Scaffold(
-              appBar: AppBar(
-                iconTheme: const IconThemeData(
-                  color: AppColors.primaryBlack,
-                  size: 36,
-                ),
-                elevation: 0,
-                backgroundColor: Colors.transparent,
-                leading: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 16,
-                  ),
-                  child: BackButton(
-                    onPressed: () => getIt<GoRouter>().go('/onboarding'),
-                  ),
-                ),
-              ),
+              appBar: AppBars.onlyWithArrowBack(arrowRoute: '/onboarding'),
               body: Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -172,7 +157,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : _submit,
                         content:
                             state.loginStatus == LoginStatus.submittingEmail
-                                ? const CircularProgressIndicator()
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
                                 : const Text(
                                     'Login',
                                     style: TextStyle(
@@ -215,7 +202,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : getIt<LoginCubit>().loginWithGoogle,
                         content:
                             state.loginStatus == LoginStatus.submittingGoogle
-                                ? const CircularProgressIndicator()
+                                ? const CircularProgressIndicator(
+                                    color: AppColors.primaryGreen,
+                                  )
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -249,7 +238,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : () {},
                         content:
                             state.loginStatus == LoginStatus.submittingApple
-                                ? const CircularProgressIndicator()
+                                ? const CircularProgressIndicator(
+                                    color: AppColors.primaryGreen,
+                                  )
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

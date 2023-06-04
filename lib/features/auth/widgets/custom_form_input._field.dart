@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class CustomTextField extends StatefulWidget {
   const CustomTextField({
     super.key,
+    this.controller,
     required this.focusNode,
     required this.onSaved,
     required this.validator,
@@ -11,6 +12,7 @@ class CustomTextField extends StatefulWidget {
     required this.prefixIcon,
     this.obscuredText,
     this.trailing,
+    this.textCapitalization,
   });
   final FocusNode focusNode;
   final void Function(String?) onSaved;
@@ -19,6 +21,8 @@ class CustomTextField extends StatefulWidget {
   final IconData prefixIcon;
   final bool? obscuredText;
   final Widget? trailing;
+  final TextEditingController? controller;
+  final TextCapitalization? textCapitalization;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -38,6 +42,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      textCapitalization: widget.textCapitalization ?? TextCapitalization.none,
+      controller: widget.controller,
       obscureText: showEye,
       cursorColor: AppColors.primaryGreen,
       focusNode: widget.focusNode,
