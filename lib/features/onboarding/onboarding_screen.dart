@@ -39,18 +39,15 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 VerticalSpacer.double(),
                 //Login button
-                Container(
-                  margin: const EdgeInsets.only(right: 16),
+                Buttons.primary(
                   width: MediaQuery.of(context).size.width,
                   height: 50,
-                  child: Buttons.primary(
-                    onPressed: () => getIt<GoRouter>().push('/login'),
-                    text: const Text(
-                      'Login',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  onPressed: () => getIt<GoRouter>().push('/login'),
+                  content: const Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),

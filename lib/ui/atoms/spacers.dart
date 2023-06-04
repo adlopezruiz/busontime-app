@@ -13,3 +13,17 @@ class VerticalSpacer {
     );
   }
 }
+
+class HorizontalSpacer {
+  static Widget regular() {
+    return const SizedBox(
+      width: 16,
+    );
+  }
+
+  static Widget double() {
+    return const SizedBox(
+      width: 32,
+    );
+  }
+}
