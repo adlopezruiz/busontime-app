@@ -1,5 +1,6 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
+import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode2 = FocusNode();
 
   String? _email;
   String? _password;
@@ -32,14 +34,19 @@ class _LoginScreenState extends State<LoginScreen> {
     _focusNode.addListener(() {
       setState(() {});
     });
+    _focusNode2.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
   void dispose() {
     _focusNode.dispose();
+    _focusNode2.dispose();
     super.dispose();
   }
 
+  //Submit function
   void _submit() {
     setState(() {
       _autovalidateMode = AutovalidateMode.always;
@@ -108,40 +115,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       const Text(
                           'Si ya eres miembro. Accede a tu panel de usuario\npara no perderte en tu destino.'),
                       VerticalSpacer.regular(),
-                      TextFormField(
-                        cursorColor: AppColors.primaryGreen,
+                      //Email textfield
+                      CustomTextField(
                         focusNode: _focusNode,
-                        keyboardType: TextInputType.emailAddress,
-                        autocorrect: false,
-                        decoration: InputDecoration(
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.primaryGreen,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                          ),
-                          filled: true,
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                            color: _focusNode.hasFocus
-                                ? AppColors.primaryGreen
-                                : null,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: _focusNode.hasFocus
-                                ? AppColors.primaryGreen
-                                : null,
-                          ),
-                        ),
+                        onSaved: (String? value) {
+                          _email = value;
+                        },
                         validator: (String? value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Email required';
@@ -151,45 +130,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        onSaved: (String? value) {
-                          _email = value;
-                        },
+                        labelText: 'Email',
+                        prefixIcon: Icons.email,
                       ),
                       VerticalSpacer.regular(),
-                      TextFormField(
-                        cursorColor: AppColors.primaryGreen,
-                        focusNode: _focusNode,
-                        keyboardType: TextInputType.emailAddress,
-                        autocorrect: false,
-                        decoration: InputDecoration(
-                          focusedBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: AppColors.primaryGreen,
-                              width: 2,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                          ),
-                          border: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(12),
-                            ),
-                          ),
-                          filled: true,
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: _focusNode.hasFocus
-                                ? AppColors.primaryGreen
-                                : null,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: _focusNode.hasFocus
-                                ? AppColors.primaryGreen
-                                : null,
-                          ),
-                        ),
+                      CustomTextField(
+                        obscuredText: true,
+                        focusNode: _focusNode2,
+                        onSaved: (String? value) {
+                          _password = value;
+                        },
                         validator: (String? value) {
                           if (value == null || value.trim().isEmpty) {
                             return 'Password required';
@@ -199,9 +149,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        onSaved: (String? value) {
-                          _password = value;
-                        },
+                        labelText: 'Password',
+                        prefixIcon: Icons.lock,
                       ),
                       VerticalSpacer.regular(),
                       const Row(
@@ -217,18 +166,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       Buttons.primary(
                         height: 70,
                         width: MediaQuery.of(context).size.width,
-                        onPressed: state.loginStatus == LoginStatus.submitting
-                            ? null
-                            : _submit,
-                        content: state.loginStatus == LoginStatus.submitting
-                            ? const CircularProgressIndicator()
-                            : const Text(
-                                'Login',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                              ),
+                        onPressed:
+                            state.loginStatus == LoginStatus.submittingEmail
+                                ? null
+                                : _submit,
+                        content:
+                            state.loginStatus == LoginStatus.submittingEmail
+                                ? const CircularProgressIndicator()
+                                : const Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                    ),
+                                  ),
                       ),
                       VerticalSpacer.double(),
                       //OR divider
@@ -258,63 +209,67 @@ class _LoginScreenState extends State<LoginScreen> {
                       Buttons.terciary(
                         height: 70,
                         width: MediaQuery.of(context).size.width,
-                        onPressed: state.loginStatus == LoginStatus.submitting
-                            ? null
-                            : getIt<LoginCubit>().loginWithGoogle,
-                        content: state.loginStatus == LoginStatus.submitting
-                            ? const CircularProgressIndicator()
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Login with Google',
-                                    style: TextStyle(
-                                      color: AppColors.primaryBlack,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
+                        onPressed:
+                            state.loginStatus == LoginStatus.submittingGoogle
+                                ? null
+                                : getIt<LoginCubit>().loginWithGoogle,
+                        content:
+                            state.loginStatus == LoginStatus.submittingGoogle
+                                ? const CircularProgressIndicator()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'Login with Google',
+                                        style: TextStyle(
+                                          color: AppColors.primaryBlack,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      HorizontalSpacer.regular(),
+                                      SizedBox(
+                                        height: 50,
+                                        child: SvgPicture.asset(
+                                          'assets/icons/google.svg',
+                                          semanticsLabel: 'Acme Logo',
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  HorizontalSpacer.regular(),
-                                  SizedBox(
-                                    height: 50,
-                                    child: SvgPicture.asset(
-                                      'assets/icons/google.svg',
-                                      semanticsLabel: 'Acme Logo',
-                                    ),
-                                  ),
-                                ],
-                              ),
                       ),
                       VerticalSpacer.regular(),
                       //Apple button
                       Buttons.terciary(
                         height: 70,
                         width: MediaQuery.of(context).size.width,
-                        onPressed: state.loginStatus == LoginStatus.submitting
-                            ? null
-                            : () {},
-                        content: state.loginStatus == LoginStatus.submitting
-                            ? const CircularProgressIndicator()
-                            : Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  const Text(
-                                    'Login with Apple',
-                                    style: TextStyle(
-                                      color: AppColors.primaryBlack,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18,
-                                    ),
+                        onPressed:
+                            state.loginStatus == LoginStatus.submittingApple
+                                ? null
+                                : () {},
+                        content:
+                            state.loginStatus == LoginStatus.submittingApple
+                                ? const CircularProgressIndicator()
+                                : Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        'Login with Apple',
+                                        style: TextStyle(
+                                          color: AppColors.primaryBlack,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      HorizontalSpacer.regular(),
+                                      SizedBox(
+                                        child: SvgPicture.asset(
+                                          'assets/icons/apple.svg',
+                                          semanticsLabel: 'Acme Logo',
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  HorizontalSpacer.regular(),
-                                  SizedBox(
-                                    child: SvgPicture.asset(
-                                      'assets/icons/apple.svg',
-                                      semanticsLabel: 'Acme Logo',
-                                    ),
-                                  ),
-                                ],
-                              ),
                       ),
                       VerticalSpacer.regular(),
                       const Row(

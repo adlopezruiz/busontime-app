@@ -32,8 +32,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     form.save();
 
-    print('name: $_name, email: $_email, password: $_password');
-
     context.read<RegisterCubit>().register(
           name: _name!,
           email: _email!,

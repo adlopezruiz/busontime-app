@@ -1,5 +1,5 @@
 import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
-import 'package:bot_main_app/features/auth/register/screens/register_screen.dart';
+import 'package:bot_main_app/features/auth/register/screens/name_screen.dart';
 import 'package:bot_main_app/features/home/screens/home_screen.dart';
 import 'package:bot_main_app/features/onboarding/onboarding_screen.dart';
 import 'package:bot_main_app/features/profile/screens/profile_page.dart';

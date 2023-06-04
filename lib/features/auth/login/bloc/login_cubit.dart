@@ -17,7 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
     required String password,
   }) async {
     //Emit state while its submitting for progress indicator or smth
-    emit(state.copyWith(loginStatus: LoginStatus.submitting));
+    emit(state.copyWith(loginStatus: LoginStatus.submittingEmail));
 
     try {
       //Doing signin and emiting success state
@@ -35,7 +35,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   //Google login
   Future<void> loginWithGoogle() async {
-    emit(state.copyWith(loginStatus: LoginStatus.submitting));
+    emit(state.copyWith(loginStatus: LoginStatus.submittingGoogle));
     try {
       await authRepository.signInWithGoogle();
       emit(

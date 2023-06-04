@@ -24,6 +24,7 @@ class Buttons {
     );
   }
 
+  //Terciary is a gray button
   static Widget secondary({
     VoidCallback? onPressed,
     required Widget content,
@@ -46,6 +47,7 @@ class Buttons {
     );
   }
 
+  //Terciary is a white button
   static Widget terciary({
     VoidCallback? onPressed,
     required Widget content,

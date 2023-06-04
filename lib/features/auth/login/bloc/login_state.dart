@@ -3,7 +3,9 @@ part of 'login_cubit.dart';
 
 enum LoginStatus {
   initial,
-  submitting,
+  submittingEmail,
+  submittingGoogle,
+  submittingApple,
   success,
   error,
 }
