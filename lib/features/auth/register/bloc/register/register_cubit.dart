@@ -10,20 +10,30 @@ part 'register_state.dart';
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit({required this.authRepository})
       : super(RegisterState.initial());
+
+  Map<String, dynamic> userStagedData = {};
   final AuthRepository authRepository;
 
-  Future<void> register({
+  void stageUserData({
     required String name,
     required String email,
     required String password,
-  }) async {
+  }) {
+    userStagedData['name'] = name;
+    userStagedData['email'] = email;
+    userStagedData['password'] = password;
+
+    print('User data stagged -> $userStagedData');
+  }
+
+  Future<void> register() async {
     emit(state.copyWith(registerStatus: RegisterStatus.submitting));
 
     try {
       await authRepository.register(
-        name: name,
-        email: email,
-        password: password,
+        name: userStagedData['name'] as String,
+        email: userStagedData['name'] as String,
+        password: userStagedData['name'] as String,
       );
 
       emit(state.copyWith(registerStatus: RegisterStatus.success));

@@ -1,3 +1,4 @@
+import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
@@ -42,11 +43,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     form.save();
 
-    context.read<RegisterCubit>().register(
-          name: _name!,
-          email: _email!,
-          password: _password!,
-        );
+    getIt<RegisterCubit>().stageUserData(
+      name: _name!,
+      email: _email!,
+      password: _password!,
+    );
   }
 
   @override

@@ -2,6 +2,7 @@ part of 'register_cubit.dart';
 
 enum RegisterStatus {
   initial,
+  stagged,
   submitting,
   success,
   error,
