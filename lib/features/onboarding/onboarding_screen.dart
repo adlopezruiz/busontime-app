@@ -1,8 +1,10 @@
+import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -42,9 +44,9 @@ class OnboardingScreen extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   height: 50,
                   child: Buttons.primary(
-                    onPressed: () {},
+                    onPressed: () => getIt<GoRouter>().push('/login'),
                     text: const Text(
-                      'Log In',
+                      'Login',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
@@ -70,7 +72,8 @@ class OnboardingScreen extends StatelessWidget {
                       route: '/register',
                     )
                   ],
-                )
+                ),
+                VerticalSpacer.double(),
               ],
             ),
           ),

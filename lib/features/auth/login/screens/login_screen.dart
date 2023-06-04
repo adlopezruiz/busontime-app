@@ -1,5 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
+import 'package:bot_main_app/ui/atoms/spacers.dart';
+import 'package:bot_main_app/utils/constants.dart';
 import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +19,24 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  final FocusNode _focusNode = FocusNode();
 
   String? _email;
   String? _password;
+
+  @override
+  void initState() {
+    super.initState();
+    _focusNode.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
 
   void _submit() {
     setState(() {
@@ -66,13 +83,38 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 20),
                         TextFormField(
+                          cursorColor: AppColors.primaryGreen,
+                          focusNode: _focusNode,
                           keyboardType: TextInputType.emailAddress,
                           autocorrect: false,
-                          decoration: const InputDecoration(
-                            border: OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: AppColors.primaryGreen,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
+                            border: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(12),
+                              ),
+                            ),
                             filled: true,
                             labelText: 'Email',
-                            prefixIcon: Icon(Icons.email),
+                            labelStyle: TextStyle(
+                              color: _focusNode.hasFocus
+                                  ? AppColors.primaryGreen
+                                  : null,
+                            ),
+                            prefixIcon: Icon(
+                              Icons.email,
+                              color: _focusNode.hasFocus
+                                  ? AppColors.primaryGreen
+                                  : null,
+                            ),
                           ),
                           validator: (String? value) {
                             if (value == null || value.trim().isEmpty) {
@@ -87,8 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             _email = value;
                           },
                         ),
-                        const SizedBox(height: 20),
+                        VerticalSpacer.regular(),
                         TextFormField(
+                          cursorColor: AppColors.primaryGreen,
+                          focusNode: _focusNode,
                           obscureText: true,
                           decoration: const InputDecoration(
                             border: OutlineInputBorder(),

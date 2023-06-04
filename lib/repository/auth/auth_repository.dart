@@ -19,7 +19,7 @@ class AuthRepository {
     required this.googleSignIn,
   });
 
-  //FirebaseAuth has a userChanges method that we can listen to act depending on user status
+  //FirebaseAuth has a currentUser variable that we can get
   fb_auth.User? get currentUser => firebaseAuth.currentUser;
 
   //Register function

@@ -6,10 +6,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lottie/lottie.dart';
+import 'package:video_player/video_player.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
+
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  late VideoPlayerController _controller;
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset('assets/videos/animated_logo.mp4')
+      ..initialize().then(
+        (_) => {
+          setState(() {
+            _controller.play();
+          })
+        },
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +48,18 @@ class SplashPage extends StatelessWidget {
           );
         });
         return Scaffold(
-          backgroundColor: AppColors.primaryGrey,
-          body: Center(
-            child: Lottie.asset(
-              'assets/images/logo_animation.json',
-              fit: BoxFit.fill,
-            ),
+          backgroundColor: AppColors.primaryBlack,
+          body: Stack(
+            children: [
+              Center(
+                child: _controller.value.isInitialized
+                    ? AspectRatio(
+                        aspectRatio: _controller.value.aspectRatio,
+                        child: VideoPlayer(_controller),
+                      )
+                    : Container(),
+              ),
+            ],
           ),
         );
       },
