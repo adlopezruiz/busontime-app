@@ -8,6 +8,7 @@ class UserModel extends Equatable {
   final String email;
   final String profileImage;
   final int createdAt;
+  final int? updatedAt;
   final LatLng? lastLocation;
   final List<String> favoriteStops;
 
@@ -19,15 +20,22 @@ class UserModel extends Equatable {
     required this.createdAt,
     required this.favoriteStops,
     this.lastLocation,
+    this.updatedAt,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json['id'] as String,
         createdAt: json['createdAt'] as int,
+        updatedAt: json['updatedAt'] == null
+            ? DateTime.now().millisecondsSinceEpoch
+            : json['updatedAt'] as int,
         name: json['name'] as String,
         lastLocation: json['lastLocation'] == null
             ? const LatLng(0, 0)
-            : json['lastLocation'] as LatLng,
+            : LatLng(
+                ((json['lastLocation'] as List<dynamic>)[0] as int).toDouble(),
+                ((json['lastLocation'] as List<dynamic>)[0] as int).toDouble(),
+              ),
         favoriteStops: (json['favoriteStops'] as List<dynamic>)
             .map((item) => item.toString())
             .toList(),
@@ -38,8 +46,9 @@ class UserModel extends Equatable {
   Map<String, dynamic> toJson() => {
         'id': id,
         'createdAt': createdAt,
+        'updatedAt': updatedAt ?? DateTime.now().millisecondsSinceEpoch,
         'name': name,
-        'lastLocation': lastLocation,
+        'lastLocation': lastLocation ?? const LatLng(0, 0),
         'favoriteStops': List<dynamic>.from(favoriteStops.map((x) => x)),
         'profileImage': profileImage,
         'email': email,
@@ -72,5 +81,25 @@ class UserModel extends Equatable {
       favoriteStops,
       lastLocation ?? '',
     ];
+  }
+
+  UserModel copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? profileImage,
+    int? createdAt,
+    LatLng? lastLocation,
+    List<String>? favoriteStops,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      profileImage: profileImage ?? this.profileImage,
+      createdAt: createdAt ?? this.createdAt,
+      lastLocation: lastLocation ?? this.lastLocation,
+      favoriteStops: favoriteStops ?? this.favoriteStops,
+    );
   }
 }

@@ -24,6 +24,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     userStagedData['password'] = password;
 
     print('User data stagged -> $userStagedData');
+    emit(state.copyWith(registerStatus: RegisterStatus.stagged));
+    getIt<GoRouter>().push('/userimage');
   }
 
   Future<void> register() async {
@@ -32,12 +34,11 @@ class RegisterCubit extends Cubit<RegisterState> {
     try {
       await authRepository.register(
         name: userStagedData['name'] as String,
-        email: userStagedData['name'] as String,
-        password: userStagedData['name'] as String,
+        email: userStagedData['email'] as String,
+        password: userStagedData['password'] as String,
       );
 
       emit(state.copyWith(registerStatus: RegisterStatus.success));
-      getIt<GoRouter>().go('/home');
     } on CustomError catch (e) {
       emit(state.copyWith(registerStatus: RegisterStatus.error, error: e));
     }

@@ -1,4 +1,5 @@
 import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
+import 'package:bot_main_app/features/auth/register/screens/image_picker_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/name_screen.dart';
 import 'package:bot_main_app/features/home/screens/home_screen.dart';
 import 'package:bot_main_app/features/onboarding/onboarding_screen.dart';
@@ -38,6 +39,11 @@ GoRouter setupRouter() {
       path: '/profile',
       builder: (BuildContext context, GoRouterState state) =>
           const ProfileScreen(),
+    ),
+    GoRoute(
+      path: '/userimage',
+      builder: (BuildContext context, GoRouterState state) =>
+          const UserImagePicker(),
     ),
   ];
 

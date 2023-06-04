@@ -8,6 +8,7 @@ import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:validators/validators.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -48,6 +49,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       email: _email!,
       password: _password!,
     );
+    getIt<GoRouter>().push('/userimage');
   }
 
   @override
