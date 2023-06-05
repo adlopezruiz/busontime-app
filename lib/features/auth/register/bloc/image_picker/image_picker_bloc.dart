@@ -135,10 +135,10 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
     //Delete user from DB and auth
     final currentUser = getIt<AuthRepository>().currentUser;
     if (currentUser != null) {
-      //Deletes from auth and sign out
-      await currentUser.delete();
       //Deletes from databse via API
       await getIt<UserRepository>().deleteUser(uid: currentUser.uid);
+      //Deletes from auth and sign out
+      await currentUser.delete();
     }
   }
 

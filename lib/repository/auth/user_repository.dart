@@ -74,7 +74,7 @@ class UserRepository {
     final token = await _getBearer();
     try {
       final apiUrl = Uri.parse('$kApiUrl/users/$uid');
-      await http.put(
+      await http.delete(
         apiUrl,
         headers: {
           'Authorization': token,
