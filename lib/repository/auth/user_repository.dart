@@ -16,9 +16,8 @@ class UserRepository {
 
   //Get user profile
   Future<UserModel> getProfile({required String uid}) async {
-    final bearer = await FirebaseAuth.instance.currentUser!.getIdToken();
     //Forming string auth key for the api
-    final token = 'Bearer $bearer';
+    final token = await _getBearer();
 
     final apiUrl = Uri.parse('$kApiUrl/users/$uid');
 
@@ -41,11 +40,8 @@ class UserRepository {
   }
 
   //Update user data
-  Future<UserModel> updateUserData(UserModel newUser) async {
-    final bearer = await FirebaseAuth.instance.currentUser!.getIdToken();
-    //Forming string auth key for the api
-    final token = 'Bearer $bearer';
-
+  Future<UserModel> updateUserData({required UserModel newUser}) async {
+    final token = await _getBearer();
     final apiUrl = Uri.parse('$kApiUrl/users/${newUser.id}');
 
     try {
@@ -71,5 +67,31 @@ class UserRepository {
         plugin: 'flutter_error/server/server_error',
       );
     }
+  }
+
+  //Delete user from
+  Future<void> deleteUser({required String uid}) async {
+    final token = await _getBearer();
+    try {
+      final apiUrl = Uri.parse('$kApiUrl/users/$uid');
+      await http.put(
+        apiUrl,
+        headers: {
+          'Authorization': token,
+        },
+      );
+    } catch (e) {
+      throw CustomError(
+        code: 'Exception',
+        message: e.toString(),
+        plugin: 'User repository',
+      );
+    }
+  }
+
+  Future<String> _getBearer() async {
+    final bearer = await FirebaseAuth.instance.currentUser!.getIdToken();
+    //Forming string auth key for the api
+    return 'Bearer $bearer';
   }
 }

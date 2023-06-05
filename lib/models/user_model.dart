@@ -33,8 +33,8 @@ class UserModel extends Equatable {
         lastLocation: json['lastLocation'] == null
             ? const LatLng(0, 0)
             : LatLng(
-                ((json['lastLocation'] as List<dynamic>)[0] as int).toDouble(),
-                ((json['lastLocation'] as List<dynamic>)[0] as int).toDouble(),
+                ((json['lastLocation'] as List<dynamic>)[0] as double),
+                ((json['lastLocation'] as List<dynamic>)[0] as double),
               ),
         favoriteStops: (json['favoriteStops'] as List<dynamic>)
             .map((item) => item.toString())

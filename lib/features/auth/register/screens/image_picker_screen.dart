@@ -54,7 +54,8 @@ class UserImagePicker extends StatelessWidget {
   }
 
   void showPicker(BuildContext context) {
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
+      elevation: 1,
       context: context,
       builder: (BuildContext bc) {
         return SafeArea(
@@ -62,7 +63,7 @@ class UserImagePicker extends StatelessWidget {
             children: <Widget>[
               ListTile(
                 leading: const Icon(Icons.photo_library),
-                title: const Text('Gallery'),
+                title: const Text('Galería'),
                 onTap: () {
                   getIt<ImagePickerBloc>().add(PickImageRequestedEvent());
                   Navigator.of(context).pop();
@@ -70,7 +71,7 @@ class UserImagePicker extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.photo_camera),
-                title: const Text('Camera'),
+                title: const Text('Cámara'),
                 onTap: () {
                   getIt<ImagePickerBloc>().add(MakePhotoRequestedEvent());
                   Navigator.of(context).pop();

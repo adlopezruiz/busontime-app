@@ -33,6 +33,8 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
           //Upload image to storage, this also trigger update user data
           add(UploadImageRequestedEvent());
         } catch (e) {
+          //Deleting user from auth
+          await deleteUserFromFBAuth();
           emit(state.copyWith(imagePickerStatus: ImagePickerStatus.error));
           throw CustomError(
             code: 'Exception',
@@ -43,17 +45,33 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
       }
     });
 
+    //Pop ups camera
     on<MakePhotoRequestedEvent>(
       (event, emit) async {
-        final pickedFile = await picker.pickImage(source: ImageSource.camera);
+        try {
+          final pickedFile = await picker.pickImage(source: ImageSource.camera);
 
-        if (pickedFile != null) {
-          final imageFile = File(pickedFile.path);
-          emit(
-            state.copyWith(
-              imagePickerStatus: ImagePickerStatus.picked,
-              image: imageFile,
-            ),
+          if (pickedFile != null) {
+            final imageFile = File(pickedFile.path);
+            emit(
+              state.copyWith(
+                imagePickerStatus: ImagePickerStatus.picked,
+                image: imageFile,
+              ),
+            );
+            //Register user now with staged data.
+            await getIt<RegisterCubit>().register();
+            //Upload image to storage, this also trigger update user data
+            add(UploadImageRequestedEvent());
+          }
+        } catch (e) {
+          //Deleting user from auth
+          await deleteUserFromFBAuth();
+          emit(state.copyWith(imagePickerStatus: ImagePickerStatus.error));
+          throw CustomError(
+            code: 'Exception',
+            message: e.toString(),
+            plugin: 'ImagePicker',
           );
         }
       },
@@ -63,15 +81,29 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
       (event, emit) async {
         try {
           if (state.image != null) {
-            final imageUrl =
-                await getIt<StorageRepository>().uploadImage(state.image!);
+            //Forming a filename and updating state
+            final fileName =
+                getIt<RegisterCubit>().userStagedData['name'].toString() +
+                    DateTime.now().millisecondsSinceEpoch.toString();
+            emit(
+              state.copyWith(
+                imagePickerStatus: ImagePickerStatus.uploading,
+                imgName: fileName,
+              ),
+            );
+
+            //Uploading file
+            final imageUrl = await getIt<StorageRepository>().uploadImage(
+              image: state.image!,
+              fileName: fileName,
+            );
             //Update user data with image URL from storage
             final actualUser = await getIt<UserRepository>().getProfile(
               uid: getIt<AuthRepository>().currentUser!.uid,
             );
             //Updating the actual user via API
             await getIt<UserRepository>().updateUserData(
-              actualUser.copyWith(
+              newUser: actualUser.copyWith(
                 profileImage: imageUrl,
               ),
             );
@@ -80,6 +112,13 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
             getIt<GoRouter>().go('/home');
           }
         } catch (e) {
+          //Deleting photo from storage if uploaded
+          if (state.image != null) {
+            await getIt<StorageRepository>()
+                .deleteImage(imgName: state.imgName!);
+          }
+          //Deleting user from auth
+          await deleteUserFromFBAuth();
           emit(state.copyWith(imagePickerStatus: ImagePickerStatus.error));
           throw CustomError(
             code: 'Exception',
@@ -90,5 +129,18 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
       },
     );
   }
+
+  //Function to full delete an user from Firebase
+  Future<void> deleteUserFromFBAuth() async {
+    //Delete user from DB and auth
+    final currentUser = getIt<AuthRepository>().currentUser;
+    if (currentUser != null) {
+      //Deletes from auth and sign out
+      await currentUser.delete();
+      //Deletes from databse via API
+      await getIt<UserRepository>().deleteUser(uid: currentUser.uid);
+    }
+  }
+
   final picker = getIt<ImagePicker>();
 }

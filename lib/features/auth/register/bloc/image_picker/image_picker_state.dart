@@ -3,6 +3,7 @@ part of 'image_picker_bloc.dart';
 enum ImagePickerStatus {
   unknown,
   picked,
+  uploading,
   uploaded,
   error,
 }
@@ -11,6 +12,7 @@ class ImagePickerState extends Equatable {
   const ImagePickerState({
     required this.imagePickerStatus,
     this.image,
+    this.imgName,
   });
 
   factory ImagePickerState.unknown() {
@@ -19,22 +21,24 @@ class ImagePickerState extends Equatable {
 
   final ImagePickerStatus imagePickerStatus;
   final File? image;
+  final String? imgName;
 
   @override
   String toString() =>
-      'ImagePickerState(imagePickerStatus: $imagePickerStatus, image: $image)';
+      'ImagePickerState(imagePickerStatus: $imagePickerStatus, image: $image, imgName: $imgName)';
 
   ImagePickerState copyWith({
     ImagePickerStatus? imagePickerStatus,
     File? image,
-    String? error,
+    String? imgName,
   }) {
     return ImagePickerState(
       imagePickerStatus: imagePickerStatus ?? this.imagePickerStatus,
       image: image ?? this.image,
+      imgName: imgName ?? this.imgName,
     );
   }
 
   @override
-  List<Object?> get props => [imagePickerStatus, image];
+  List<Object?> get props => [imagePickerStatus, image, imgName];
 }
