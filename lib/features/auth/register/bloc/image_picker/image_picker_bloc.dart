@@ -28,8 +28,6 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
               image: imageFile,
             ),
           );
-          //Register user now with staged data.
-          await getIt<RegisterCubit>().register();
           //Upload image to storage, this also trigger update user data
           add(UploadImageRequestedEvent());
         } catch (e) {

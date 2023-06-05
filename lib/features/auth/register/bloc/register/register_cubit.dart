@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/repository/auth/auth_repository.dart';
@@ -23,11 +25,10 @@ class RegisterCubit extends Cubit<RegisterState> {
     userStagedData['email'] = email;
     userStagedData['password'] = password;
 
-    print('User data stagged -> $userStagedData');
     emit(state.copyWith(registerStatus: RegisterStatus.stagged));
-    getIt<GoRouter>().push('/userimage');
   }
 
+  //Register user and go to imagepicker
   Future<void> register() async {
     emit(state.copyWith(registerStatus: RegisterStatus.submitting));
 
@@ -37,10 +38,62 @@ class RegisterCubit extends Cubit<RegisterState> {
         email: userStagedData['email'] as String,
         password: userStagedData['password'] as String,
       );
-
       emit(state.copyWith(registerStatus: RegisterStatus.success));
+      //Send verification email
+      await verifyUserEmail();
     } on CustomError catch (e) {
       emit(state.copyWith(registerStatus: RegisterStatus.error, error: e));
     }
+  }
+
+  //Send verify email
+  Future<void> verifyUserEmail() async {
+    final currentUser = getIt<AuthRepository>().currentUser;
+
+    if (currentUser != null) {
+      try {
+        await currentUser.sendEmailVerification();
+        emit(state.copyWith(registerStatus: RegisterStatus.verificationSent));
+        //Navigate to verification screen
+        getIt<GoRouter>().go('/emailVerification');
+        print('Hola');
+        await startCheckingUserVerified();
+      } catch (e) {
+        throw CustomError(
+          code: 'Email verification error',
+          message: e.toString(),
+          plugin: 'Email verifaction cubit',
+        );
+      }
+    }
+  }
+
+  Timer? _timer;
+  //Check if user is verified
+  Future<void> startCheckingUserVerified() async {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) async {
+      final currentUser = getIt<AuthRepository>().currentUser;
+
+      if (currentUser != null) {
+        print('Checking isVerified!');
+        await currentUser.reload();
+        if (currentUser.emailVerified) {
+          emit(state.copyWith(registerStatus: RegisterStatus.verified));
+          stopCheckingUserVerified();
+        }
+        //If max ticks...
+        if (_timer != null) {
+          if (_timer!.tick > 15) {
+            stopCheckingUserVerified();
+            getIt<GoRouter>().go('/login');
+          }
+        }
+      }
+    });
+  }
+
+  void stopCheckingUserVerified() {
+    _timer?.cancel();
+    _timer = null;
   }
 }

@@ -26,7 +26,11 @@ class LoginCubit extends Cubit<LoginState> {
         password: password,
       );
       emit(state.copyWith(loginStatus: LoginStatus.success));
-      getIt<GoRouter>().go('/home');
+      if (authRepository.currentUser?.emailVerified ?? false) {
+        getIt<GoRouter>().go('/home');
+      } else {
+        getIt<GoRouter>().go('emailVerification');
+      }
     } on CustomError catch (e) {
       //on signin error emit error status with custom error
       emit(state.copyWith(loginStatus: LoginStatus.error, error: e));

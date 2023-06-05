@@ -5,6 +5,8 @@ enum RegisterStatus {
   stagged,
   submitting,
   success,
+  verificationSent,
+  verified,
   error,
 }
 

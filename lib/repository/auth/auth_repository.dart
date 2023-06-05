@@ -28,7 +28,6 @@ class AuthRepository {
     required String email,
     required String password,
   }) async {
-    print('$name $email $password');
     try {
       //Creating new user to firebase
       final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
