@@ -33,7 +33,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
-      await dotenv.load(fileName: '.env');
+      await dotenv.load();
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );

@@ -14,18 +14,16 @@ class NavigationScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        body: SafeArea(
-          child: BlocBuilder<NavbarCubit, NavbarState>(
-            builder: (context, state) {
-              if (state.pageStatus == PageStatus.homePage) {
-                return const HomeScreen();
-              } else if (state.pageStatus == PageStatus.mapPage) {
-                return const MapScreen();
-              } else {
-                return const ProfileScreen();
-              }
-            },
-          ),
+        body: BlocBuilder<NavbarCubit, NavbarState>(
+          builder: (context, state) {
+            if (state.pageStatus == PageStatus.homePage) {
+              return const HomeScreen();
+            } else if (state.pageStatus == PageStatus.mapPage) {
+              return const MapScreen();
+            } else {
+              return const ProfileScreen();
+            }
+          },
         ),
         bottomNavigationBar: const HomeScreenNavbar(),
       ),

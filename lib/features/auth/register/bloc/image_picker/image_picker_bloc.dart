@@ -82,6 +82,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
               state.copyWith(
                 imagePickerStatus: ImagePickerStatus.uploading,
                 imgName: fileName,
+                image: state.image,
               ),
             );
 

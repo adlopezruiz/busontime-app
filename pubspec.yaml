@@ -50,6 +50,7 @@ flutter:
     - assets/images/bus_images/
     - assets/icons/
     - assets/videos/
+    - .env
 
   fonts:
     - family: Poppins
