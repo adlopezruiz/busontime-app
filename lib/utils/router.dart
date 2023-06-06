@@ -2,7 +2,7 @@ import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/image_picker_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/name_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/verify_email_screen.dart';
-import 'package:bot_main_app/features/home/screens/home_screen.dart';
+import 'package:bot_main_app/features/home/screens/navigation_screen.dart';
 import 'package:bot_main_app/features/onboarding/onboarding_screen.dart';
 import 'package:bot_main_app/features/profile/screens/profile_page.dart';
 import 'package:bot_main_app/features/splash/splash_page.dart';
@@ -34,7 +34,7 @@ GoRouter setupRouter() {
     GoRoute(
       path: '/home',
       builder: (BuildContext context, GoRouterState state) =>
-          const HomeScreen(),
+          const NavigationScreen(),
     ),
     GoRoute(
       path: '/profile',

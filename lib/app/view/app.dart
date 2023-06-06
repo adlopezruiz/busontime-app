@@ -3,6 +3,7 @@ import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
+import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/utils/constants.dart';
@@ -34,6 +35,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<ImagePickerBloc>(
           create: (context) => getIt<ImagePickerBloc>(),
+        ),
+        BlocProvider<NavbarCubit>(
+          create: (context) => getIt<NavbarCubit>(),
         ),
       ],
       child: MaterialApp.router(

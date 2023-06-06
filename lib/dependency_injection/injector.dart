@@ -2,6 +2,7 @@ import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
+import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth/auth_repository.dart';
 import 'package:bot_main_app/repository/auth/storage_repository.dart';
@@ -57,6 +58,7 @@ void setupDI() {
         profileRepository: getIt<UserRepository>(),
       ),
     )
+    ..registerLazySingleton<NavbarCubit>(NavbarCubit.new)
     ..registerLazySingleton(ImagePickerBloc.new)
     ..registerLazySingleton(() => FirebaseStorage.instance)
     ..registerLazySingleton(StorageRepository.new)

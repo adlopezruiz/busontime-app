@@ -6,6 +6,7 @@ import 'package:bot_main_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -32,6 +33,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      await dotenv.load(fileName: '.env');
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
