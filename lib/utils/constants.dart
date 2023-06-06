@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppColors {
   static const primaryGreen = Color.fromRGBO(66, 155, 103, 1);
@@ -11,8 +12,8 @@ class AppColors {
 
 //Firebase constants
 final userRef = FirebaseFirestore.instance.collection('users');
-const kGoogleMapsApi = 'AIzaSyCQY900CUko2JTQV2idWz2SeUZuTSaCeyo';
-const storageBucket = 'gs://fb-auth-bloc-d1201.appspot.com';
+final kGoogleMapsApi = dotenv.env['MAPSAPIKEY'];
+final storageBucket = dotenv.env['STORAGEBUCKET'];
 
 //My API constants
 const kApiUrl = 'https://busontime-api.vercel.app/api/v1';
