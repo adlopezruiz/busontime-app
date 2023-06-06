@@ -34,7 +34,7 @@ class ImagePickerState extends Equatable {
   }) {
     return ImagePickerState(
       imagePickerStatus: imagePickerStatus ?? this.imagePickerStatus,
-      image: image ?? this.image,
+      image: image,
       imgName: imgName ?? this.imgName,
     );
   }

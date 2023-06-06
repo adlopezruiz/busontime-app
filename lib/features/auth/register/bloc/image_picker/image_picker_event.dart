@@ -12,3 +12,5 @@ class PickImageRequestedEvent extends ImagePickerEvent {}
 class MakePhotoRequestedEvent extends ImagePickerEvent {}
 
 class UploadImageRequestedEvent extends ImagePickerEvent {}
+
+class RemoveImageFromPickerEvent extends ImagePickerEvent {}

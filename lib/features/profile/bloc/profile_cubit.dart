@@ -10,13 +10,12 @@ part 'profile_state.dart';
 
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit({required this.profileRepository})
-      : super(ProfileState.initial()) {
-    final uid = getIt<AuthRepository>().currentUser!.uid;
-    getProfile(uid: uid);
-  }
+      : super(ProfileState.initial());
   final UserRepository profileRepository;
 
-  Future<void> getProfile({required String uid}) async {
+  //Get user profile and load to state
+  Future<void> getProfile() async {
+    final uid = getIt<AuthRepository>().currentUser!.uid;
     emit(state.copyWith(profileStatus: ProfileStatus.loading));
 
     try {

@@ -24,4 +24,23 @@ class AppBars {
       ),
     );
   }
+
+  static PreferredSizeWidget arrowBackJustPopsOne() {
+    return AppBar(
+      iconTheme: const IconThemeData(
+        color: AppColors.primaryBlack,
+        size: 36,
+      ),
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      leading: Padding(
+        padding: const EdgeInsets.only(
+          top: 16,
+        ),
+        child: BackButton(
+          onPressed: () => getIt<GoRouter>().pop(),
+        ),
+      ),
+    );
+  }
 }

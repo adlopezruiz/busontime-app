@@ -56,7 +56,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(state.copyWith(registerStatus: RegisterStatus.verificationSent));
         //Navigate to verification screen
         getIt<GoRouter>().go('/emailVerification');
-        print('Hola');
+
         await startCheckingUserVerified();
       } catch (e) {
         throw CustomError(
@@ -66,6 +66,12 @@ class RegisterCubit extends Cubit<RegisterState> {
         );
       }
     }
+  }
+
+  //Setter to the state
+  void setVerificationSentState() {
+    emit(state.copyWith(registerStatus: RegisterStatus.verificationSent));
+    startCheckingUserVerified();
   }
 
   Timer? _timer;
@@ -83,7 +89,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         }
         //If max ticks...
         if (_timer != null) {
-          if (_timer!.tick > 15) {
+          //Tick is the maximun ticks, preventing loop to firebase
+          if (_timer!.tick > 60) {
             stopCheckingUserVerified();
             getIt<GoRouter>().go('/login');
           }

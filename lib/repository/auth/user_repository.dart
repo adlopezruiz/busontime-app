@@ -34,7 +34,7 @@ class UserRepository {
       throw CustomError(
         code: 'Exception',
         message: e.toString(),
-        plugin: 'flutter_error/server/server_error',
+        plugin: 'Get profile from repo',
       );
     }
   }
@@ -64,7 +64,7 @@ class UserRepository {
       throw CustomError(
         code: 'Exception',
         message: e.toString(),
-        plugin: 'flutter_error/server/server_error',
+        plugin: 'updateUserData from repo',
       );
     }
   }

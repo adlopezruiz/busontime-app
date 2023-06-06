@@ -28,8 +28,6 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
               image: imageFile,
             ),
           );
-          //Upload image to storage, this also trigger update user data
-          add(UploadImageRequestedEvent());
         } catch (e) {
           //Deleting user from auth
           await deleteUserFromFBAuth();
@@ -57,10 +55,6 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
                 image: imageFile,
               ),
             );
-            //Register user now with staged data.
-            await getIt<RegisterCubit>().register();
-            //Upload image to storage, this also trigger update user data
-            add(UploadImageRequestedEvent());
           }
         } catch (e) {
           //Deleting user from auth
@@ -75,6 +69,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
       },
     );
 
+    //Upload image
     on<UploadImageRequestedEvent>(
       (event, emit) async {
         try {
@@ -124,6 +119,17 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
             plugin: 'ImagePicker',
           );
         }
+      },
+    );
+
+    //Remove image from picker
+    on<RemoveImageFromPickerEvent>(
+      (event, emit) {
+        emit(
+          state.copyWith(
+            imagePickerStatus: ImagePickerStatus.unknown,
+          ),
+        );
       },
     );
   }

@@ -12,6 +12,12 @@ class VerticalSpacer {
       height: 32,
     );
   }
+
+  static Widget triple() {
+    return const SizedBox(
+      height: 64,
+    );
+  }
 }
 
 class HorizontalSpacer {

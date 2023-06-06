@@ -29,7 +29,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (authRepository.currentUser?.emailVerified ?? false) {
         getIt<GoRouter>().go('/home');
       } else {
-        getIt<GoRouter>().go('emailVerification');
+        getIt<GoRouter>().go('/emailVerification');
       }
     } on CustomError catch (e) {
       //on signin error emit error status with custom error
