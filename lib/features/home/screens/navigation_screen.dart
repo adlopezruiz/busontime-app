@@ -4,7 +4,10 @@ import 'package:bot_main_app/features/home/screens/map_screen.dart';
 import 'package:bot_main_app/features/home/screens/profile_screen.dart';
 import 'package:bot_main_app/features/home/widgets/navbar_widget.dart';
 import 'package:bot_main_app/features/weather/screens/home_screen.dart';
+import 'package:bot_main_app/models/stop_model.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
+import 'package:bot_main_app/repository/line_repository.dart';
+import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +25,8 @@ class NavigationScreen extends StatelessWidget {
             if (state.pageStatus == PageStatus.homePage) {
               return const HomeScreen();
             } else if (state.pageStatus == PageStatus.mapPage) {
+              //Now i have to load the 4 points schedule and locations in the map bloc
+              getIt<StopRepository>().getStops();
               return const MapScreen();
             } else {
               getIt<UserRepository>()

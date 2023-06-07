@@ -88,9 +88,11 @@ class UserRepository {
     }
   }
 
+  //Getting auth key
   Future<String> _getBearer() async {
     final bearer = await FirebaseAuth.instance.currentUser!.getIdToken();
     //Forming string auth key for the api
+    print(bearer);
     return 'Bearer $bearer';
   }
 }

@@ -5,6 +5,8 @@ import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit
 import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
+import 'package:bot_main_app/repository/line_repository.dart';
+import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/storage_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 
@@ -33,6 +35,12 @@ void setupDI() {
         firebaseAuth: getIt<FirebaseAuth>(),
         googleSignIn: getIt<GoogleSignIn>(),
       ),
+    )
+    ..registerLazySingleton<LineRepository>(
+      LineRepository.new,
+    )
+    ..registerLazySingleton<StopRepository>(
+      StopRepository.new,
     )
     ..registerLazySingleton<UserRepository>(
       () => UserRepository(
