@@ -3,6 +3,7 @@ import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
@@ -14,6 +15,7 @@ import 'package:bot_main_app/utils/router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -67,6 +69,8 @@ void setupDI() {
         profileRepository: getIt<UserRepository>(),
       ),
     )
+    ..registerLazySingleton<Geolocator>(Geolocator.new)
+    ..registerLazySingleton<MapBloc>(MapBloc.new)
     ..registerLazySingleton<NavbarCubit>(NavbarCubit.new)
     ..registerLazySingleton(ImagePickerBloc.new)
     ..registerLazySingleton(() => FirebaseStorage.instance)

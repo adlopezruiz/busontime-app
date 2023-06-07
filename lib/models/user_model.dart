@@ -89,6 +89,7 @@ class UserModel extends Equatable {
     String? email,
     String? profileImage,
     int? createdAt,
+    int? updatedAt,
     LatLng? lastLocation,
     List<String>? favoriteStops,
   }) {
@@ -98,6 +99,7 @@ class UserModel extends Equatable {
       email: email ?? this.email,
       profileImage: profileImage ?? this.profileImage,
       createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
       lastLocation: lastLocation ?? this.lastLocation,
       favoriteStops: favoriteStops ?? this.favoriteStops,
     );
