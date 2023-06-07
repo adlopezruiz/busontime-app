@@ -1,6 +1,6 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
-import 'package:bot_main_app/repository/auth/auth_repository.dart';
+import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';

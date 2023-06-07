@@ -4,8 +4,8 @@ import 'package:bot_main_app/features/home/screens/map_screen.dart';
 import 'package:bot_main_app/features/home/screens/profile_screen.dart';
 import 'package:bot_main_app/features/home/widgets/navbar_widget.dart';
 import 'package:bot_main_app/features/weather/screens/home_screen.dart';
-import 'package:bot_main_app/repository/auth/auth_repository.dart';
-import 'package:bot_main_app/repository/auth/user_repository.dart';
+import 'package:bot_main_app/repository/auth_repository.dart';
+import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

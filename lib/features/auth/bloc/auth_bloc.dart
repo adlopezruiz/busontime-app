@@ -1,4 +1,4 @@
-import 'package:bot_main_app/repository/auth/auth_repository.dart';
+import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';

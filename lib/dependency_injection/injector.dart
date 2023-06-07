@@ -4,9 +4,10 @@ import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_pick
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
-import 'package:bot_main_app/repository/auth/auth_repository.dart';
-import 'package:bot_main_app/repository/auth/storage_repository.dart';
-import 'package:bot_main_app/repository/auth/user_repository.dart';
+import 'package:bot_main_app/repository/auth_repository.dart';
+import 'package:bot_main_app/repository/storage_repository.dart';
+import 'package:bot_main_app/repository/user_repository.dart';
+
 import 'package:bot_main_app/utils/router.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

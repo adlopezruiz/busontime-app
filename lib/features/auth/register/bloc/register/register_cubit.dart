@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/custom_error.dart';
-import 'package:bot_main_app/repository/auth/auth_repository.dart';
+import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
