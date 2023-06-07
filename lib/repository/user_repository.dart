@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/models/user_model.dart';
 import 'package:bot_main_app/utils/constants.dart';
@@ -23,10 +22,13 @@ class UserRepository {
     try {
       final response =
           await http.get(apiUrl, headers: {'Authorization': token});
-      final jsonResponseObject =
-          (jsonDecode(response.body) as Map<String, dynamic>)['data'];
 
-      return UserModel.fromJson(jsonResponseObject as Map<String, dynamic>);
+      final userMap = (jsonDecode(response.body)
+          as Map<String, dynamic>)['data'] as Map<String, dynamic>;
+
+      final user = UserModel.fromJson(userMap);
+
+      return user;
     } on FirebaseException catch (e) {
       throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
     } catch (e) {
@@ -42,6 +44,8 @@ class UserRepository {
   Future<UserModel> updateUserData({required UserModel newUser}) async {
     final token = await _getBearer();
     final apiUrl = Uri.parse('$kApiUrl/users/${newUser.id}');
+
+    print(newUser);
 
     try {
       final response = await http.put(

@@ -26,10 +26,15 @@ class MapState extends Equatable {
   final MapStatus mapStatus;
   final LatLng? userPosition;
 
-  MapState copyWith({List<StopModel>? stops, MapStatus? mapStatus}) {
+  MapState copyWith({
+    List<StopModel>? stops,
+    MapStatus? mapStatus,
+    LatLng? userPosition,
+  }) {
     return MapState(
       stops: stops ?? this.stops,
       mapStatus: mapStatus ?? this.mapStatus,
+      userPosition: userPosition,
     );
   }
 

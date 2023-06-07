@@ -67,7 +67,12 @@ class MapBloc extends Bloc<MapEvent, MapState> {
           ),
         );
 
-        emit(state.copyWith(mapStatus: MapStatus.userPositionLoaded));
+        emit(
+          state.copyWith(
+            mapStatus: MapStatus.userPositionLoaded,
+            userPosition: userLocation,
+          ),
+        );
       },
     );
 
