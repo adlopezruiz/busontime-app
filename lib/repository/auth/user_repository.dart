@@ -18,7 +18,6 @@ class UserRepository {
   Future<UserModel> getProfile({required String uid}) async {
     //Forming string auth key for the api
     final token = await _getBearer();
-
     final apiUrl = Uri.parse('$kApiUrl/users/$uid');
 
     try {
