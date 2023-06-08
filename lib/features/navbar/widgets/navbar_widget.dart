@@ -1,5 +1,5 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
-import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';

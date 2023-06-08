@@ -1,9 +1,9 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
-import 'package:bot_main_app/features/home/bloc/navbar_cubit/navbar_cubit.dart';
-import 'package:bot_main_app/features/home/screens/profile_screen.dart';
-import 'package:bot_main_app/features/home/widgets/navbar_widget.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/features/map/screens/map_screen.dart';
+import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/navbar/screens/profile_screen.dart';
+import 'package:bot_main_app/features/navbar/widgets/navbar_widget.dart';
 import 'package:bot_main_app/features/weather/screens/home_screen.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
