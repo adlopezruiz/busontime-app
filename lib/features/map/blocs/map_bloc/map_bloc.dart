@@ -1,3 +1,4 @@
+import 'dart:ui' as ui;
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/stop_model.dart';
@@ -8,6 +9,7 @@ import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -181,7 +183,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             toJaenSchedule: state.toJaenSchedule,
             userPosition: state.userPosition,
             busRoute: polylines,
-            customIcon: await _loadCustomIcon(),
+            customIcon: await getBitmapDescriptorFromAssetBytes(
+              'assets/images/bus_stop_200.png',
+              150,
+            ),
           ),
         );
       },
@@ -209,10 +214,22 @@ List<dynamic> filterScheduleByActualHour(List<dynamic> schedule) {
   return filteredSchedule;
 }
 
-//Load custom marker icon
-Future<BitmapDescriptor> _loadCustomIcon() async {
-  return BitmapDescriptor.fromAssetImage(
-    const ImageConfiguration(size: Size(100, 100)),
-    'assets/images/logo_final_150.png',
+Future<Uint8List> getBytesFromAsset(String path, int width) async {
+  final data = await rootBundle.load(path);
+  final codec = await ui.instantiateImageCodec(
+    data.buffer.asUint8List(),
+    targetWidth: width,
   );
+  final fi = await codec.getNextFrame();
+  return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+      .buffer
+      .asUint8List();
+}
+
+Future<BitmapDescriptor> getBitmapDescriptorFromAssetBytes(
+  String path,
+  int width,
+) async {
+  final imageData = await getBytesFromAsset(path, width);
+  return BitmapDescriptor.fromBytes(imageData);
 }
