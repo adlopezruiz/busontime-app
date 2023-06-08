@@ -8,6 +8,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
 class LineRepository {
+  Future<LineModel> get lineData async => getLineData();
+
   //Get line full data
   Future<LineModel> getLineData() async {
     //Forming string auth key for the api
@@ -54,7 +56,6 @@ class LineRepository {
     try {
       final response =
           await http.get(apiUrl, headers: {'Authorization': token});
-
       return (jsonDecode(response.body) as Map<String, dynamic>)['data']
           as List<dynamic>;
     } on FirebaseException catch (e) {

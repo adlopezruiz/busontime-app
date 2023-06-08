@@ -18,6 +18,7 @@ class StopModel {
     required this.name,
     required this.location,
     required this.line,
+    required this.databaseName,
   });
 
   factory StopModel.fromJson(Map<String, dynamic> json) => StopModel(
@@ -29,12 +30,14 @@ class StopModel {
           (json['location'] as Map<String, dynamic>)['_longitude'] as double,
         ),
         line: json['line'] as String,
+        databaseName: json['databaseName'] as String,
       );
   final String id;
   final String street;
   final String name;
   final LatLng location;
   final String line;
+  final String databaseName;
 
   StopModel copyWith({
     String? id,
@@ -42,6 +45,7 @@ class StopModel {
     String? name,
     LatLng? location,
     String? line,
+    String? databaseName,
   }) =>
       StopModel(
         id: id ?? this.id,
@@ -49,6 +53,7 @@ class StopModel {
         name: name ?? this.name,
         location: location ?? this.location,
         line: line ?? this.line,
+        databaseName: databaseName ?? this.databaseName,
       );
 
   Map<String, dynamic> toJson() => {
@@ -57,5 +62,6 @@ class StopModel {
         'name': name,
         'location': location.toJson(),
         'line': line,
+        'databaseName': databaseName,
       };
 }

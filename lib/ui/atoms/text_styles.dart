@@ -25,4 +25,26 @@ class AppTextStyles {
     fontWeight: FontWeight.normal,
     color: AppColors.primaryBlack,
   );
+
+  static ShaderMask textWithTransparency({
+    required String text,
+    required double fontSize,
+    TextAlign? textAlign,
+  }) {
+    return ShaderMask(
+      shaderCallback: (bounds) => LinearGradient(
+        colors: [Colors.white, Colors.white.withOpacity(0.5)],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ).createShader(bounds),
+      child: Text(
+        text,
+        textAlign: textAlign,
+        style: TextStyle(
+          fontSize: fontSize,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
 }

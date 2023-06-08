@@ -14,3 +14,13 @@ class UpdateUserLocationRequest extends MapEvent {}
 class LocationPermissionRequest extends MapEvent {}
 
 class LocationPermissionDenied extends MapEvent {}
+
+class StopSchedulesRequest extends MapEvent {
+  const StopSchedulesRequest({
+    required this.stopName,
+  });
+  final String stopName;
+
+  @override
+  List<Object> get props => [stopName];
+}

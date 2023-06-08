@@ -1,5 +1,5 @@
 import 'package:bot_main_app/ui/atoms/spacers.dart';
-import 'package:bot_main_app/ui/atoms/texts.dart';
+import 'package:bot_main_app/ui/atoms/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -23,8 +23,11 @@ class HomeScreen extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppTexts.textWithTransparency(text: '25°', fontSize: 150),
-                AppTexts.textWithTransparency(
+                AppTextStyles.textWithTransparency(
+                  text: '25°',
+                  fontSize: 150,
+                ),
+                AppTextStyles.textWithTransparency(
                   text: 'Hola username,\n¿Próxima parada?',
                   fontSize: 32,
                 ),
