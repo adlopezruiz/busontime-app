@@ -25,7 +25,11 @@ class NavigationScreen extends StatelessWidget {
               return const HomeScreen();
             } else if (state.pageStatus == PageStatus.mapPage) {
               //Triggering bloc magic
-              getIt<MapBloc>().add(LocationPermissionRequest());
+              final mapBloc = getIt<MapBloc>();
+
+              if (mapBloc.state.mapStatus == MapStatus.initial) {
+                mapBloc.add(LocationPermissionRequest());
+              }
               return MapScreen();
             } else {
               //TODO Design profile UI, load data with initial state in bloc

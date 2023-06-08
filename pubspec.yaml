@@ -21,6 +21,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.3.0
+  flutter_polyline_points: ^1.0.0
   flutter_svg: ^2.0.6
   geolocator: ^9.0.2
   get_it: ^7.6.0

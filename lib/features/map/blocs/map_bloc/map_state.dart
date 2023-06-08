@@ -7,6 +7,7 @@ enum MapStatus {
   userPermissionAccepted,
   userPositionLoaded,
   stopsSchedulesLoaded,
+  routesLoaded,
   error,
 }
 
@@ -17,6 +18,8 @@ class MapState extends Equatable {
     this.userPosition,
     this.toJaenSchedule,
     this.toMartosSchedule,
+    this.busRoute,
+    this.customIcon,
   });
 
   factory MapState.initial() {
@@ -30,6 +33,8 @@ class MapState extends Equatable {
   final LatLng? userPosition;
   final List<dynamic>? toJaenSchedule;
   final List<dynamic>? toMartosSchedule;
+  final Set<Polyline>? busRoute;
+  final BitmapDescriptor? customIcon;
 
   MapState copyWith({
     List<StopModel>? stops,
@@ -37,6 +42,8 @@ class MapState extends Equatable {
     LatLng? userPosition,
     List<dynamic>? toJaenSchedule,
     List<dynamic>? toMartosSchedule,
+    Set<Polyline>? busRoute,
+    BitmapDescriptor? customIcon,
   }) {
     return MapState(
       stops: stops ?? this.stops,
@@ -44,6 +51,8 @@ class MapState extends Equatable {
       userPosition: userPosition,
       toJaenSchedule: toJaenSchedule,
       toMartosSchedule: toMartosSchedule,
+      busRoute: busRoute,
+      customIcon: customIcon,
     );
   }
 
@@ -53,11 +62,17 @@ class MapState extends Equatable {
         mapStatus,
         userPosition ?? const LatLng(0, 0),
         toJaenSchedule ?? [],
-        toMartosSchedule ?? []
+        toMartosSchedule ?? [],
+        busRoute ?? {},
+        customIcon ?? BitmapDescriptor.defaultMarker
       ];
 
   @override
   String toString() {
-    return 'MapState(stops: $stops, mapStatus: $mapStatus, userPosition: $userPosition, toJaenSchedule: $toJaenSchedule, toMartosSchedule: $toMartosSchedule)';
+    final stopsList = <String>[];
+    for (final stop in stops) {
+      stopsList.add(stop.databaseName);
+    }
+    return 'MapState(stops: $stopsList, mapStatus: $mapStatus, userPosition: $userPosition, toJaenSchedule: $toJaenSchedule, toMartosSchedule: $toMartosSchedule)';
   }
 }

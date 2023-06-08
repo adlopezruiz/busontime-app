@@ -24,3 +24,5 @@ class StopSchedulesRequest extends MapEvent {
   @override
   List<Object> get props => [stopName];
 }
+
+class BusRouteRequest extends MapEvent {}

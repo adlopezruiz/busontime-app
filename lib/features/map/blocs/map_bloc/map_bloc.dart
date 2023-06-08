@@ -3,9 +3,11 @@ import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/stop_model.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
+import 'package:bot_main_app/repository/polyline_repository.dart';
 import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,7 +25,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         emit(state.copyWith(mapStatus: MapStatus.error));
       }
 
-      emit(state.copyWith(stops: stopsList, mapStatus: MapStatus.stopsLoaded));
+      emit(
+        state.copyWith(
+          stops: stopsList,
+          mapStatus: MapStatus.stopsLoaded,
+          userPosition: state.userPosition,
+        ),
+      );
+      //Now we load the bus route
+      add(BusRouteRequest());
     });
 
     //Request the user permission
@@ -34,8 +44,8 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         if (permissionStatus.isGranted) {
           //Emit state and trigger user location get
           emit(state.copyWith(mapStatus: MapStatus.userPermissionAccepted));
+          //Setup now all the map things!
           add(UpdateUserLocationRequest());
-          add(BusStopsLoadRequest());
         } else if (permissionStatus.isDenied) {
           emit(state.copyWith(mapStatus: MapStatus.userPermissionDenied));
           add(LocationPermissionDenied());
@@ -74,6 +84,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             userPosition: userLocation,
           ),
         );
+        add(BusStopsLoadRequest());
       },
     );
 
@@ -102,8 +113,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             ),
           );
         } else {
-          //Filtering the lists to the actual device hour
-
           //Pushing to state data
           emit(
             state.copyWith(
@@ -111,9 +120,70 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               toMartosSchedule: filterScheduleByActualHour(toMartosSchedule),
               toJaenSchedule: filterScheduleByActualHour(toJaenSchedule),
               userPosition: state.userPosition,
+              busRoute: state.busRoute,
+              customIcon: state.customIcon,
             ),
           );
         }
+      },
+    );
+
+    //Put in state the set of polylines routes to draw the bus route
+    on<BusRouteRequest>(
+      (event, emit) async {
+        //Get all the latlng arrays between the bus stops
+        //From martos to torredonjimeno
+        final fromMartosToToxiria =
+            await getIt<PolilyneRepository>().getPolylineCoordinates(
+          origin: state.stops[1].location,
+          destination: state.stops[3].location,
+        );
+        //From torredonjimeno to torredelcampo
+        final fromToxiriaToTorrecampo =
+            await getIt<PolilyneRepository>().getPolylineCoordinates(
+          origin: state.stops[3].location,
+          destination: state.stops[2].location,
+        );
+        //From torrecampo to jaen
+        final fromTorrecampoToJaen =
+            await getIt<PolilyneRepository>().getPolylineCoordinates(
+          origin: state.stops[2].location,
+          destination: state.stops[0].location,
+        );
+
+        //Generating polylines objects now
+        final polylines = <Polyline>{};
+
+        final martosPolyline = Polyline(
+          polylineId: const PolylineId('martos'),
+          points: fromMartosToToxiria,
+          color: Colors.blue,
+        );
+        polylines.add(martosPolyline);
+        final toxiriaTorrecampoPolyline = Polyline(
+          polylineId: const PolylineId('toxiria'),
+          points: fromToxiriaToTorrecampo,
+          color: Colors.blue,
+        );
+        polylines.add(toxiriaTorrecampoPolyline);
+        final jaenPolilyne = Polyline(
+          polylineId: const PolylineId('jaen'),
+          points: fromTorrecampoToJaen,
+          color: Colors.blue,
+        );
+        polylines.add(jaenPolilyne);
+
+        //Emit final state with route
+        emit(
+          state.copyWith(
+            mapStatus: MapStatus.routesLoaded,
+            toMartosSchedule: state.toMartosSchedule,
+            toJaenSchedule: state.toJaenSchedule,
+            userPosition: state.userPosition,
+            busRoute: polylines,
+            customIcon: await _loadCustomIcon(),
+          ),
+        );
       },
     );
   }
@@ -137,4 +207,12 @@ List<dynamic> filterScheduleByActualHour(List<dynamic> schedule) {
     return false;
   }).toList();
   return filteredSchedule;
+}
+
+//Load custom marker icon
+Future<BitmapDescriptor> _loadCustomIcon() async {
+  return BitmapDescriptor.fromAssetImage(
+    const ImageConfiguration(size: Size(100, 100)),
+    'assets/images/logo_final_150.png',
+  );
 }

@@ -21,7 +21,7 @@ class MapScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
-        if ((state.mapStatus == MapStatus.userPositionLoaded ||
+        if ((state.mapStatus == MapStatus.routesLoaded ||
                 state.mapStatus == MapStatus.stopsSchedulesLoaded) &&
             state.userPosition != null) {
           //Markers setup
@@ -35,6 +35,7 @@ class MapScreen extends StatelessWidget {
                 position: state.userPosition ?? const LatLng(0, 0),
               ),
             );
+
           //Adding markers to the map
           for (final stop in state.stops) {
             final marker = Marker(
@@ -48,6 +49,7 @@ class MapScreen extends StatelessWidget {
                 );
                 _showBottomSheet(context: context, stopData: stop);
               },
+              icon: state.customIcon ?? BitmapDescriptor.defaultMarker,
             );
             markers.add(marker);
           }
@@ -61,6 +63,7 @@ class MapScreen extends StatelessWidget {
             ),
             onMapCreated: _controller.complete,
             markers: markers,
+            polylines: state.busRoute ?? {},
           );
         }
 

@@ -7,6 +7,7 @@ import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
+import 'package:bot_main_app/repository/polyline_repository.dart';
 import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/storage_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
@@ -75,5 +76,6 @@ void setupDI() {
     ..registerLazySingleton(ImagePickerBloc.new)
     ..registerLazySingleton(() => FirebaseStorage.instance)
     ..registerLazySingleton(StorageRepository.new)
-    ..registerLazySingleton<ImagePicker>(ImagePicker.new);
+    ..registerLazySingleton<ImagePicker>(ImagePicker.new)
+    ..registerLazySingleton<PolilyneRepository>(PolilyneRepository.new);
 }
