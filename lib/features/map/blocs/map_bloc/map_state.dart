@@ -20,6 +20,7 @@ class MapState extends Equatable {
     this.toMartosSchedule,
     this.busRoute,
     this.customIcon,
+    this.customUserMarker,
   });
 
   factory MapState.initial() {
@@ -35,6 +36,7 @@ class MapState extends Equatable {
   final List<dynamic>? toMartosSchedule;
   final Set<Polyline>? busRoute;
   final BitmapDescriptor? customIcon;
+  final BitmapDescriptor? customUserMarker;
 
   MapState copyWith({
     List<StopModel>? stops,
@@ -44,6 +46,7 @@ class MapState extends Equatable {
     List<dynamic>? toMartosSchedule,
     Set<Polyline>? busRoute,
     BitmapDescriptor? customIcon,
+    BitmapDescriptor? customUserMarker,
   }) {
     return MapState(
       stops: stops ?? this.stops,
@@ -53,6 +56,7 @@ class MapState extends Equatable {
       toMartosSchedule: toMartosSchedule,
       busRoute: busRoute,
       customIcon: customIcon,
+      customUserMarker: customUserMarker,
     );
   }
 
@@ -64,7 +68,8 @@ class MapState extends Equatable {
         toJaenSchedule ?? [],
         toMartosSchedule ?? [],
         busRoute ?? {},
-        customIcon ?? BitmapDescriptor.defaultMarker
+        customIcon ?? BitmapDescriptor.defaultMarker,
+        customUserMarker ?? BitmapDescriptor.defaultMarker,
       ];
 
   @override

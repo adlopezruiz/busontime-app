@@ -1,4 +1,5 @@
 import 'dart:ui' as ui;
+import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/stop_model.dart';
@@ -7,9 +8,10 @@ import 'package:bot_main_app/repository/line_repository.dart';
 import 'package:bot_main_app/repository/polyline_repository.dart';
 import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
+import 'package:bot_main_app/utils/constants.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -124,6 +126,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
               userPosition: state.userPosition,
               busRoute: state.busRoute,
               customIcon: state.customIcon,
+              customUserMarker: state.customUserMarker,
             ),
           );
         }
@@ -159,19 +162,19 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         final martosPolyline = Polyline(
           polylineId: const PolylineId('martos'),
           points: fromMartosToToxiria,
-          color: Colors.blue,
+          color: AppColors.primaryGreen,
         );
         polylines.add(martosPolyline);
         final toxiriaTorrecampoPolyline = Polyline(
           polylineId: const PolylineId('toxiria'),
           points: fromToxiriaToTorrecampo,
-          color: Colors.blue,
+          color: AppColors.primaryGreen,
         );
         polylines.add(toxiriaTorrecampoPolyline);
         final jaenPolilyne = Polyline(
           polylineId: const PolylineId('jaen'),
           points: fromTorrecampoToJaen,
-          color: Colors.blue,
+          color: AppColors.primaryGreen,
         );
         polylines.add(jaenPolilyne);
 
@@ -185,6 +188,10 @@ class MapBloc extends Bloc<MapEvent, MapState> {
             busRoute: polylines,
             customIcon: await getBitmapDescriptorFromAssetBytes(
               'assets/images/bus_stop_200.png',
+              150,
+            ),
+            customUserMarker: await getBitmapDescriptorFromAssetBytes(
+              'assets/images/user-marker.png',
               150,
             ),
           ),
@@ -214,6 +221,7 @@ List<dynamic> filterScheduleByActualHour(List<dynamic> schedule) {
   return filteredSchedule;
 }
 
+//Image methods to transform from URSL and Assets to bytes for markers
 Future<Uint8List> getBytesFromAsset(String path, int width) async {
   final data = await rootBundle.load(path);
   final codec = await ui.instantiateImageCodec(
@@ -226,6 +234,7 @@ Future<Uint8List> getBytesFromAsset(String path, int width) async {
       .asUint8List();
 }
 
+//From asset
 Future<BitmapDescriptor> getBitmapDescriptorFromAssetBytes(
   String path,
   int width,
