@@ -131,8 +131,6 @@ void _showBottomSheet({required BuildContext context, StopModel? stopData}) {
                   ),
                   child: ColoredBox(
                     color: Colors.white,
-                    // Color for the bottom section
-                    // Customize the content for the bottom section
                     child: CustomModalContent(
                       databaseName: stopData?.databaseName ?? '',
                       toJaenSchedule: state.toJaenSchedule ?? [],
