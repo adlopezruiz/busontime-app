@@ -17,7 +17,7 @@ class WeatherRepository {
       queryParameters: {
         'q': city,
         'limit': kLimit,
-        'appid': dotenv.env['APPID'],
+        'appid': dotenv.env['WEATHERAPPID']
       },
     );
     try {
@@ -51,7 +51,7 @@ class WeatherRepository {
         'lat': '${directGeocoding.lat}',
         'lon': '${directGeocoding.lon}',
         'units': kUnit,
-        'appid': dotenv.env['APPID'],
+        'appid': dotenv.env['WEATHERAPPID'],
       },
     );
 

@@ -1,5 +1,4 @@
 import 'dart:ui' as ui;
-import 'dart:ui';
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/stop_model.dart';

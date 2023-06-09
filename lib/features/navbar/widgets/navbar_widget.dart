@@ -15,15 +15,27 @@ class HomeScreenNavbar extends StatelessWidget {
       initialActiveIndex: 0,
       top: -10,
       curveSize: 120,
-      height: 70,
+      height: 60,
       elevation: 5,
       backgroundColor: AppColors.primaryGreen,
-      activeColor: Colors.white,
-      style: TabStyle.reactCircle,
-      items: const [
-        TabItem(icon: Icons.home, title: 'Inicio'),
-        TabItem(icon: Icons.map_outlined, title: 'Mapa'),
-        TabItem(icon: Icons.person, title: 'Perfil'),
+      style: TabStyle.react,
+      items: [
+        TabItem(
+          icon: Image.asset(
+            'assets/icons/home-icon.png',
+          ),
+          title: 'Inicio',
+        ),
+        TabItem(
+            icon: Image.asset(
+              'assets/icons/map-icon.png',
+            ),
+            title: 'Mapa'),
+        TabItem(
+            icon: Image.asset(
+              'assets/icons/user-icon.png',
+            ),
+            title: 'Perfil'),
       ],
       onTap: (int index) => getIt<NavbarCubit>().changePage(index),
     );

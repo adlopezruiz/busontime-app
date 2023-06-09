@@ -27,7 +27,7 @@ class Weather extends Equatable {
     final main = json['main'];
 
     return Weather(
-      description: (weather as Map<String, dynamic>)['description'] as String,
+      description: (weather as Map<String, dynamic>)['main'] as String,
       icon: weather['icon'] as String,
       temp: (main as Map<String, dynamic>)['temp'] as double,
       tempMin: main['temp_min'] as double,

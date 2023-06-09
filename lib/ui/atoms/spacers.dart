@@ -32,4 +32,10 @@ class HorizontalSpacer {
       width: 32,
     );
   }
+
+  static Widget triple() {
+    return const SizedBox(
+      width: 64,
+    );
+  }
 }

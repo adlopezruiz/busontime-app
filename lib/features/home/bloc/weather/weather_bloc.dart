@@ -24,9 +24,35 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
 
     try {
       final weather = await weatherRepository.fetchWeather(event.city);
-      emit(state.copyWith(status: WeatherStatus.loaded, weather: weather));
+      final imageAsset = _getImageAsset(weather.description);
+      emit(
+        state.copyWith(
+          status: WeatherStatus.loaded,
+          weather: weather,
+          imageAsset: imageAsset,
+        ),
+      );
     } on CustomError catch (e) {
       emit(state.copyWith(status: WeatherStatus.error, error: e));
     }
+  }
+
+  String _getImageAsset(String description) {
+    switch (description) {
+      case 'Clear':
+        return 'sunny.jpeg';
+      case 'Clouds':
+        return 'cloudy.jpeg';
+      case 'Atmosphere':
+        return 'atmosphere.jpeg';
+      case 'Snow':
+        return 'snowing.jpeg';
+      case 'Rain':
+      case 'Drizzle':
+        return 'raining.jpeg';
+      case 'Thunderstorm':
+        return 'storm.jpeg';
+    }
+    return 'sunny.jpeg';
   }
 }
