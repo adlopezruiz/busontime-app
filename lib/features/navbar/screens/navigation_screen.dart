@@ -28,19 +28,25 @@ class NavigationScreen extends StatelessWidget {
                   final weatherBloc = getIt<WeatherBloc>();
                   //Avoid a lot of api calls condition
                   if (weatherBloc.state.status == WeatherStatus.initial) {
-                    weatherBloc.add(const FetchWeatherEvent(city: 'Jaén'));
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primaryGreen,
+                    Future.delayed(
+                      const Duration(seconds: 3),
+                      () => weatherBloc
+                          .add(const FetchWeatherEvent(city: 'Jaén')),
+                    );
+                    return Center(
+                      child: Image.asset(
+                        'assets/images/loading-bus.gif',
+                        width: 150,
                       ),
                     );
                   }
                   if (weatherBloc.state.status == WeatherStatus.loaded) {
                     return HomeScreen();
                   } else {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primaryGreen,
+                    return Center(
+                      child: Image.asset(
+                        'assets/images/loading-bus.gif',
+                        height: 150,
                       ),
                     );
                   }

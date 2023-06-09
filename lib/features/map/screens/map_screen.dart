@@ -59,9 +59,9 @@ class MapScreen extends StatelessWidget {
 
           return GoogleMap(
             mapType: MapType.hybrid,
-            initialCameraPosition: const CameraPosition(
-              // state.userPosition ??
-              target: LatLng(37.77176635325846, -3.7866687868666133),
+            initialCameraPosition: CameraPosition(
+              target: state.userPosition ??
+                  const LatLng(37.77176635325846, -3.7866687868666133),
               zoom: 12.4746,
             ),
             onMapCreated: _controller.complete,
@@ -70,7 +70,12 @@ class MapScreen extends StatelessWidget {
           );
         }
 
-        return const Center(child: CircularProgressIndicator());
+        return Center(
+          child: Image.asset(
+            'assets/images/loading-marker.gif',
+            width: 150,
+          ),
+        );
       },
     );
   }
