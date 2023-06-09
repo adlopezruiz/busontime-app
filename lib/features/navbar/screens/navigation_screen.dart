@@ -46,7 +46,7 @@ class NavigationScreen extends StatelessWidget {
                     return Center(
                       child: Image.asset(
                         'assets/images/loading-bus.gif',
-                        height: 150,
+                        width: 150,
                       ),
                     );
                   }

@@ -1,6 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/home/bloc/weather/weather_bloc.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
+import 'package:bot_main_app/repository/line_repository.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/ui/atoms/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -67,8 +68,10 @@ class HomeScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width / 3,
                                   height: 120,
                                   child: IconButton(
-                                    onPressed: () =>
-                                        getIt<GoRouter>().push('/fullSchedule'),
+                                    onPressed: () {
+                                      getIt<LineRepository>().getLineData();
+                                      getIt<GoRouter>().push('/fullSchedule');
+                                    },
                                     icon: Image.asset(
                                       'assets/icons/calendar-icon.png',
                                     ),
