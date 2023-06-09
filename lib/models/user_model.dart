@@ -10,7 +10,7 @@ class UserModel extends Equatable {
   final int createdAt;
   final int? updatedAt;
   final LatLng? lastLocation;
-  final List<String> favoriteStops;
+  final List<Map<String, dynamic>> favoriteStops;
 
   const UserModel({
     required this.id,
@@ -36,8 +36,8 @@ class UserModel extends Equatable {
                 ((json['lastLocation'] as List<dynamic>)[0] as num).toDouble(),
                 ((json['lastLocation'] as List<dynamic>)[1] as num).toDouble(),
               ),
-        favoriteStops: (json['favoriteStops'] as List<dynamic>)
-            .map((item) => item.toString())
+        favoriteStops: (json['favoriteStops'] as List<Map<String, dynamic>>)
+            .map((item) => item)
             .toList(),
         profileImage: json['profileImage'] as String,
         email: json['email'] as String,
@@ -49,7 +49,8 @@ class UserModel extends Equatable {
         'updatedAt': updatedAt ?? DateTime.now().millisecondsSinceEpoch,
         'name': name,
         'lastLocation': lastLocation ?? const LatLng(0, 0),
-        'favoriteStops': List<dynamic>.from(favoriteStops.map((x) => x)),
+        'favoriteStops':
+            List<Map<String, dynamic>>.from(favoriteStops.map((x) => x)),
         'profileImage': profileImage,
         'email': email,
       };
@@ -91,7 +92,7 @@ class UserModel extends Equatable {
     int? createdAt,
     int? updatedAt,
     LatLng? lastLocation,
-    List<String>? favoriteStops,
+    List<Map<String, dynamic>>? favoriteStops,
   }) {
     return UserModel(
       id: id ?? this.id,

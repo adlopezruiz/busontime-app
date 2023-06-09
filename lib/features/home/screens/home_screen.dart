@@ -91,7 +91,8 @@ class HomeScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width / 3,
                                   height: 120,
                                   child: IconButton(
-                                    onPressed: () {},
+                                    onPressed: () =>
+                                        getIt<GoRouter>().go('/favorites'),
                                     icon: Image.asset(
                                       'assets/icons/fav-icon.png',
                                     ),

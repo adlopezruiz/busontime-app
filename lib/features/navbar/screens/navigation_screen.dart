@@ -31,7 +31,7 @@ class NavigationScreen extends StatelessWidget {
                     Future.delayed(
                       const Duration(seconds: 3),
                       () => weatherBloc
-                          .add(const FetchWeatherEvent(city: 'Jaén')),
+                          .add(const FetchWeatherEvent(city: 'Jaen')),
                     );
                     return Center(
                       child: Image.asset(

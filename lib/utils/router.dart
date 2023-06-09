@@ -2,6 +2,7 @@ import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/image_picker_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/name_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/verify_email_screen.dart';
+import 'package:bot_main_app/features/favorites/screens/favorites_screen.dart';
 import 'package:bot_main_app/features/full_schedule/screens/full_schedule_screen.dart';
 import 'package:bot_main_app/features/navbar/screens/navigation_screen.dart';
 import 'package:bot_main_app/features/onboarding/onboarding_screen.dart';
@@ -56,6 +57,11 @@ GoRouter setupRouter() {
       path: '/fullSchedule',
       builder: (BuildContext context, GoRouterState state) =>
           const FullScheduleScreen(),
+    ),
+    GoRoute(
+      path: '/favorites',
+      builder: (BuildContext context, GoRouterState state) =>
+          const FavoritesScreen(),
     ),
   ];
 
