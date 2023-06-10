@@ -1,4 +1,5 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,7 +26,7 @@ class AppBars {
     );
   }
 
-  static PreferredSizeWidget arrowBackJustPopsOne() {
+  static PreferredSizeWidget arrowBackJustPopsOne({bool? updateFavorites}) {
     return AppBar(
       iconTheme: const IconThemeData(
         color: AppColors.primaryBlack,
@@ -38,7 +39,12 @@ class AppBars {
           top: 16,
         ),
         child: BackButton(
-          onPressed: () => getIt<GoRouter>().pop(),
+          onPressed: () {
+            if (updateFavorites != null && updateFavorites == true) {
+              getIt<FavoritesCubit>().updateUserData();
+            }
+            getIt<GoRouter>().pop();
+          },
         ),
       ),
     );

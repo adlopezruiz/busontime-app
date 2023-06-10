@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/stop_model.dart';
@@ -6,6 +8,7 @@ import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
+import 'package:go_router/go_router.dart';
 
 part 'favorites_state.dart';
 
@@ -20,35 +23,37 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   //Add to favorites
-  Future<void> addToFavorites(String stopName) async {
+  Future<void> addToFavorites(String stopId) async {
     emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
-    final stopToAddId = await _getStopId(stopName);
-    final actualList = List<String>.from(state.favoritesList)..add(stopToAddId);
+
+    final actualList = List<String>.from(state.favoritesList)..add(stopId);
     emit(
       state.copyWith(
         favoritesList: actualList,
         favoritesStatus: FavoritesStatus.elementAdded,
       ),
     );
-    //Update user data trigger
-    await updateUserData();
   }
 
   //Remove from favorites
-  Future<void> deleteFromFavorites(String databaseName) async {
-    emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
+  Future<void> deleteFromFavorites(String stopId) async {
     //Search the stop in the actual list and remove it
-    final stopId = await _getStopId(databaseName);
-    final updatedList = List<String>.from(state.favoritesList)..remove(stopId);
+    final updatedStringList = List<String>.from(state.favoritesList)
+      ..remove(stopId);
+    //Also delete from stopData
+    final foundStop =
+        state.stopsData!.firstWhere((element) => element.id == stopId);
+
+    final updatedStopDataList = List<StopModel>.from(state.stopsData!)
+      ..remove(foundStop);
 
     emit(
       state.copyWith(
-        favoritesList: updatedList,
+        favoritesList: updatedStringList,
         favoritesStatus: FavoritesStatus.elementDeleted,
+        stopsData: updatedStopDataList,
       ),
     );
-    //Update user data trigger
-    await updateUserData();
   }
 
   //Update user function
@@ -64,6 +69,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   //Fetch user favorites
   Future<void> getUserFavoritesAndSchedules() async {
     emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
+
     final userData = await getUser;
     if (userData == null) {
       emit(state.copyWith(favoritesStatus: FavoritesStatus.error));
@@ -92,15 +98,4 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final userData = await getIt<UserRepository>().getProfile(uid: userUid);
     return userData;
   }
-}
-
-//Get stop id by passing databasename
-Future<String> _getStopId(String stopName) async {
-  //Call to stops repository and return the stop id
-  final stopsRepo = getIt<StopRepository>();
-
-  final stopsList = await stopsRepo.getStops();
-
-  //Return the first element ID that matches the passed stopName
-  return stopsList.firstWhere((stop) => stop.databaseName == stopName).id;
 }

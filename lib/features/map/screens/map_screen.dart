@@ -143,7 +143,7 @@ void _showBottomSheet({required BuildContext context, StopModel? stopData}) {
                                           } else {
                                             //Add stop id to favorites list using favorites cubit
                                             favoritesCubit.addToFavorites(
-                                              stopData?.databaseName ?? '',
+                                              stopData?.id ?? '',
                                             );
                                           }
                                         }

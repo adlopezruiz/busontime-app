@@ -9,23 +9,31 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        TextButton(
-          onPressed: () => throw Exception(),
-          child: const Text("Throw Test Exception"),
-        ),
-        Center(
-          child: IconButton(
-            onPressed: () {
-              getIt<ProfileCubit>().logOut();
-              context.read<AuthBloc>().add(SignOutRequestedEvent());
-            },
-            icon: const Icon(Icons.exit_to_app),
-          ),
-        ),
-      ],
+    return BlocBuilder<ProfileCubit, ProfileState>(
+      builder: (context, state) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100),
+              child: Image.network(state.user.profileImage),
+            ),
+            TextButton(
+              onPressed: () => throw Exception(),
+              child: const Text("Throw Test Exception"),
+            ),
+            Center(
+              child: IconButton(
+                onPressed: () {
+                  getIt<ProfileCubit>().logOut();
+                  context.read<AuthBloc>().add(SignOutRequestedEvent());
+                },
+                icon: const Icon(Icons.exit_to_app),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

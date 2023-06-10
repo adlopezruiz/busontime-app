@@ -58,6 +58,7 @@ class LoginCubit extends Cubit<LoginState> {
       if (getIt<ProfileCubit>().state.previusState == ProfileStatus.loggedOut) {
         getIt<NavbarCubit>().changePage(0);
       }
+
       getIt<GoRouter>().go('/home');
     } catch (e) {
       throw Exception(e);
