@@ -33,6 +33,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           customError: e,
         ),
       );
+      throw Exception(e);
     }
   }
 }

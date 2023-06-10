@@ -47,17 +47,9 @@ class AuthRepository {
         'createdAt': DateTime.now().millisecondsSinceEpoch,
       });
     } on fb_auth.FirebaseAuthException catch (e) {
-      throw CustomError(
-        code: e.code,
-        message: e.message!,
-        plugin: e.plugin,
-      );
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'Register repo method',
-      );
+      throw Exception(e);
     }
   }
 
@@ -73,17 +65,9 @@ class AuthRepository {
         password: password,
       );
     } on fb_auth.FirebaseAuthException catch (e) {
-      throw CustomError(
-        code: e.code,
-        message: e.message!,
-        plugin: e.plugin,
-      );
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'Login with mail and password repo',
-      );
+      throw Exception(e);
     }
   }
 
@@ -114,11 +98,7 @@ class AuthRepository {
         getIt<AuthBloc>().add(AuthStateChangedEvent(user: currentUser));
       }
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'flutter_error/google_signin_error',
-      );
+      throw Exception(e);
     }
   }
 

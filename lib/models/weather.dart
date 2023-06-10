@@ -29,7 +29,7 @@ class Weather extends Equatable {
     return Weather(
       description: (weather as Map<String, dynamic>)['main'] as String,
       icon: weather['icon'] as String,
-      temp: (main as Map<String, dynamic>)['temp'] as double,
+      temp: ((main as Map<String, dynamic>)['temp'] as num).toDouble(),
       tempMin: main['temp_min'] as double,
       tempMax: main['temp_max'] as double,
       name: '',

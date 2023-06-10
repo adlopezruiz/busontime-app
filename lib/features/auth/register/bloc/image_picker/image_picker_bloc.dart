@@ -32,11 +32,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
           //Deleting user from auth
           await deleteUserFromFBAuth();
           emit(state.copyWith(imagePickerStatus: ImagePickerStatus.error));
-          throw CustomError(
-            code: 'Exception',
-            message: e.toString(),
-            plugin: 'ImagePicker',
-          );
+          throw Exception(e);
         }
       }
     });
@@ -60,11 +56,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
           //Deleting user from auth
           await deleteUserFromFBAuth();
           emit(state.copyWith(imagePickerStatus: ImagePickerStatus.error));
-          throw CustomError(
-            code: 'Exception',
-            message: e.toString(),
-            plugin: 'ImagePicker',
-          );
+          throw Exception(e);
         }
       },
     );
@@ -114,11 +106,7 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
           //Deleting user from auth
           await deleteUserFromFBAuth();
           emit(state.copyWith(imagePickerStatus: ImagePickerStatus.error));
-          throw CustomError(
-            code: 'Exception',
-            message: e.toString(),
-            plugin: 'ImagePicker',
-          );
+          throw Exception(e);
         }
       },
     );

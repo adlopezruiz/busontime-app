@@ -43,6 +43,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       await verifyUserEmail();
     } on CustomError catch (e) {
       emit(state.copyWith(registerStatus: RegisterStatus.error, error: e));
+      throw Exception(e);
     }
   }
 
@@ -59,11 +60,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
         await startCheckingUserVerified();
       } catch (e) {
-        throw CustomError(
-          code: 'Email verification error',
-          message: e.toString(),
-          plugin: 'Email verifaction cubit',
-        );
+        throw Exception(e);
       }
     }
   }

@@ -85,7 +85,7 @@ class WeatherRepository {
 
       return weather;
     } catch (e) {
-      throw CustomError(message: e.toString());
+      throw Exception(e);
     }
   }
 }

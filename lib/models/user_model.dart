@@ -36,8 +36,8 @@ class UserModel extends Equatable {
                 ((json['lastLocation'] as List<dynamic>)[0] as num).toDouble(),
                 ((json['lastLocation'] as List<dynamic>)[1] as num).toDouble(),
               ),
-        favoriteStops: (json['favoriteStops'] as List<Map<String, dynamic>>)
-            .map((item) => item)
+        favoriteStops: (json['favoriteStops'] as List<dynamic>)
+            .map((item) => item as Map<String, dynamic>)
             .toList(),
         profileImage: json['profileImage'] as String,
         email: json['email'] as String,

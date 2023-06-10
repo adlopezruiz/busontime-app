@@ -34,6 +34,7 @@ class LoginCubit extends Cubit<LoginState> {
     } on CustomError catch (e) {
       //on signin error emit error status with custom error
       emit(state.copyWith(loginStatus: LoginStatus.error, error: e));
+      throw Exception(e);
     }
   }
 
@@ -50,11 +51,7 @@ class LoginCubit extends Cubit<LoginState> {
 
       getIt<GoRouter>().go('/home');
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'google_auth_cubit',
-      );
+      throw Exception(e);
     }
   }
 }

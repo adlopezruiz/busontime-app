@@ -30,13 +30,9 @@ class UserRepository {
 
       return user;
     } on FirebaseException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'Get profile from repo',
-      );
+      throw Exception(e);
     }
   }
 
@@ -62,13 +58,9 @@ class UserRepository {
 
       return UserModel.fromJson(jsonResponseObject as Map<String, dynamic>);
     } on FirebaseException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'updateUserData from repo',
-      );
+      throw Exception(e);
     }
   }
 

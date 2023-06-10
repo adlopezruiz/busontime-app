@@ -7,13 +7,22 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: IconButton(
-        onPressed: () {
-          context.read<AuthBloc>().add(SignOutRequestedEvent());
-        },
-        icon: const Icon(Icons.exit_to_app),
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        TextButton(
+          onPressed: () => throw Exception(),
+          child: const Text("Throw Test Exception"),
+        ),
+        Center(
+          child: IconButton(
+            onPressed: () {
+              context.read<AuthBloc>().add(SignOutRequestedEvent());
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+        ),
+      ],
     );
   }
 }

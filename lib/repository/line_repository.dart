@@ -26,13 +26,9 @@ class LineRepository {
 
       return lineObject;
     } on FirebaseException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'Get full line data method in repo',
-      );
+      throw Exception(e);
     }
   }
 
@@ -59,13 +55,9 @@ class LineRepository {
       return (jsonDecode(response.body) as Map<String, dynamic>)['data']
           as List<dynamic>;
     } on FirebaseException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'Get full line data method in repo',
-      );
+      throw Exception(e);
     }
   }
 

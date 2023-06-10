@@ -34,6 +34,7 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
       );
     } on CustomError catch (e) {
       emit(state.copyWith(status: WeatherStatus.error, error: e));
+      throw Exception(e);
     }
   }
 

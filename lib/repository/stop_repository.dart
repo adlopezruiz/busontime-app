@@ -27,13 +27,9 @@ class StopRepository {
 
       return stopsList;
     } on FirebaseException catch (e) {
-      throw CustomError(code: e.code, message: e.message!, plugin: e.plugin);
+      throw Exception(e);
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'Get full line data method in repo',
-      );
+      throw Exception(e);
     }
   }
 
