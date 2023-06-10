@@ -1,5 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_picker_bloc.dart';
+import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/utils/constants.dart';
@@ -71,7 +73,13 @@ class UserImagePicker extends StatelessWidget {
                   children: [
                     //Skip button
                     TextButton(
-                      onPressed: () => getIt<GoRouter>().go('/home'),
+                      onPressed: () {
+                        if (getIt<ProfileCubit>().state.previusState ==
+                            ProfileStatus.loggedOut) {
+                          getIt<NavbarCubit>().changePage(0);
+                        }
+                        getIt<GoRouter>().go('/home');
+                      },
                       child: const Text(
                         'Skip',
                         style: TextStyle(
@@ -160,15 +168,24 @@ class UserImagePicker extends StatelessWidget {
                       width: 200,
                       height: 50,
                       child: Buttons.primary(
-                        content: const Text(
-                          'Enviar',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        content: state.imagePickerStatus ==
+                                    ImagePickerStatus.picked ||
+                                state.imagePickerStatus ==
+                                    ImagePickerStatus.unknown
+                            ? const Text(
+                                'Enviar',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : const Center(
+                                child: CircularProgressIndicator(),
+                              ),
                         onPressed: state.imagePickerStatus ==
-                                ImagePickerStatus.uploading
+                                    ImagePickerStatus.uploading ||
+                                state.imagePickerStatus ==
+                                    ImagePickerStatus.unknown
                             ? null
                             : () {
                                 context

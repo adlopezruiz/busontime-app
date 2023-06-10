@@ -104,7 +104,7 @@ class AuthRepository {
   //Signout
   Future<void> logout() async {
     await firebaseAuth.signOut();
-    //TODO Trigger are you sure dialog
+
     getIt<GoRouter>().go('/login');
   }
 }

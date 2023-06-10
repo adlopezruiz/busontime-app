@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
+import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/storage_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
@@ -93,6 +95,10 @@ class ImagePickerBloc extends Bloc<ImagePickerEvent, ImagePickerState> {
             );
             //Now we can emit uploaded to keep the flow
             emit(state.copyWith(imagePickerStatus: ImagePickerStatus.uploaded));
+            if (getIt<ProfileCubit>().state.previusState ==
+                ProfileStatus.loggedOut) {
+              getIt<NavbarCubit>().changePage(0);
+            }
             getIt<GoRouter>().go('/home');
           }
         } catch (e) {

@@ -4,8 +4,10 @@ import 'package:bot_main_app/features/home/screens/home_screen.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/features/map/screens/map_screen.dart';
 import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
-import 'package:bot_main_app/features/navbar/screens/profile_screen.dart';
 import 'package:bot_main_app/features/navbar/widgets/navbar_widget.dart';
+import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
+import 'package:bot_main_app/features/profile/screens/profile_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +22,8 @@ class NavigationScreen extends StatelessWidget {
         body: BlocBuilder<NavbarCubit, NavbarState>(
           builder: (context, state) {
             if (state.pageStatus == PageStatus.homePage) {
+              //Load user profile data
+              getIt<ProfileCubit>().getProfile();
               return BlocBuilder<WeatherBloc, WeatherState>(
                 builder: (context, state) {
                   final weatherBloc = getIt<WeatherBloc>();
@@ -58,9 +62,7 @@ class NavigationScreen extends StatelessWidget {
               }
               return MapScreen();
             } else {
-              //TODO Design profile UI, load data with initial state in bloc
-              // getIt<UserRepository>()
-              //     .getProfile(uid: getIt<AuthRepository>().currentUser!.uid);
+              //TODO Design profile UI
               return const ProfileScreen();
             }
           },

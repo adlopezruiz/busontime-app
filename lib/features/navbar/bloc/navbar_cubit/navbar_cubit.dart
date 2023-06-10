@@ -26,4 +26,9 @@ class NavbarCubit extends Cubit<NavbarState> {
         break;
     }
   }
+
+  //Reset state on logout
+  void resetNavbarState() {
+    emit(state.copyWith(pageStatus: PageStatus.homePage));
+  }
 }

@@ -6,7 +6,7 @@ import 'package:bot_main_app/features/favorites/screens/favorites_screen.dart';
 import 'package:bot_main_app/features/full_schedule/screens/full_schedule_screen.dart';
 import 'package:bot_main_app/features/navbar/screens/navigation_screen.dart';
 import 'package:bot_main_app/features/onboarding/onboarding_screen.dart';
-import 'package:bot_main_app/features/profile/screens/profile_page.dart';
+import 'package:bot_main_app/features/profile/screens/profile_screen.dart';
 import 'package:bot_main_app/features/splash/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

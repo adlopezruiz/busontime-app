@@ -1,6 +1,8 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
+import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -41,6 +43,10 @@ class _SplashPageState extends State<SplashPage> {
         } else if (state.authStatus == AuthStatus.authenticated) {
           //Only redirecting home if current user has verified email and status is ok
           if (getIt<AuthRepository>().currentUser?.emailVerified ?? false) {
+            if (getIt<ProfileCubit>().state.previusState ==
+                ProfileStatus.loggedOut) {
+              getIt<NavbarCubit>().changePage(0);
+            }
             router.go('/home');
           } else {
             //Changing state because its not verified yet.

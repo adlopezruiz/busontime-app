@@ -1,4 +1,6 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
+import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +28,10 @@ class LoginCubit extends Cubit<LoginState> {
       );
       emit(state.copyWith(loginStatus: LoginStatus.success));
       if (authRepository.currentUser?.emailVerified ?? false) {
+        if (getIt<ProfileCubit>().state.previusState ==
+            ProfileStatus.loggedOut) {
+          getIt<NavbarCubit>().changePage(0);
+        }
         getIt<GoRouter>().go('/home');
       } else {
         getIt<GoRouter>().go('/emailVerification');
@@ -49,6 +55,9 @@ class LoginCubit extends Cubit<LoginState> {
         ),
       );
 
+      if (getIt<ProfileCubit>().state.previusState == ProfileStatus.loggedOut) {
+        getIt<NavbarCubit>().changePage(0);
+      }
       getIt<GoRouter>().go('/home');
     } catch (e) {
       throw Exception(e);

@@ -1,6 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/home/bloc/weather/weather_bloc.dart';
+import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -12,7 +13,7 @@ import 'package:go_router/go_router.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
-  final currentUser = getIt<AuthRepository>().currentUser;
+  final currentUser = getIt<ProfileCubit>().state.user;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       AppTextStyles.textWithTransparency(
                         text:
-                            'Hola ${currentUser?.displayName!.split(' ').first ?? 'Invitado'},\n¿Próxima parada?',
+                            'Hola ${currentUser.name.split(' ').first},\n¿Próxima parada?',
                         fontSize: 36,
                       ),
                       //Buttons

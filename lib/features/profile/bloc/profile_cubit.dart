@@ -15,7 +15,12 @@ class ProfileCubit extends Cubit<ProfileState> {
   //Get user profile and load to state
   Future<void> getProfile() async {
     final uid = getIt<AuthRepository>().currentUser!.uid;
-    emit(state.copyWith(profileStatus: ProfileStatus.loading));
+    emit(
+      state.copyWith(
+        profileStatus: ProfileStatus.loading,
+        previusState: state.profileStatus,
+      ),
+    );
 
     try {
       final user = await profileRepository.getProfile(uid: uid);
@@ -23,15 +28,22 @@ class ProfileCubit extends Cubit<ProfileState> {
         state.copyWith(
           profileStatus: ProfileStatus.loaded,
           user: user,
+          previusState: state.profileStatus,
         ),
       );
     } catch (e) {
       emit(
         state.copyWith(
           profileStatus: ProfileStatus.error,
+          previusState: state.profileStatus,
         ),
       );
       throw Exception(e);
     }
+  }
+
+  //Set login out state
+  void logOut() {
+    emit(state.copyWith(previusState: ProfileStatus.loggedOut));
   }
 }
