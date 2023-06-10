@@ -103,6 +103,15 @@ class MapBloc extends Bloc<MapEvent, MapState> {
     //Load schedules to bottom dialog screen data
     on<StopSchedulesRequest>(
       (event, emit) async {
+        emit(
+          state.copyWith(
+            mapStatus: MapStatus.loadingSchedule,
+            userPosition: state.userPosition,
+            busRoute: state.busRoute,
+            customIcon: state.customIcon,
+            customUserMarker: state.customUserMarker,
+          ),
+        );
         final lineRepo = getIt<LineRepository>();
         final toMartosSchedule =
             await lineRepo.getTodayScheduleByStop(event.stopName, 'martos');

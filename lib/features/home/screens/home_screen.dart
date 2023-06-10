@@ -53,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                             'Hola ${currentUser?.displayName!.split(' ').first ?? 'Invitado'},\n¿Próxima parada?',
                         fontSize: 36,
                       ),
-                      //Nearest card
+                      //Buttons
                       SizedBox(
                         width: double.infinity,
                         height: MediaQuery.of(context).size.height / 5,
@@ -91,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                                   height: 120,
                                   child: IconButton(
                                     onPressed: () =>
-                                        getIt<GoRouter>().go('/favorites'),
+                                        getIt<GoRouter>().push('/favorites'),
                                     icon: Image.asset(
                                       'assets/icons/fav-icon.png',
                                     ),

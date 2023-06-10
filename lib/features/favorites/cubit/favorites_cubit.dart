@@ -15,6 +15,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   //Add to favorites
   Future<void> addToFavorites(String stopName) async {
+    emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
     final stopToAddId = await _getStopId(stopName);
     final actualList = List<String>.from(state.favoritesList)..add(stopToAddId);
     emit(
@@ -29,6 +30,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
   //Remove from favorites
   Future<void> deleteFromFavorites(String databaseName) async {
+    emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
     //Search the stop in the actual list and remove it
     final stopId = await _getStopId(databaseName);
     final updatedList = List<String>.from(state.favoritesList)..remove(stopId);

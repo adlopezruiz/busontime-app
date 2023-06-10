@@ -24,7 +24,8 @@ class MapScreen extends StatelessWidget {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         if ((state.mapStatus == MapStatus.routesLoaded ||
-                state.mapStatus == MapStatus.stopsSchedulesLoaded) &&
+                state.mapStatus == MapStatus.stopsSchedulesLoaded ||
+                state.mapStatus == MapStatus.loadingSchedule) &&
             state.userPosition != null) {
           //Markers setup
           final markers = <Marker>{}..
@@ -120,14 +121,33 @@ void _showBottomSheet({required BuildContext context, StopModel? stopData}) {
                                     size: 32,
                                     state.favoritesList
                                             .contains(stopData?.id ?? '')
-                                        ? Icons.favorite_border
-                                        : Icons.favorite,
+                                        ? Icons.favorite
+                                        : Icons.favorite_border,
                                     color: state.favoritesList
                                             .contains(stopData?.id ?? '')
                                         ? Colors.red
                                         : Colors.white,
                                   ),
-                                  onPressed: () {},
+                                  onPressed: state.favoritesStatus !=
+                                          FavoritesStatus.loading
+                                      ? () {
+                                          //Avoid multi click on favorites with status check
+                                          final favoritesCubit =
+                                              getIt<FavoritesCubit>();
+                                          if (state.favoritesList
+                                              .contains(stopData?.id ?? '')) {
+                                            //Delete it from the list.
+                                            favoritesCubit.deleteFromFavorites(
+                                              stopData?.databaseName ?? '',
+                                            );
+                                          } else {
+                                            //Add stop id to favorites list using favorites cubit
+                                            favoritesCubit.addToFavorites(
+                                              stopData?.databaseName ?? '',
+                                            );
+                                          }
+                                        }
+                                      : null,
                                 );
                               },
                             ),

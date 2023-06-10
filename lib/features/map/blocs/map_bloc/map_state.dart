@@ -6,6 +6,7 @@ enum MapStatus {
   userPermissionDenied,
   userPermissionAccepted,
   userPositionLoaded,
+  loadingSchedule,
   stopsSchedulesLoaded,
   routesLoaded,
   error,

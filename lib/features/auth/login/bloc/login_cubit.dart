@@ -33,6 +33,7 @@ class LoginCubit extends Cubit<LoginState> {
     } catch (e) {
       //on signin error emit error status with custom error
       emit(state.copyWith(loginStatus: LoginStatus.error));
+      //TODO Error dialog
       throw Exception(e);
     }
   }
