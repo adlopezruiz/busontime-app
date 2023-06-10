@@ -62,8 +62,8 @@ class NavigationScreen extends StatelessWidget {
               return MapScreen();
             } else {
               //TODO Design profile UI, load data with initial state in bloc
-              getIt<UserRepository>()
-                  .getProfile(uid: getIt<AuthRepository>().currentUser!.uid);
+              // getIt<UserRepository>()
+              //     .getProfile(uid: getIt<AuthRepository>().currentUser!.uid);
               return const ProfileScreen();
             }
           },

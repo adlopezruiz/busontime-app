@@ -3,6 +3,7 @@ import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
+import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/full_schedule/cubit/full_schedule_cubit.dart';
 import 'package:bot_main_app/features/home/bloc/weather/weather_bloc.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
@@ -50,6 +51,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider<FullScheduleCubit>(
           create: (context) => getIt<FullScheduleCubit>(),
+        ),
+        BlocProvider<FavoritesCubit>(
+          create: (context) => getIt<FavoritesCubit>(),
         ),
       ],
       child: MaterialApp.router(

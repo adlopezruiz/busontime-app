@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -33,11 +34,18 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   await runZonedGuarded(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
+      //.env variables handler
       await dotenv.load();
+      //Firebase init
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
       );
+      //Crashlitics
+      FlutterError.onError =
+          FirebaseCrashlytics.instance.recordFlutterFatalError;
+      //Dependency injection
       setupDI();
+      //Portrait always
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
         DeviceOrientation.portraitDown,

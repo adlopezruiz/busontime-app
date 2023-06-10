@@ -69,6 +69,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1017991836538',
     projectId: 'fb-auth-bloc-d1201',
     storageBucket: 'fb-auth-bloc-d1201.appspot.com',
+    androidClientId: '1017991836538-g8f0jpiv9r563p07fa4lvm2fmcc64hjp.apps.googleusercontent.com',
     iosClientId: '1017991836538-q54r0m2hh3m5hu96k1i2n27e4ufnrkkf.apps.googleusercontent.com',
     iosBundleId: 'com.example.verygoodcore.bot-main-app',
   );
