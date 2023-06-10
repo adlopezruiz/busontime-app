@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/models/user_model.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
+import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 
@@ -13,9 +14,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   //Add to favorites
-  Future<void> addToFavorites(Map<String, dynamic> newStopData) async {
-    final actualList = List<Map<String, dynamic>>.from(state.favoritesList)
-      ..add(newStopData);
+  Future<void> addToFavorites(String stopName) async {
+    final stopToAddId = await _getStopId(stopName);
+    final actualList = List<String>.from(state.favoritesList)..add(stopToAddId);
     emit(
       state.copyWith(
         favoritesList: actualList,
@@ -27,20 +28,14 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   //Remove from favorites
-  Future<void> deleteFromFavorites(Map<String, dynamic> stopData) async {
-    final actualList = List<Map<String, dynamic>>.from(state.favoritesList);
-
+  Future<void> deleteFromFavorites(String databaseName) async {
     //Search the stop in the actual list and remove it
-    for (final element in actualList) {
-      if (element['stopId'] == stopData['stopId']) {
-        if (element['hour'] == stopData['hour']) {
-          actualList.remove(element);
-        }
-      }
-    }
+    final stopId = await _getStopId(databaseName);
+    final updatedList = List<String>.from(state.favoritesList)..remove(stopId);
+
     emit(
       state.copyWith(
-        favoritesList: actualList,
+        favoritesList: updatedList,
         favoritesStatus: FavoritesStatus.elementDeleted,
       ),
     );
@@ -80,4 +75,15 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final userData = await getIt<UserRepository>().getProfile(uid: userUid);
     return userData;
   }
+}
+
+//Get stop id by passing databasename
+Future<String> _getStopId(String stopName) async {
+  //Call to stops repository and return the stop id
+  final stopsRepo = getIt<StopRepository>();
+
+  final stopsList = await stopsRepo.getStops();
+
+  //Return the first element ID that matches the passed stopName
+  return stopsList.firstWhere((stop) => stop.databaseName == stopName).id;
 }

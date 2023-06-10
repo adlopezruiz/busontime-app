@@ -6,9 +6,6 @@ import 'package:bot_main_app/features/map/screens/map_screen.dart';
 import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/navbar/screens/profile_screen.dart';
 import 'package:bot_main_app/features/navbar/widgets/navbar_widget.dart';
-import 'package:bot_main_app/repository/auth_repository.dart';
-import 'package:bot_main_app/repository/user_repository.dart';
-import 'package:bot_main_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

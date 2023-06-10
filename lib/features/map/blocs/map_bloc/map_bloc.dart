@@ -73,7 +73,6 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         final loggedUser = await userRepo.getProfile(
           uid: getIt<AuthRepository>().currentUser!.uid,
         );
-
         //Updating user
         await userRepo.updateUserData(
           newUser: loggedUser.copyWith(

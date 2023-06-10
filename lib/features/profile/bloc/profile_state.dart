@@ -11,36 +11,31 @@ class ProfileState extends Equatable {
   const ProfileState({
     required this.profileStatus,
     required this.user,
-    required this.customError,
   });
 
   factory ProfileState.initial() {
     return ProfileState(
       profileStatus: ProfileStatus.initial,
       user: UserModel.initialUser(),
-      customError: const CustomError(),
     );
   }
   final ProfileStatus profileStatus;
   final UserModel user;
-  final CustomError customError;
 
   @override
   String toString() =>
-      'ProfileState(profileStatus: $profileStatus, user: $user, customError: $customError)';
+      'ProfileState(profileStatus: $profileStatus, user: $user)';
 
   @override
-  List<Object> get props => [profileStatus, user, customError];
+  List<Object> get props => [profileStatus, user];
 
   ProfileState copyWith({
     ProfileStatus? profileStatus,
     UserModel? user,
-    CustomError? customError,
   }) {
     return ProfileState(
       profileStatus: profileStatus ?? this.profileStatus,
       user: user ?? this.user,
-      customError: customError ?? this.customError,
     );
   }
 }

@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
-import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/storage_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';

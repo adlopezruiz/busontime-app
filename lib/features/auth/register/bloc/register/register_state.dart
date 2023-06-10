@@ -13,32 +13,26 @@ enum RegisterStatus {
 class RegisterState extends Equatable {
   const RegisterState({
     required this.registerStatus,
-    required this.error,
   });
 
   factory RegisterState.initial() {
     return const RegisterState(
       registerStatus: RegisterStatus.initial,
-      error: CustomError(),
     );
   }
   final RegisterStatus registerStatus;
-  final CustomError error;
 
   @override
-  String toString() =>
-      'RegisterState(registerStatus: $registerStatus, error: $error)';
+  String toString() => 'RegisterState(registerStatus: $registerStatus)';
 
   @override
-  List<Object> get props => [registerStatus, error];
+  List<Object> get props => [registerStatus];
 
   RegisterState copyWith({
     RegisterStatus? registerStatus,
-    CustomError? error,
   }) {
     return RegisterState(
       registerStatus: registerStatus ?? this.registerStatus,
-      error: error ?? this.error,
     );
   }
 }

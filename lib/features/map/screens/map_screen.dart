@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/features/map/widgets/custom_modal_content.dart';
 import 'package:bot_main_app/models/stop_model.dart';
@@ -108,20 +109,41 @@ void _showBottomSheet({required BuildContext context, StopModel? stopData}) {
                     // Customize the content for the top section
                     child: Column(
                       children: [
-                        AppTextStyles.textWithTransparency(
-                          textAlign: TextAlign.center,
-                          text: stopData?.name ?? 'No hay datos de esta parada',
-                          fontSize: 32,
+                        VerticalSpacer.regular(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            BlocBuilder<FavoritesCubit, FavoritesState>(
+                              builder: (context, state) {
+                                return IconButton(
+                                  icon: Icon(
+                                    size: 32,
+                                    state.favoritesList
+                                            .contains(stopData?.id ?? '')
+                                        ? Icons.favorite_border
+                                        : Icons.favorite,
+                                    color: state.favoritesList
+                                            .contains(stopData?.id ?? '')
+                                        ? Colors.red
+                                        : Colors.white,
+                                  ),
+                                  onPressed: () {},
+                                );
+                              },
+                            ),
+                            HorizontalSpacer.regular(),
+                            AppTextStyles.textWithTransparency(
+                              textAlign: TextAlign.center,
+                              text: stopData?.name ??
+                                  'No hay datos de esta parada',
+                              fontSize: 32,
+                            ),
+                          ],
                         ),
                         AppTextStyles.textWithTransparency(
                           text: stopData?.street ?? 'Sin dirección',
-                          fontSize: 18,
-                        ),
-                        VerticalSpacer.regular(),
-                        AppTextStyles.textWithTransparency(
-                          text: 'Próximas salidas',
                           fontSize: 24,
-                        )
+                        ),
                       ],
                     ),
                   ),

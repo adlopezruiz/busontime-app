@@ -5,7 +5,6 @@ import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
-import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validators/validators.dart';
@@ -84,7 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state.registerStatus == RegisterStatus.error) {
-          errorDialog(context, state.error);
+          //TODO custom error dialog screeen
         }
       },
       builder: (context, state) {

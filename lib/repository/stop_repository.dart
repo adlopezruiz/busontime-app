@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:bot_main_app/dependency_injection/injector.dart';
-import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/models/stop_model.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/models/user_model.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -41,8 +40,6 @@ class UserRepository {
     final token = await _getBearer();
     final apiUrl = Uri.parse('$kApiUrl/users/${newUser.id}');
 
-    print(newUser);
-
     try {
       final response = await http.put(
         apiUrl,
@@ -76,11 +73,7 @@ class UserRepository {
         },
       );
     } catch (e) {
-      throw CustomError(
-        code: 'Exception',
-        message: e.toString(),
-        plugin: 'User repository',
-      );
+      throw Exception(e);
     }
   }
 

@@ -1,5 +1,4 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
-import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,9 +30,9 @@ class LoginCubit extends Cubit<LoginState> {
       } else {
         getIt<GoRouter>().go('/emailVerification');
       }
-    } on CustomError catch (e) {
+    } catch (e) {
       //on signin error emit error status with custom error
-      emit(state.copyWith(loginStatus: LoginStatus.error, error: e));
+      emit(state.copyWith(loginStatus: LoginStatus.error));
       throw Exception(e);
     }
   }

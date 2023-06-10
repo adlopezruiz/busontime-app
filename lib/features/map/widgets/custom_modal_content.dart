@@ -27,11 +27,11 @@ class CustomModalContent extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     child: Text(
                       toMartosSchedule.isNotEmpty
-                          ? 'Sentido Jaén'
+                          ? 'Próximas salidas sentido Martos'
                           : 'No hay más salidas hoy',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                        fontSize: 18,
                         color: AppColors.primaryGreen,
                       ),
                       textAlign: TextAlign.center,
@@ -52,14 +52,17 @@ class CustomModalContent extends StatelessWidget {
                           vertical: 4,
                         ),
                         child: ListTile(
-                          trailing: IconButton(
-                            icon: const Icon(
-                              size: 24,
-                              Icons.favorite_border,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                          ),
+                          trailing: index == 0
+                              ? IconButton(
+                                  icon: const Icon(
+                                    size: 24,
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                  ),
+                                  //TODO timer function in the first tile
+                                  onPressed: () {},
+                                )
+                              : const SizedBox(),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 8,
@@ -91,11 +94,11 @@ class CustomModalContent extends StatelessWidget {
                     padding: const EdgeInsets.all(8),
                     child: Text(
                       toJaenSchedule.isNotEmpty
-                          ? 'Sentido Jaén'
+                          ? 'Próximas salidas sentido Jaén'
                           : 'No hay más salidas hoy',
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 22,
+                        fontSize: 18,
                         color: AppColors.primaryGreen,
                       ),
                       textAlign: TextAlign.center,
@@ -116,14 +119,16 @@ class CustomModalContent extends StatelessWidget {
                           vertical: 4,
                         ),
                         child: ListTile(
-                          trailing: IconButton(
-                            icon: const Icon(
-                              size: 24,
-                              Icons.favorite_border,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                          ),
+                          trailing: index == 0
+                              ? IconButton(
+                                  icon: const Icon(
+                                    size: 24,
+                                    Icons.favorite_border,
+                                    color: Colors.white,
+                                  ),
+                                  onPressed: () {},
+                                )
+                              : const SizedBox(),
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16,
                             vertical: 8,

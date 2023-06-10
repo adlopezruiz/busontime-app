@@ -1,5 +1,5 @@
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
-import 'package:bot_main_app/utils/error_dialog.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
           if (state.profileStatus == ProfileStatus.error) {
-            errorDialog(context, state.customError);
+            //TODO return error dialog!
           }
         },
         builder: (context, state) {

@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-
-import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/models/direct_geocoding.dart';
 import 'package:bot_main_app/models/weather.dart';
 import 'package:bot_main_app/utils/constants.dart';

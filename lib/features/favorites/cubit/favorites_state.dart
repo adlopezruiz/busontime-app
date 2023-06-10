@@ -17,14 +17,16 @@ class FavoritesState extends Equatable {
 
   factory FavoritesState.initial() {
     return const FavoritesState(
-        favoritesList: [], favoritesStatus: FavoritesStatus.initial);
+      favoritesList: [],
+      favoritesStatus: FavoritesStatus.initial,
+    );
   }
   final FavoritesStatus favoritesStatus;
-  final List<Map<String, dynamic>> favoritesList;
+  final List<String> favoritesList;
 
   FavoritesState copyWith({
     FavoritesStatus? favoritesStatus,
-    List<Map<String, dynamic>>? favoritesList,
+    List<String>? favoritesList,
   }) {
     return FavoritesState(
       favoritesStatus: favoritesStatus ?? this.favoritesStatus,

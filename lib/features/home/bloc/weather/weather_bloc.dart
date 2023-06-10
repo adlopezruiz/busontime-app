@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/models/weather.dart';
 import 'package:bot_main_app/repository/weather_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -32,8 +30,8 @@ class WeatherBloc extends Bloc<WeatherEvent, WeatherState> {
           imageAsset: imageAsset,
         ),
       );
-    } on CustomError catch (e) {
-      emit(state.copyWith(status: WeatherStatus.error, error: e));
+    } catch (e) {
+      emit(state.copyWith(status: WeatherStatus.error));
       throw Exception(e);
     }
   }
