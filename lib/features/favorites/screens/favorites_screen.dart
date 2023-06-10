@@ -201,14 +201,18 @@ class FavoritesScreen extends StatelessWidget {
 Future<List<String>> _getFirstBusHours(String name) async {
   final hoursList = <String>[];
 
-  final toMartosHour = getIt<MapBloc>().filterScheduleByActualHour(
-    await getIt<LineRepository>().getTodayScheduleByStop(
+  print(name);
+  final mapBloc = getIt<MapBloc>();
+  final lineRepo = getIt<LineRepository>();
+
+  final toMartosHour = mapBloc.filterScheduleByActualHour(
+    await lineRepo.getTodayScheduleByStop(
       name,
       'martos',
     ),
   );
-  final toJaenHour = getIt<MapBloc>().filterScheduleByActualHour(
-    await getIt<LineRepository>().getTodayScheduleByStop(
+  final toJaenHour = mapBloc.filterScheduleByActualHour(
+    await lineRepo.getTodayScheduleByStop(
       name,
       'jaen',
     ),
