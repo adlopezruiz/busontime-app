@@ -55,9 +55,9 @@ class _CountdownTimerState extends State<CountdownTimer> {
     final hours = seconds ~/ 3600;
     final minutes = (seconds % 3600) ~/ 60;
     if (hours > 0) {
-      return "${hours.toString().padLeft(2, '0')} h ${minutes.toString().padLeft(2, '0')} m";
+      return "${hours.toString().padLeft(2, '0')}h ${minutes.toString().padLeft(2, '0')}m";
     } else {
-      return "${minutes.toString().padLeft(2, '0')} minutos";
+      return "${minutes.toString().padLeft(2, '0')}m";
     }
   }
 

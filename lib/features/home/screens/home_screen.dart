@@ -1,4 +1,5 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/home/bloc/weather/weather_bloc.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
@@ -90,8 +91,15 @@ class HomeScreen extends StatelessWidget {
                                   width: MediaQuery.of(context).size.width / 3,
                                   height: 120,
                                   child: IconButton(
-                                    onPressed: () =>
-                                        getIt<GoRouter>().push('/favorites'),
+                                    onPressed: () {
+                                      if (getIt<FavoritesCubit>()
+                                              .state
+                                              .favoritesStatus !=
+                                          FavoritesStatus.initial) {
+                                        getIt<FavoritesCubit>().reloadState();
+                                      }
+                                      getIt<GoRouter>().push('/favorites');
+                                    },
                                     icon: Image.asset(
                                       'assets/icons/fav-icon.png',
                                     ),

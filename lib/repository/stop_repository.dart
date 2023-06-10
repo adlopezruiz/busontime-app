@@ -31,6 +31,29 @@ class StopRepository {
     }
   }
 
+  //Get one stop
+  Future<StopModel> getStopById(String stopId) async {
+    //Forming string auth key for the api
+    final token = await _getBearer();
+    final apiUrl = Uri.parse('$kApiUrl/stops/$stopId');
+
+    try {
+      final response =
+          await http.get(apiUrl, headers: {'Authorization': token});
+
+      final stopsMap = jsonDecode(response.body) as Map<String, dynamic>;
+      final data = stopsMap['data'];
+
+      final stop = StopModel.fromJson(data as Map<String, dynamic>);
+
+      return stop;
+    } on FirebaseException catch (e) {
+      throw Exception(e);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   //Get auth code for the api calls
   Future<String> _getBearer() async {
     final bearer = await getIt<FirebaseAuth>().currentUser!.getIdToken();

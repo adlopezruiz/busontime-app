@@ -206,26 +206,26 @@ class MapBloc extends Bloc<MapEvent, MapState> {
       },
     );
   }
-}
 
 //Filtering function by hour
-List<dynamic> filterScheduleByActualHour(List<dynamic> schedule) {
-  final now = DateTime.now();
-  final currentHour = now.hour;
-  final currentMinute = now.minute;
-  final filteredSchedule = schedule.where((hour) {
-    final hourValue = int.tryParse(hour.split(':')[0].toString());
-    final minuteValue = int.tryParse(hour.split(':')[1].toString());
-    if (hourValue != null && minuteValue != null) {
-      if (hourValue > currentHour) {
-        return true;
-      } else if (hourValue == currentHour && minuteValue >= currentMinute) {
-        return true;
+  List<dynamic> filterScheduleByActualHour(List<dynamic> schedule) {
+    final now = DateTime.now();
+    final currentHour = now.hour;
+    final currentMinute = now.minute;
+    final filteredSchedule = schedule.where((hour) {
+      final hourValue = int.tryParse(hour.split(':')[0].toString());
+      final minuteValue = int.tryParse(hour.split(':')[1].toString());
+      if (hourValue != null && minuteValue != null) {
+        if (hourValue > currentHour) {
+          return true;
+        } else if (hourValue == currentHour && minuteValue >= currentMinute) {
+          return true;
+        }
       }
-    }
-    return false;
-  }).toList();
-  return filteredSchedule;
+      return false;
+    }).toList();
+    return filteredSchedule;
+  }
 }
 
 //Image methods to transform from URSL and Assets to bytes for markers

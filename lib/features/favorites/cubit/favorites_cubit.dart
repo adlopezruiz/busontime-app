@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/models/stop_model.dart';
 import 'package:bot_main_app/models/user_model.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/stop_repository.dart';
@@ -10,7 +11,12 @@ part 'favorites_state.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {
   FavoritesCubit() : super(FavoritesState.initial()) {
-    _getUserFavorites();
+    getUserFavoritesAndSchedules();
+  }
+
+  //Reload state
+  void reloadState() {
+    getUserFavoritesAndSchedules();
   }
 
   //Add to favorites
@@ -56,16 +62,25 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   }
 
   //Fetch user favorites
-  Future<void> _getUserFavorites() async {
+  Future<void> getUserFavoritesAndSchedules() async {
     emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
     final userData = await getUser;
     if (userData == null) {
       emit(state.copyWith(favoritesStatus: FavoritesStatus.error));
     } else {
+      final stopsRepo = getIt<StopRepository>();
+      final stopsData = <StopModel>[];
+
+      for (final stop in userData.favoriteStops) {
+        final stopData = await stopsRepo.getStopById(stop);
+        stopsData.add(stopData);
+      }
+
       emit(
         state.copyWith(
           favoritesList: userData.favoriteStops,
           favoritesStatus: FavoritesStatus.loaded,
+          stopsData: stopsData,
         ),
       );
     }
