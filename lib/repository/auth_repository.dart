@@ -101,6 +101,14 @@ class AuthRepository {
     }
   }
 
+  Future<void> resetUserPassword(String email) async {
+    try {
+      await getIt<FirebaseAuth>().sendPasswordResetEmail(email: email);
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
   //Signout
   Future<void> logout() async {
     await firebaseAuth.signOut();

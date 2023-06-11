@@ -62,7 +62,6 @@ class NavigationScreen extends StatelessWidget {
               }
               return MapScreen();
             } else {
-              //TODO Design profile UI
               return const ProfileScreen();
             }
           },

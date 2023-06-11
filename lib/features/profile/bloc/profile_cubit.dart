@@ -42,6 +42,21 @@ class ProfileCubit extends Cubit<ProfileState> {
     }
   }
 
+  //Update name function
+  void changeUserName(String newUserName) async {
+    final newUser = state.user.copyWith(
+      name: newUserName,
+    );
+    //Update user data
+    final updatedUser = await getIt<UserRepository>().updateUserData(
+      newUser: newUser,
+    );
+
+    emit(
+      state.copyWith(profileStatus: ProfileStatus.loaded, user: updatedUser),
+    );
+  }
+
   //Set login out state
   void logOut() {
     emit(state.copyWith(previusState: ProfileStatus.loggedOut));

@@ -1,6 +1,6 @@
 import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/image_picker_screen.dart';
-import 'package:bot_main_app/features/auth/register/screens/name_screen.dart';
+import 'package:bot_main_app/features/auth/register/screens/register_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/verify_email_screen.dart';
 import 'package:bot_main_app/features/favorites/screens/favorites_screen.dart';
 import 'package:bot_main_app/features/full_schedule/screens/full_schedule_screen.dart';
