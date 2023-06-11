@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
@@ -55,7 +58,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   void initState() {
     super.initState();
-    //TODO I can refactor this to use a list of focusNodes and then loop them
+
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -81,6 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state.registerStatus == RegisterStatus.error) {
@@ -101,17 +105,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               child: ListView(
                 shrinkWrap: true,
                 children: [
-                  const Text(
-                    'Registrarse',
-                    style: TextStyle(
+                  Text(
+                    l10n.register,
+                    style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
                     ),
                   ),
 
                   VerticalSpacer.regular(),
-                  const Text(
-                    'Necesitamos algunos datos para\ndarte de alta en el sistema',
+                  Text(
+                    l10n.needSomeData,
                   ),
                   VerticalSpacer.double(),
                   //Name input
@@ -121,11 +125,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onSaved: (String? value) => _name = value,
                     validator: (String? value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Name is required';
+                        return l10n.nameRequired;
                       }
                       return null;
                     },
-                    labelText: 'Nombre',
+                    labelText: l10n.nameLabel,
                     prefixIcon: Icons.person,
                   ),
                   VerticalSpacer.regular(),
@@ -137,10 +141,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     validator: (String? value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Email required';
+                        return l10n.requiredEmailFormError;
                       }
                       if (!isEmail(value.trim())) {
-                        return 'Enter a valid email';
+                        return l10n.emailNotValidFormError;
                       }
                       return null;
                     },
@@ -157,14 +161,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     validator: (String? value) {
                       if (value == null || value.trim().isEmpty) {
-                        return 'Password required';
+                        return l10n.passwordRequired;
                       }
                       if (value.trim().length < 6) {
-                        return 'Password must be at least 6 characters long';
+                        return l10n.passwordMustBe6Long;
                       }
                       return null;
                     },
-                    labelText: 'Password',
+                    labelText: l10n.passwordLabel,
                     prefixIcon: Icons.lock,
                   ),
 
@@ -177,11 +181,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                     validator: (String? value) {
                       if (_passwordController.text != value) {
-                        return 'Passwords not match';
+                        return l10n.passwordNotMatch;
                       }
                       return null;
                     },
-                    labelText: 'Repetir password',
+                    labelText: l10n.repeatPassword,
                     prefixIcon: Icons.lock,
                   ),
                   VerticalSpacer.regular(),
@@ -202,12 +206,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   VerticalSpacer.double(),
 
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Text('¿Ya tienes cuenta? '),
+                      Text(l10n.youHaveAccountQuestion),
                       NavigationText(
-                        text: 'Haz login aquí',
+                        text: l10n.loginHere,
                         route: '/login',
                       ),
                     ],

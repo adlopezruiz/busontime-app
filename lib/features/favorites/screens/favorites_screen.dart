@@ -1,6 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -14,6 +15,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -24,18 +26,18 @@ class FavoritesScreen extends StatelessWidget {
         body: Column(
           children: [
             VerticalSpacer.regular(),
-            const Text(
-              'Paradas favoritas',
-              style: TextStyle(
+            Text(
+              l10n.favoriteStops,
+              style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.bold,
                 color: AppColors.primaryGreen,
               ),
             ),
-            const Text(
-              'Puedes eliminar cualquiera arrastrandola a la derecha',
+            Text(
+              l10n.canDismiss,
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 18,
                 color: AppColors.primaryBlack,
               ),
@@ -45,10 +47,10 @@ class FavoritesScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state.favoritesStatus == FavoritesStatus.loaded) {
                     if (state.favoritesList.isEmpty) {
-                      return const Center(
+                      return Center(
                         child: Text(
-                          'Aún no tienes paradas favoritas\n¡Añade algunas y aprovecha\nesta funcionalidad!',
-                          style: TextStyle(
+                          l10n.dontHaveFavoritesYet,
+                          style: const TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: AppColors.primaryGreen,
@@ -127,9 +129,9 @@ class FavoritesScreen extends StatelessWidget {
                                                 ),
                                               ),
                                               VerticalSpacer.regular(),
-                                              const Text(
-                                                'Próximas salidas',
-                                                style: TextStyle(
+                                              Text(
+                                                l10n.nextOutbound,
+                                                style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 32,
                                                   color: Colors.white,

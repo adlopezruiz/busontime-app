@@ -1,5 +1,6 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
@@ -14,6 +15,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<RegisterCubit, RegisterState>(
       builder: (context, state) {
         if (state.registerStatus == RegisterStatus.verificationSent) {
@@ -40,17 +42,17 @@ class VerifyEmailScreen extends StatelessWidget {
                   ),
                   VerticalSpacer.regular(),
                   //Verifing title
-                  const Text(
-                    'Verificación de email',
-                    style: TextStyle(
+                  Text(
+                    l10n.emailVerification,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   VerticalSpacer.regular(),
-                  const Text(
-                    'Hemos enviado un email de verificación al correo indicado. Por favor revise su bandeja de entrada o spam.',
-                    style: TextStyle(fontSize: 14),
+                  Text(
+                    l10n.checkSpam,
+                    style: const TextStyle(fontSize: 14),
                     textAlign: TextAlign.center,
                   ),
                   VerticalSpacer.double(),
@@ -64,9 +66,9 @@ class VerifyEmailScreen extends StatelessWidget {
                     child: Buttons.primary(
                       height: 50,
                       width: 200,
-                      content: const Text(
-                        'Reenviar email',
-                        style: TextStyle(
+                      content: Text(
+                        l10n.resendEmail,
+                        style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -83,20 +85,23 @@ class VerifyEmailScreen extends StatelessWidget {
         } else {
           //Congratulations! And redirect
           return Scaffold(
-            body: const Center(
+            body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   //Animated Icon
-                  Icon(
+                  const Icon(
                     Icons.check_circle,
                     size: 100,
                     color: AppColors.primaryGreen,
                   ),
                   //Congrats
                   Text(
-                    'Enhorabuena hemos verificado tu email!',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32),
+                    l10n.congratulations,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 32,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],

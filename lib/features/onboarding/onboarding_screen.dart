@@ -1,4 +1,5 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -11,6 +12,7 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -29,9 +31,9 @@ class OnboardingScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 //Landing text
-                const Text(
-                  'No te pierdas.\nNunca llegues tarde.',
-                  style: TextStyle(
+                Text(
+                  l10n.dontGetLost,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                     color: AppColors.secondaryGrey,
@@ -53,19 +55,19 @@ class OnboardingScreen extends StatelessWidget {
                 ),
                 VerticalSpacer.regular(),
                 //Register text with link
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '¿Necesitas una cuenta? ',
-                      style: TextStyle(
+                      l10n.needAndAccount,
+                      style: const TextStyle(
                         color: AppColors.secondaryGrey,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     NavigationText(
-                      text: 'Registrarse',
+                      text: l10n.register,
                       route: '/register',
                     )
                   ],

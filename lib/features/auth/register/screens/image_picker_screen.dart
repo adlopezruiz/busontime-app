@@ -2,6 +2,7 @@ import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/image_picker/image_picker_bloc.dart';
 import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/utils/constants.dart';
@@ -14,6 +15,7 @@ class UserImagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -22,18 +24,18 @@ class UserImagePicker extends StatelessWidget {
             child: Column(
               children: [
                 //Title
-                const Text(
-                  'Añadir imágen de perfil',
-                  style: TextStyle(
+                Text(
+                  l10n.addProfileImage,
+                  style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 VerticalSpacer.regular(),
                 //Subtitle
-                const Text(
-                  '¡Asegúrate de lucir bien!',
-                  style: TextStyle(fontSize: 18),
+                Text(
+                  l10n.lookGood,
+                  style: const TextStyle(fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
                 VerticalSpacer.double(),
@@ -80,9 +82,9 @@ class UserImagePicker extends StatelessWidget {
                         }
                         getIt<GoRouter>().go('/home');
                       },
-                      child: const Text(
-                        'Skip',
-                        style: TextStyle(
+                      child: Text(
+                        l10n.skip,
+                        style: const TextStyle(
                           color: AppColors.primaryBlack,
                           fontWeight: FontWeight.bold,
                           fontSize: 18,
@@ -171,9 +173,9 @@ class UserImagePicker extends StatelessWidget {
                                     ImagePickerStatus.picked ||
                                 state.imagePickerStatus ==
                                     ImagePickerStatus.unknown
-                            ? const Text(
-                                'Enviar',
-                                style: TextStyle(
+                            ? Text(
+                                l10n.buttonSendText,
+                                style: const TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                 ),

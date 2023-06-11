@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/features/map/widgets/custom_modal_content.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/models/stop_model.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -21,16 +23,17 @@ class MapScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         if (state.mapStatus == MapStatus.userPermissionDenied ||
             state.mapStatus == MapStatus.error) {
-          return const Center(
+          return Center(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Text(
-                'Ups!\nHa ocurrido un error.\nPor favor comprueba que has concedido permisos de ubicación y reinicia la APP.\nPerdón por el inconveniente.',
-                style: TextStyle(
+                l10n.upsError,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.red,
                   fontSize: 28,
@@ -172,13 +175,13 @@ void _showBottomSheet({required BuildContext context, StopModel? stopData}) {
                             AppTextStyles.textWithTransparency(
                               textAlign: TextAlign.center,
                               text: stopData?.name ??
-                                  'No hay datos de esta parada',
+                                  context.l10n.noDataOfThisStop,
                               fontSize: 32,
                             ),
                           ],
                         ),
                         AppTextStyles.textWithTransparency(
-                          text: stopData?.street ?? 'Sin dirección',
+                          text: stopData?.street ?? context.l10n.noDirection,
                           fontSize: 24,
                         ),
                       ],

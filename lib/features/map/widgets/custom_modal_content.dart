@@ -1,4 +1,5 @@
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:bot_main_app/widgets/countdown_timer.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ class CustomModalContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
         if (state.mapStatus != MapStatus.loadingSchedule) {
@@ -33,8 +35,8 @@ class CustomModalContent extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           child: Text(
                             toMartosSchedule.isNotEmpty
-                                ? 'Próximas salidas sentido Martos'
-                                : 'No hay más salidas hoy',
+                                ? l10n.nextStopToMartos
+                                : l10n.noMoreDeparturesToday,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -102,8 +104,8 @@ class CustomModalContent extends StatelessWidget {
                           padding: const EdgeInsets.all(8),
                           child: Text(
                             toJaenSchedule.isNotEmpty
-                                ? 'Próximas salidas sentido Jaén'
-                                : 'No hay más salidas hoy',
+                                ? l10n.nextStopToJaen
+                                : l10n.noMoreDeparturesToday,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,

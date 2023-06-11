@@ -2,6 +2,7 @@ import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/home/bloc/weather/weather_bloc.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/ui/atoms/text_styles.dart';
@@ -16,6 +17,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return BlocBuilder<WeatherBloc, WeatherState>(
       builder: (context, state) {
         return Container(
@@ -51,7 +53,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       AppTextStyles.textWithTransparency(
                         text:
-                            'Hola ${currentUser.name.split(' ').first},\n¿Próxima parada?',
+                            '${l10n.hello} ${currentUser.name.split(' ').first},\n${l10n.nextStopQuestioned}',
                         fontSize: 36,
                       ),
                       //Buttons
@@ -78,7 +80,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 AppTextStyles.textWithTransparency(
-                                  text: 'Horario',
+                                  text: l10n.schedule,
                                   fontSize: 22,
                                   textAlign: TextAlign.center,
                                 ),
@@ -107,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 AppTextStyles.textWithTransparency(
-                                  text: 'Favoritas',
+                                  text: l10n.favoriteStops,
                                   fontSize: 22,
                                 ),
                               ],

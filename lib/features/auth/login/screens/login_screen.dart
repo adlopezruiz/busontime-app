@@ -2,6 +2,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
@@ -67,6 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: BlocConsumer<LoginCubit, LoginState>(
@@ -100,8 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
 
                       VerticalSpacer.regular(),
-                      const Text(
-                          'Si ya eres miembro. Accede a tu panel de usuario\npara no perderte en tu destino.'),
+                      Text(l10n.alreadyMemberLoginText),
                       VerticalSpacer.regular(),
                       //Email textfield
                       CustomTextField(
@@ -111,10 +112,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         validator: (String? value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Email required';
+                            return l10n.requiredEmailFormError;
                           }
                           if (!isEmail(value.trim())) {
-                            return 'Enter a valid email';
+                            return l10n.emailNotValidFormError;
                           }
                           return null;
                         },
@@ -130,22 +131,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         },
                         validator: (String? value) {
                           if (value == null || value.trim().isEmpty) {
-                            return 'Password required';
+                            return l10n.passwordRequired;
                           }
                           if (value.trim().length < 6) {
-                            return 'Password must be at least 6 characters long';
+                            return l10n.passwordRequired;
                           }
                           return null;
                         },
-                        labelText: 'Password',
+                        labelText: l10n.passwordLabel,
                         prefixIcon: Icons.lock,
                       ),
                       VerticalSpacer.regular(),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           NavigationText(
-                            text: '¿Contraseña olvidada?',
+                            text: l10n.forgotPasswordWithQuestionMarks,
                             route: '/forgotPW',
                           ),
                         ],
@@ -173,20 +174,20 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       VerticalSpacer.double(),
                       //OR divider
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Expanded(
+                          const Expanded(
                             child: Divider(
                               color: AppColors.primaryGrey,
                               thickness: 1,
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Text('OR'),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Text(l10n.orLabel),
                           ),
-                          Expanded(
+                          const Expanded(
                             child: Divider(
                               color: AppColors.primaryGrey,
                               thickness: 1,
@@ -211,9 +212,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Text(
-                                        'Login with Google',
-                                        style: TextStyle(
+                                      Text(
+                                        l10n.loginWithGoogleLabel,
+                                        style: const TextStyle(
                                           color: AppColors.primaryBlack,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -247,9 +248,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      const Text(
-                                        'Login with Apple',
-                                        style: TextStyle(
+                                      Text(
+                                        l10n.loginWithAppleLabel,
+                                        style: const TextStyle(
                                           color: AppColors.primaryBlack,
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -266,12 +267,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                       ),
                       VerticalSpacer.regular(),
-                      const Row(
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text('¿Necesitas una cuenta? '),
+                          Text(l10n.needAndAccount),
                           NavigationText(
-                            text: 'Regístrate aquí',
+                            text: l10n.registerHere,
                             route: '/register',
                           ),
                         ],
@@ -296,7 +297,6 @@ void showAppleInfoAlert(BuildContext context) {
     title: 'INFO',
     reverseBtnOrder: true,
     btnOkOnPress: () {},
-    desc:
-        'En estos momentos este servicio no está disponible (no tengo apple device). Perdone las molestias ocasionadas.',
+    desc: context.l10n.serviceUnavailable,
   ).show();
 }

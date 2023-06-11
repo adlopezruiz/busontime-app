@@ -3,6 +3,7 @@ import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/features/profile/widgets/custom_tile_widget.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
@@ -31,6 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return SafeArea(
       child: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
@@ -81,18 +83,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               //Update profile
                               CustomTile(
-                                labelText: 'Cambiar nombre',
+                                labelText: l10n.changeName,
                                 assetIcon: 'assets/icons/user-green.png',
                                 callback: () {
                                   customFormDialog(
                                     context: context,
-                                    inputLabel: 'Nuevo nombre',
-                                    onErrorMessage:
-                                        'Por favor introduce un nombre',
+                                    inputLabel: l10n.newName,
+                                    onErrorMessage: l10n.nameRequired,
                                     validator: (String? value) {
                                       if (value == null ||
                                           value.trim().isEmpty) {
-                                        return 'Por favor, introduce un nombre';
+                                        return l10n.nameRequired;
                                       }
                                       return null;
                                     },
@@ -111,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               VerticalSpacer.regular(),
                               //Change password
                               CustomTile(
-                                labelText: 'Cambiar contraseña',
+                                labelText: l10n.changePassword,
                                 assetIcon: 'assets/icons/password-icon.png',
                                 callback: () {
                                   getIt<AuthRepository>()
@@ -123,14 +124,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     title: 'Info',
                                     btnOkOnPress: () {},
                                     btnCancelOnPress: () {},
-                                    desc:
-                                        'Hemos enviado un correo con las instrucciones para reiniciar su contraseña.',
+                                    desc: l10n.resetEmailSent,
                                   ).show();
                                 },
                               ),
                               VerticalSpacer.regular(),
                               CustomTile(
-                                labelText: 'Información',
+                                labelText: l10n.infoLabel,
                                 assetIcon: 'assets/icons/info-icon.png',
                                 callback: () => {
                                   AwesomeDialog(
@@ -138,18 +138,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     dialogType: DialogType.infoReverse,
                                     animType: AnimType.bottomSlide,
                                     title: 'Info',
-                                    btnOkText: 'Bien tío',
+                                    btnOkText: 'Ok',
                                     btnOkOnPress: () {},
-                                    btnCancelText: 'Xao',
-                                    btnCancelOnPress: () {},
-                                    desc:
-                                        'Esta APP ha sido desarrollada por Adrián López Ruiz, con mucho sudor y lágrimas, usando el querido BloC y una estructura totalmente nueva. Orgulloso con el camino para llegar a esto.',
+                                    desc: l10n.thisAppCry,
                                   ).show()
                                 },
                               ),
                               VerticalSpacer.regular(),
                               CustomTile(
-                                labelText: 'Cerrar sesión',
+                                labelText: l10n.logout,
                                 assetIcon: 'assets/icons/logout-icon.png',
                                 callback: () {
                                   getIt<ProfileCubit>().logOut();
@@ -198,8 +195,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: [
             TextFormField(
               controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Nombre',
+              decoration: InputDecoration(
+                labelText: context.l10n.nameLabel,
               ),
               validator: validator,
             ),
@@ -210,8 +207,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
               width: 150,
               height: 50,
               child: Buttons.primary(
-                content: const Text(
-                  'Enviar',
+                content: Text(
+                  context.l10n.buttonSendText,
                   style: AppTextStyles.subtitle,
                 ),
                 onPressed: () {},

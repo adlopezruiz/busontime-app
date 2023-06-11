@@ -10,6 +10,8 @@
 .history
 .svn/
 .env
+/lib/firebase_options.dart
+
 
 # IntelliJ related
 *.iml
