@@ -5,7 +5,7 @@
     "forgotPassword": "Contraseña olvidada",
     "forgotPasswordWithQuestionMarks": "¿Contraseña olvidada?",
     "resetPasswordBody": "Por favor introduce tu email\npara reiniciar tu contraseña.",
-    "requiredEmailFormError": "Email requerido form error",
+    "requiredEmailFormError": "Email requerido",
     "emailNotValidFormError": "El email no es válido",
     "buttonSendText" : "Enviar",
     "resetEmailSent" : "Te hemos enviado un email con las instrucciones para recuperar tu contraseña",

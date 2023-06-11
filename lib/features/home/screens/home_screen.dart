@@ -109,7 +109,7 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 AppTextStyles.textWithTransparency(
-                                  text: l10n.favoriteStops,
+                                  text: l10n.favoritesLabel,
                                   fontSize: 22,
                                 ),
                               ],
