@@ -3,7 +3,7 @@
     "counterAppBarTitle": "Contador",
     "exampleText": "Testeando",
     "forgotPassword": "Contraseña olvidada",
-    "resetPasswordBody": "Reiniciar password texto",
+    "resetPasswordBody": "Por favor introduce tu email\npara reiniciar tu contraseña.",
     "requiredEmailFormError": "Email requerido form error",
     "emailNotValidFormError": "El email no es válido",
     "buttonSendText" : "Enviar",
