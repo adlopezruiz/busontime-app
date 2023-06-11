@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/bloc/auth_bloc.dart';
+import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
@@ -46,9 +47,17 @@ class AuthRepository {
         'createdAt': DateTime.now().millisecondsSinceEpoch,
       });
     } on fb_auth.FirebaseAuthException catch (e) {
-      throw Exception(e);
+      throw CustomError(
+        code: e.code,
+        message: e.message!,
+        plugin: e.plugin,
+      );
     } catch (e) {
-      throw Exception(e);
+      throw CustomError(
+        code: 'Exception',
+        message: e.toString(),
+        plugin: 'Register repo method',
+      );
     }
   }
 
@@ -63,10 +72,18 @@ class AuthRepository {
         email: email,
         password: password,
       );
-    } on fb_auth.FirebaseAuthException catch (e) {
-      throw Exception(e);
+    } on FirebaseAuthException catch (e) {
+      throw CustomError(
+        code: e.code,
+        message: e.message!,
+        plugin: e.plugin,
+      );
     } catch (e) {
-      throw Exception(e);
+      throw CustomError(
+        code: 'Exception',
+        message: e.toString(),
+        plugin: 'flutter_error/server_error',
+      );
     }
   }
 
@@ -96,11 +113,22 @@ class AuthRepository {
         });
         getIt<AuthBloc>().add(AuthStateChangedEvent(user: currentUser));
       }
+    } on FirebaseAuthException catch (e) {
+      throw CustomError(
+        code: e.code,
+        message: e.message!,
+        plugin: e.plugin,
+      );
     } catch (e) {
-      throw Exception(e);
+      throw CustomError(
+        code: 'Exception',
+        message: e.toString(),
+        plugin: 'flutter_error/server_error',
+      );
     }
   }
 
+  //Reset password
   Future<void> resetUserPassword(String email) async {
     try {
       await getIt<FirebaseAuth>().sendPasswordResetEmail(email: email);
@@ -112,7 +140,7 @@ class AuthRepository {
   //Signout
   Future<void> logout() async {
     await firebaseAuth.signOut();
-
+    //TODO Trigger are you sure dialog
     getIt<GoRouter>().go('/login');
   }
 }

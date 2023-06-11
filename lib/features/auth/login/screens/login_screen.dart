@@ -1,13 +1,12 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
-import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
-import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
 import 'package:bot_main_app/ui/atoms/navigation_text.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
 import 'package:bot_main_app/utils/constants.dart';
+import 'package:bot_main_app/utils/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -58,9 +57,11 @@ class _LoginScreenState extends State<LoginScreen> {
     if (form == null || !form.validate()) return;
 
     form.save();
-    context
-        .read<LoginCubit>()
-        .loginWithEmailAndPassword(email: _email!, password: _password!);
+
+    context.read<LoginCubit>().loginWithEmailAndPassword(
+          email: _email!,
+          password: _password!,
+        );
   }
 
   @override
@@ -70,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state.loginStatus == LoginStatus.error) {
-            //TODO make custom error dialog
+            errorDialog(context, state.error);
           }
         },
         builder: (context, state) {

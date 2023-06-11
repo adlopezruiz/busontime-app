@@ -12,28 +12,33 @@ enum LoginStatus {
 
 class LoginState extends Equatable {
   final LoginStatus loginStatus;
+  final CustomError error;
 
   const LoginState({
     required this.loginStatus,
+    required this.error,
   });
 
   factory LoginState.initial() {
     return const LoginState(
       loginStatus: LoginStatus.initial,
+      error: CustomError(),
     );
   }
 
   @override
-  String toString() => 'LoginState(loginStatus: $loginStatus)';
+  String toString() => 'LoginState(loginStatus: $loginStatus, error: $error)';
 
   @override
-  List<Object> get props => [loginStatus];
+  List<Object> get props => [loginStatus, error];
 
   LoginState copyWith({
     LoginStatus? loginStatus,
+    CustomError? error,
   }) {
     return LoginState(
       loginStatus: loginStatus ?? this.loginStatus,
+      error: error ?? this.error,
     );
   }
 }

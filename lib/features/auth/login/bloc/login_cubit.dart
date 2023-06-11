@@ -1,6 +1,7 @@
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/features/profile/bloc/profile_cubit.dart';
+import 'package:bot_main_app/models/custom_error.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,11 +37,9 @@ class LoginCubit extends Cubit<LoginState> {
       } else {
         getIt<GoRouter>().go('/emailVerification');
       }
-    } catch (e) {
+    } on CustomError catch (e) {
       //on signin error emit error status with custom error
-      emit(state.copyWith(loginStatus: LoginStatus.error));
-      //TODO Error dialog
-      throw Exception(e);
+      emit(state.copyWith(loginStatus: LoginStatus.error, error: e));
     }
   }
 
