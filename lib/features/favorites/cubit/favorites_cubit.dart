@@ -60,7 +60,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(
       state.copyWith(
         favoritesList: updatedStringList,
-        favoritesStatus: FavoritesStatus.elementDeleted,
         stopsData: updatedStopDataList,
       ),
     );
