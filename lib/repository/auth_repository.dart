@@ -95,7 +95,6 @@ class AuthRepository {
       try {
         googleUser = await getIt<GoogleSignIn>().signIn();
       } on PlatformException catch (e) {
-        print(e);
         return false;
       }
 
@@ -153,7 +152,6 @@ class AuthRepository {
   //Signout
   Future<void> logout() async {
     await firebaseAuth.signOut();
-    //TODO Trigger are you sure dialog
     getIt<GoRouter>().go('/login');
   }
 }

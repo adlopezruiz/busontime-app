@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:math';
-
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/favorites/cubit/favorites_cubit.dart';
 import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';

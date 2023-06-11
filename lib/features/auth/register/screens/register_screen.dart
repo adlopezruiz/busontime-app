@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/register/bloc/register/register_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';

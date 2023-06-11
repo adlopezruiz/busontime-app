@@ -43,7 +43,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   //Update name function
-  void changeUserName(String newUserName) async {
+  Future<void> changeUserName(String newUserName) async {
     final newUser = state.user.copyWith(
       name: newUserName,
     );
