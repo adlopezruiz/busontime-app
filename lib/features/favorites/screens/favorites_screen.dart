@@ -4,7 +4,6 @@ import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/repository/line_repository.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/spacers.dart';
-import 'package:bot_main_app/ui/atoms/text_styles.dart';
 import 'package:bot_main_app/utils/constants.dart';
 import 'package:bot_main_app/widgets/countdown_timer.dart';
 import 'package:flutter/material.dart';
