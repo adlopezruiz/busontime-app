@@ -2,13 +2,13 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
+import 'package:bot_main_app/features/map/blocs/map_bloc/map_bloc.dart';
 import 'package:bot_main_app/models/stop_model.dart';
 import 'package:bot_main_app/models/user_model.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/repository/stop_repository.dart';
 import 'package:bot_main_app/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:go_router/go_router.dart';
 
 part 'favorites_state.dart';
 
@@ -27,12 +27,22 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     emit(state.copyWith(favoritesStatus: FavoritesStatus.loading));
 
     final actualList = List<String>.from(state.favoritesList)..add(stopId);
+
+    final allStopsData = getIt<MapBloc>().state.stops;
+
+    final foundStop =
+        allStopsData.firstWhere((element) => element.id == stopId);
+
+    state.stopsData.add(foundStop);
+
     emit(
       state.copyWith(
         favoritesList: actualList,
         favoritesStatus: FavoritesStatus.elementAdded,
+        stopsData: state.stopsData,
       ),
     );
+    unawaited(updateUserData());
   }
 
   //Remove from favorites
@@ -42,9 +52,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       ..remove(stopId);
     //Also delete from stopData
     final foundStop =
-        state.stopsData!.firstWhere((element) => element.id == stopId);
+        state.stopsData.firstWhere((element) => element.id == stopId);
 
-    final updatedStopDataList = List<StopModel>.from(state.stopsData!)
+    final updatedStopDataList = List<StopModel>.from(state.stopsData)
       ..remove(foundStop);
 
     emit(
@@ -61,7 +71,9 @@ class FavoritesCubit extends Cubit<FavoritesState> {
     final userData = await getUser;
     if (userData != null) {
       await getIt<UserRepository>().updateUserData(
-        newUser: userData.copyWith(favoriteStops: state.favoritesList),
+        newUser: userData.copyWith(
+          favoriteStops: state.favoritesList,
+        ),
       );
     }
   }
@@ -77,14 +89,30 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       final stopsRepo = getIt<StopRepository>();
       final stopsData = <StopModel>[];
 
-      for (final stop in userData.favoriteStops) {
+      final definitiveStringList = List<String>.from(state.favoritesList);
+
+      if (userData.favoriteStops.isEmpty) {
+        //Update user if not empty this one
+        if (definitiveStringList.isNotEmpty) {
+          unawaited(updateUserData());
+        }
+      } else {
+        for (final stopString in userData.favoriteStops) {
+          if (!definitiveStringList.contains(stopString)) {
+            definitiveStringList.add(stopString);
+          }
+        }
+        unawaited(updateUserData());
+      }
+
+      for (final stop in definitiveStringList) {
         final stopData = await stopsRepo.getStopById(stop);
         stopsData.add(stopData);
       }
 
       emit(
         state.copyWith(
-          favoritesList: userData.favoriteStops,
+          favoritesList: definitiveStringList,
           favoritesStatus: FavoritesStatus.loaded,
           stopsData: stopsData,
         ),

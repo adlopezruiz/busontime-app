@@ -40,7 +40,6 @@ class CounterView extends StatelessWidget {
           FloatingActionButton(
             heroTag: 'counterPageHero1',
             onPressed: () {
-              print('button pressed');
               GetIt.I<GoRouter>().push('/home');
             },
             child: const Icon(Icons.add),

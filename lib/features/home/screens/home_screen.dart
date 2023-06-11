@@ -99,6 +99,7 @@ class HomeScreen extends StatelessWidget {
                                           FavoritesStatus.initial) {
                                         getIt<FavoritesCubit>().reloadState();
                                       }
+
                                       getIt<GoRouter>().push('/favorites');
                                     },
                                     icon: Image.asset(

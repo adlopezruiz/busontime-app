@@ -138,7 +138,7 @@ void _showBottomSheet({required BuildContext context, StopModel? stopData}) {
                                               .contains(stopData?.id ?? '')) {
                                             //Delete it from the list.
                                             favoritesCubit.deleteFromFavorites(
-                                              stopData?.databaseName ?? '',
+                                              stopData?.id ?? '',
                                             );
                                           } else {
                                             //Add stop id to favorites list using favorites cubit

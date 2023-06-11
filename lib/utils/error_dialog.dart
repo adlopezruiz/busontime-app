@@ -7,8 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void errorDialog(BuildContext context, CustomError e) {
-  print('code: ${e.code}\nmessage: ${e.message}\nplugin: ${e.plugin}\n');
-
   if (Platform.isIOS) {
     showCupertinoDialog<dynamic>(
       context: context,

@@ -142,7 +142,6 @@ class UserImagePicker extends StatelessWidget {
                               height: 60,
                               child: IconButton(
                                 onPressed: () {
-                                  print('Pressed');
                                   //Delete photo.
                                   context
                                       .read<ImagePickerBloc>()

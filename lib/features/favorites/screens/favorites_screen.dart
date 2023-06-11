@@ -253,7 +253,6 @@ class FavoritesScreen extends StatelessWidget {
 Future<List<String>> _getFirstBusHours(String name) async {
   final hoursList = <String>[];
 
-  print(name);
   final mapBloc = getIt<MapBloc>();
   final lineRepo = getIt<LineRepository>();
 

@@ -22,7 +22,6 @@ class StorageRepository {
 
   Future<void> deleteImage({required String imgName}) async {
     final storage = getIt<FirebaseStorage>();
-    print(imgName);
     try {
       await storage.ref('profileImages/$imgName').delete();
     } catch (e) {
