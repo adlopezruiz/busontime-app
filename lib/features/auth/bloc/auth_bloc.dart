@@ -1,5 +1,3 @@
-import 'package:bot_main_app/dependency_injection/injector.dart';
-import 'package:bot_main_app/features/navbar/bloc/navbar_cubit/navbar_cubit.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;

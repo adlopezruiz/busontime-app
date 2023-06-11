@@ -47,7 +47,7 @@ class FavoritesScreen extends StatelessWidget {
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                       ),
-                      itemCount: state.stopsData?.length ?? 0,
+                      itemCount: state.stopsData.length,
                       itemBuilder: (context, index) {
                         return BlocBuilder<FavoritesCubit, FavoritesState>(
                           builder: (context, state) {
@@ -56,13 +56,13 @@ class FavoritesScreen extends StatelessWidget {
                               background: Container(color: Colors.red.shade300),
                               onDismissed: (direction) {
                                 getIt<FavoritesCubit>().deleteFromFavorites(
-                                  state.stopsData![index].id,
+                                  state.stopsData[index].id,
                                 );
                               },
-                              key: Key(state.stopsData![index].id),
+                              key: Key(state.stopsData[index].id),
                               child: FutureBuilder(
                                 future: _getFirstBusHours(
-                                  state.stopsData![index].databaseName,
+                                  state.stopsData[index].databaseName,
                                 ),
                                 builder: (context, snapshot) {
                                   return Card(
@@ -75,7 +75,7 @@ class FavoritesScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(18),
                                         image: DecorationImage(
                                           image: AssetImage(
-                                            'assets/images/${state.stopsData![index].databaseName}.jpeg',
+                                            'assets/images/${state.stopsData[index].databaseName}.jpeg',
                                           ),
                                           fit: BoxFit.cover,
                                         ),
@@ -85,7 +85,7 @@ class FavoritesScreen extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            state.stopsData![index].name,
+                                            state.stopsData[index].name,
                                             style: const TextStyle(
                                               fontSize: 18,
                                               fontWeight: FontWeight.bold,
@@ -94,7 +94,7 @@ class FavoritesScreen extends StatelessWidget {
                                           ),
                                           VerticalSpacer.regular(),
                                           Text(
-                                            state.stopsData![index].street,
+                                            state.stopsData[index].street,
                                             style: const TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14,
@@ -117,7 +117,7 @@ class FavoritesScreen extends StatelessWidget {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  if (state.stopsData![index]
+                                                  if (state.stopsData[index]
                                                           .databaseName !=
                                                       'martos') ...[
                                                     Column(
@@ -159,14 +159,14 @@ class FavoritesScreen extends StatelessWidget {
                                                       ],
                                                     ),
                                                   ],
-                                                  if (state.stopsData![index]
+                                                  if (state.stopsData[index]
                                                               .databaseName !=
                                                           'jaen' &&
-                                                      state.stopsData![index]
+                                                      state.stopsData[index]
                                                               .databaseName !=
                                                           'martos')
                                                     HorizontalSpacer.regular(),
-                                                  if (state.stopsData![index]
+                                                  if (state.stopsData[index]
                                                           .databaseName !=
                                                       'jaen') ...[
                                                     Column(
