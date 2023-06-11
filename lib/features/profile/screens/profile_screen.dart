@@ -41,33 +41,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: [
                     //Userimage
-                    GestureDetector(
-                      onTap: () {
-                        //TODO image picker
-                      },
-                      child: Stack(
-                        children: [
-                          SizedBox(
-                            height: 150,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(100),
-                              child: FadeInImage.assetNetwork(
-                                fit: BoxFit.cover,
-                                placeholder:
-                                    'assets/images/profile-animated.gif',
-                                image: state.user.profileImage,
-                              ),
-                            ),
-                          ),
-                          const Positioned(
-                            bottom: 0,
-                            right: 0,
-                            child: Icon(
-                              Icons.camera_alt,
-                              color: AppColors.primaryBlack,
-                            ),
-                          ),
-                        ],
+                    SizedBox(
+                      height: 150,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(100),
+                        child: FadeInImage.assetNetwork(
+                          fit: BoxFit.cover,
+                          placeholder: 'assets/images/loading.gif',
+                          image: state.user.profileImage,
+                        ),
                       ),
                     ),
                     VerticalSpacer.regular(),
@@ -100,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //Update profile
                               CustomTile(
                                 labelText: 'Cambiar nombre',
-                                assetIcon: 'assets/icons/user-icon.png',
+                                assetIcon: 'assets/icons/user-green.png',
                                 callback: () {
                                   customFormDialog(
                                     context: context,
@@ -130,7 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               //Change password
                               CustomTile(
                                 labelText: 'Cambiar contraseña',
-                                assetIcon: 'assets/icons/map-icon.png',
+                                assetIcon: 'assets/icons/password-icon.png',
                                 callback: () {
                                   getIt<AuthRepository>()
                                       .resetUserPassword(state.user.email);
@@ -147,14 +129,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 },
                               ),
                               VerticalSpacer.regular(),
-                              const CustomTile(
+                              CustomTile(
                                 labelText: 'Información',
-                                assetIcon: 'assets/icons/fav-icon.png',
+                                assetIcon: 'assets/icons/info-icon.png',
+                                callback: () => {
+                                  AwesomeDialog(
+                                    context: context,
+                                    dialogType: DialogType.infoReverse,
+                                    animType: AnimType.bottomSlide,
+                                    title: 'Info',
+                                    btnOkText: 'Bien tío',
+                                    btnOkOnPress: () {},
+                                    btnCancelText: 'Xao',
+                                    btnCancelOnPress: () {},
+                                    desc:
+                                        'Esta APP ha sido desarrollada por Adrián López Ruiz, con mucho sudor y lágrimas, usando el querido BloC y una estructura totalmente nueva. Orgulloso con el camino para llegar a esto.',
+                                  ).show()
+                                },
                               ),
                               VerticalSpacer.regular(),
                               CustomTile(
                                 labelText: 'Cerrar sesión',
-                                assetIcon: 'assets/icons/calendar-icon.png',
+                                assetIcon: 'assets/icons/logout-icon.png',
                                 callback: () {
                                   getIt<ProfileCubit>().logOut();
                                   context
