@@ -9,7 +9,7 @@
     "emailNotValidFormError": "Email is not valid",
     "buttonSendText" : "Send",
     "resetEmailSent" : "We have sent you and email with the instructions to reset your password",
-    "alreadyMemberLoginText" : "If you are already a member. Login to your user dashboard\nto don´t get lost.",
+    "alreadyMemberLoginText" : "If you are already a member. Login to your user dashboard to don´t get lost.",
     "passwordMustBe6Long" : "Password must be at least 6 characters long",
     "passwordRequired" : "Password is required",
     "passwordLabel" : "Password",
