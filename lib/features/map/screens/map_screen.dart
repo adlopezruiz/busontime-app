@@ -23,6 +23,23 @@ class MapScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MapBloc, MapState>(
       builder: (context, state) {
+        if (state.mapStatus == MapStatus.userPermissionDenied ||
+            state.mapStatus == MapStatus.error) {
+          return const Center(
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: Text(
+                'Ups!\nHa ocurrido un error.\nPor favor comprueba que has concedido permisos de ubicación y reinicia la APP.\nPerdón por el inconveniente.',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.red,
+                  fontSize: 28,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          );
+        }
         if ((state.mapStatus == MapStatus.routesLoaded ||
                 state.mapStatus == MapStatus.stopsSchedulesLoaded ||
                 state.mapStatus == MapStatus.loadingSchedule) &&

@@ -19,7 +19,7 @@ class VerifyEmailScreen extends StatelessWidget {
         if (state.registerStatus == RegisterStatus.verificationSent) {
           //Checking for verifying your email
           return Scaffold(
-            appBar: AppBars.onlyWithArrowBack(arrowRoute: 'register'),
+            appBar: AppBars.onlyWithArrowBack(arrowRoute: '/register'),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

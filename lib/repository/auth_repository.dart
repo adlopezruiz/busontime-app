@@ -6,6 +6,7 @@ import 'package:bot_main_app/utils/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -88,15 +89,26 @@ class AuthRepository {
   }
 
   //Google sign in
-  Future<void> signInWithGoogle() async {
+  Future<bool> signInWithGoogle() async {
     try {
-      final googleUser = await getIt<GoogleSignIn>().signIn();
+      GoogleSignInAccount? googleUser;
+      try {
+        googleUser = await getIt<GoogleSignIn>().signIn();
+      } on PlatformException catch (e) {
+        print(e);
+        return false;
+      }
 
-      final googleAuth = await googleUser?.authentication;
+      //Check null... if user null means user not selected in google login
+      if (googleUser == null) {
+        return false;
+      }
+
+      final googleAuth = await googleUser.authentication;
 
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
       final result =
@@ -113,6 +125,7 @@ class AuthRepository {
         });
         getIt<AuthBloc>().add(AuthStateChangedEvent(user: currentUser));
       }
+      return true;
     } on FirebaseAuthException catch (e) {
       throw CustomError(
         code: e.code,
