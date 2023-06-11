@@ -1,11 +1,11 @@
 {
     "@@locale": "en",
     "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    },
     "exampleText": "Testing",
-    "@exampleText": {
-        "description": "Example test localized"
-    }
+    "forgotPassword": "Forgot password",
+    "resetPasswordBody": "Please insert here your email\nto send the password reset steps.",
+    "requiredEmailFormError": "Email is required",
+    "emailNotValidFormError": "Email is not valid",
+    "buttonSendText" : "Send",
+    "resetEmailSent" : "We have sent you and email with the instructions to reset your password"
 }

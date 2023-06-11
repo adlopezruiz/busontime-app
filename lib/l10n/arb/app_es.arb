@@ -1,11 +1,11 @@
 {
     "@@locale": "es",
     "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
-    },
     "exampleText": "Testeando",
-    "@exampleText": {
-        "description": "Texto de prueba"
-    }
+    "forgotPassword": "Contraseña olvidada",
+    "resetPasswordBody": "Reiniciar password texto",
+    "requiredEmailFormError": "Email requerido form error",
+    "emailNotValidFormError": "El email no es válido",
+    "buttonSendText" : "Enviar",
+    "resetEmailSent" : "¡Hemos enviado un email con las isntrucciones para reiniciar tu contraseña!"
 }

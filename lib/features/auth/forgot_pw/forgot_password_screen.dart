@@ -1,6 +1,9 @@
+import 'dart:math';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
+import 'package:bot_main_app/l10n/l10n.dart';
 import 'package:bot_main_app/repository/auth_repository.dart';
 import 'package:bot_main_app/ui/atoms/appbars.dart';
 import 'package:bot_main_app/ui/atoms/buttons.dart';
@@ -59,6 +62,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: AppBars.onlyWithArrowBack(arrowRoute: '/login'),
       body: Padding(
@@ -72,17 +76,17 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           child: ListView(
             shrinkWrap: true,
             children: [
-              const Text(
-                'Contraseña olvidada',
-                style: TextStyle(
+              Text(
+                l10n.forgotPassword,
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
                 ),
               ),
 
               VerticalSpacer.regular(),
-              const Text(
-                'Introduzca su correo a continuación\npara poder reiniciar su contraseña',
+              Text(
+                l10n.resetPasswordBody,
               ),
               VerticalSpacer.double(),
               //Name input
@@ -91,10 +95,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 onSaved: (String? value) => email = value ?? '',
                 validator: (String? value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Email requerido';
+                    return l10n.requiredEmailFormError;
                   }
                   if (!isEmail(value.trim())) {
-                    return 'El email no es válido';
+                    return l10n.emailNotValidFormError;
                   }
                   return null;
                 },
@@ -106,9 +110,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 onPressed: _submit,
-                content: const Text(
-                  'Enviar',
-                  style: TextStyle(
+                content: Text(
+                  l10n.buttonSendText,
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18,
                   ),
@@ -130,8 +134,7 @@ void showSuccessAlert(BuildContext context) {
     dialogType: DialogType.success,
     showCloseIcon: true,
     title: 'Éxito',
-    desc:
-        '¡Hemos enviado un email con las isntrucciones para reiniciar tu contraseña! ',
+    desc: context.l10n.resetEmailSent,
     btnOkOnPress: () {
       getIt<GoRouter>().go('/login');
     },
