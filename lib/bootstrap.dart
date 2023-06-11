@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
