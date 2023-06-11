@@ -2,7 +2,7 @@
     package="com.example.verygoodcore.bot_main_app">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="bot_main_app"
+        android:label="Bus On Time"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
