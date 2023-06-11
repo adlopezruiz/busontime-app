@@ -24,11 +24,23 @@ class FavoritesScreen extends StatelessWidget {
         ),
         body: Column(
           children: [
+            VerticalSpacer.regular(),
             const Text(
               'Paradas favoritas',
-              style: AppTextStyles.title,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: AppColors.primaryGreen,
+              ),
             ),
-            VerticalSpacer.double(),
+            const Text(
+              'Puedes eliminar cualquiera arrastrandola a la derecha',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 18,
+                color: AppColors.primaryBlack,
+              ),
+            ),
             Expanded(
               child: BlocBuilder<FavoritesCubit, FavoritesState>(
                 builder: (context, state) {
@@ -38,7 +50,7 @@ class FavoritesScreen extends StatelessWidget {
                         child: Text(
                           'Aún no tienes paradas favoritas\n¡Añade algunas y aprovecha\nesta funcionalidad!',
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 24,
                             fontWeight: FontWeight.bold,
                             color: AppColors.primaryGreen,
                           ),
@@ -97,22 +109,21 @@ class FavoritesScreen extends StatelessWidget {
                                           ),
                                           child: Column(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.spaceEvenly,
                                             children: [
                                               Text(
                                                 state.stopsData[index].name,
                                                 style: const TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 38,
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white,
                                                 ),
                                               ),
-                                              VerticalSpacer.regular(),
                                               Text(
                                                 state.stopsData[index].street,
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 14,
+                                                  fontSize: 24,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -121,7 +132,7 @@ class FavoritesScreen extends StatelessWidget {
                                                 'Próximas salidas',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                                  fontSize: 32,
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -132,7 +143,7 @@ class FavoritesScreen extends StatelessWidget {
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
-                                                            .center,
+                                                            .spaceAround,
                                                     children: [
                                                       if (state.stopsData[index]
                                                               .databaseName !=
@@ -151,7 +162,7 @@ class FavoritesScreen extends StatelessWidget {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  fontSize: 18,
+                                                                  fontSize: 32,
                                                                   color: Colors
                                                                       .white,
                                                                 ),
@@ -164,7 +175,7 @@ class FavoritesScreen extends StatelessWidget {
                                                                         .data![0],
                                                                 textStyle:
                                                                     const TextStyle(
-                                                                  fontSize: 22,
+                                                                  fontSize: 32,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
@@ -210,7 +221,7 @@ class FavoritesScreen extends StatelessWidget {
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
-                                                                  fontSize: 18,
+                                                                  fontSize: 32,
                                                                   color: Colors
                                                                       .white,
                                                                 ),
@@ -224,7 +235,7 @@ class FavoritesScreen extends StatelessWidget {
                                                                         .data![1],
                                                                 textStyle:
                                                                     const TextStyle(
-                                                                  fontSize: 22,
+                                                                  fontSize: 32,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold,
