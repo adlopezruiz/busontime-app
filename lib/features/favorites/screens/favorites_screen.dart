@@ -29,219 +29,239 @@ class FavoritesScreen extends StatelessWidget {
               style: AppTextStyles.title,
             ),
             VerticalSpacer.double(),
-            BlocBuilder<FavoritesCubit, FavoritesState>(
-              builder: (context, state) {
-                if (state.favoritesStatus == FavoritesStatus.loading) {
+            Expanded(
+              child: BlocBuilder<FavoritesCubit, FavoritesState>(
+                builder: (context, state) {
+                  if (state.favoritesStatus == FavoritesStatus.loaded) {
+                    if (state.favoritesList.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          'Aún no tienes paradas favoritas\n¡Añade algunas y aprovecha\nesta funcionalidad!',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.primaryGreen,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    } else {
+                      return CustomScrollView(
+                        slivers: [
+                          SliverGrid(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 1,
+                            ),
+                            delegate: SliverChildBuilderDelegate(
+                              childCount: state.stopsData.length,
+                              (context, int index) {
+                                return Dismissible(
+                                  direction: DismissDirection.startToEnd,
+                                  background:
+                                      Container(color: Colors.red.shade300),
+                                  onDismissed: (direction) {
+                                    getIt<FavoritesCubit>().deleteFromFavorites(
+                                      state.stopsData[index].id,
+                                    );
+                                  },
+                                  key: Key(state.stopsData[index].id),
+                                  child: FutureBuilder(
+                                    future: _getFirstBusHours(
+                                      state.stopsData[index].databaseName,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(
+                                            color: AppColors.primaryGreen,
+                                          ),
+                                        );
+                                      }
+                                      return Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18),
+                                        ),
+                                        margin: const EdgeInsets.all(8),
+                                        child: DecoratedBox(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(18),
+                                            image: DecorationImage(
+                                              image: AssetImage(
+                                                'assets/images/${state.stopsData[index].databaseName}.jpeg',
+                                              ),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                state.stopsData[index].name,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              VerticalSpacer.regular(),
+                                              Text(
+                                                state.stopsData[index].street,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              VerticalSpacer.regular(),
+                                              const Text(
+                                                'Próximas salidas',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              if (snapshot.hasData)
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      if (state.stopsData[index]
+                                                              .databaseName !=
+                                                          'martos') ...[
+                                                        Column(
+                                                          children: [
+                                                            if (snapshot.data!
+                                                                .isNotEmpty)
+                                                              const Text(
+                                                                'Martos',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 18,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                            if (snapshot.data!
+                                                                .isNotEmpty)
+                                                              CountdownTimer(
+                                                                targetTime:
+                                                                    snapshot
+                                                                        .data![0],
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                                  fontSize: 22,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              )
+                                                            else
+                                                              const SizedBox(),
+                                                            HorizontalSpacer
+                                                                .regular(),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                      if (state.stopsData[index]
+                                                                  .databaseName !=
+                                                              'jaen' &&
+                                                          state.stopsData[index]
+                                                                  .databaseName !=
+                                                              'martos')
+                                                        HorizontalSpacer
+                                                            .regular(),
+                                                      if (state.stopsData[index]
+                                                              .databaseName !=
+                                                          'jaen') ...[
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            HorizontalSpacer
+                                                                .regular(),
+                                                            if (snapshot.data!
+                                                                    .length ==
+                                                                2)
+                                                              const Text(
+                                                                'Jaén',
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 18,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                            if (snapshot.data!
+                                                                    .length ==
+                                                                2)
+                                                              CountdownTimer(
+                                                                targetTime:
+                                                                    snapshot
+                                                                        .data![1],
+                                                                textStyle:
+                                                                    const TextStyle(
+                                                                  fontSize: 22,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              )
+                                                            else
+                                                              const SizedBox(),
+                                                          ],
+                                                        ),
+                                                      ]
+                                                    ],
+                                                  ),
+                                                ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+                  }
                   return Center(
                     child: Image.asset(
                       'assets/images/fav-icon-animated.gif',
                       width: 150,
                     ),
                   );
-                }
-                if (state.favoritesList.isNotEmpty) {
-                  return SizedBox(
-                    height: MediaQuery.of(context).size.height / 2,
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: state.stopsData.length,
-                      itemBuilder: (context, index) {
-                        return BlocBuilder<FavoritesCubit, FavoritesState>(
-                          builder: (context, state) {
-                            return Dismissible(
-                              direction: DismissDirection.up,
-                              background: Container(color: Colors.red.shade300),
-                              onDismissed: (direction) {
-                                getIt<FavoritesCubit>().deleteFromFavorites(
-                                  state.stopsData[index].id,
-                                );
-                              },
-                              key: Key(state.stopsData[index].id),
-                              child: FutureBuilder(
-                                future: _getFirstBusHours(
-                                  state.stopsData[index].databaseName,
-                                ),
-                                builder: (context, snapshot) {
-                                  return Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                    ),
-                                    margin: const EdgeInsets.all(8),
-                                    child: DecoratedBox(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(18),
-                                        image: DecorationImage(
-                                          image: AssetImage(
-                                            'assets/images/${state.stopsData[index].databaseName}.jpeg',
-                                          ),
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            state.stopsData[index].name,
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          VerticalSpacer.regular(),
-                                          Text(
-                                            state.stopsData[index].street,
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 14,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          VerticalSpacer.regular(),
-                                          const Text(
-                                            'Próximas salidas',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                          if (snapshot.hasData)
-                                            Padding(
-                                              padding: const EdgeInsets.all(8),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  if (state.stopsData[index]
-                                                          .databaseName !=
-                                                      'martos') ...[
-                                                    Column(
-                                                      children: [
-                                                        if (snapshot
-                                                            .data!.isNotEmpty)
-                                                          const Text(
-                                                            'Martos',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        if (snapshot
-                                                            .data!.isNotEmpty)
-                                                          CountdownTimer(
-                                                            targetTime: snapshot
-                                                                .data![0],
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 22,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          )
-                                                        else
-                                                          const SizedBox(),
-                                                        HorizontalSpacer
-                                                            .regular(),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                  if (state.stopsData[index]
-                                                              .databaseName !=
-                                                          'jaen' &&
-                                                      state.stopsData[index]
-                                                              .databaseName !=
-                                                          'martos')
-                                                    HorizontalSpacer.regular(),
-                                                  if (state.stopsData[index]
-                                                          .databaseName !=
-                                                      'jaen') ...[
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        HorizontalSpacer
-                                                            .regular(),
-                                                        if (snapshot
-                                                                .data!.length ==
-                                                            2)
-                                                          const Text(
-                                                            'Jaén',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 18,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          ),
-                                                        if (snapshot
-                                                                .data!.length ==
-                                                            2)
-                                                          CountdownTimer(
-                                                            targetTime: snapshot
-                                                                .data![1],
-                                                            textStyle:
-                                                                const TextStyle(
-                                                              fontSize: 22,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                          )
-                                                        else
-                                                          const SizedBox(),
-                                                      ],
-                                                    ),
-                                                  ]
-                                                ],
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  );
-                } else {
-                  return const Center(
-                    child: Text(
-                      'Aún no tienes paradas favoritas\n¡Añade algunas y aprovecha\nesta funcionalidad!',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primaryGreen,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  );
-                }
-              },
+                },
+              ),
             ),
           ],
         ),

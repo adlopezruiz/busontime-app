@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:bot_main_app/dependency_injection/injector.dart';
 import 'package:bot_main_app/features/auth/login/bloc/login_cubit.dart';
 import 'package:bot_main_app/features/auth/widgets/custom_form_input._field.dart';
@@ -145,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           NavigationText(
                             text: '¿Contraseña olvidada?',
-                            route: '/forgot_pw',
+                            route: '/forgotPW',
                           ),
                         ],
                       ),
@@ -237,7 +238,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         onPressed:
                             state.loginStatus == LoginStatus.submittingApple
                                 ? null
-                                : () {},
+                                : () => showAppleInfoAlert(context),
                         content:
                             state.loginStatus == LoginStatus.submittingApple
                                 ? const CircularProgressIndicator(
@@ -285,4 +286,17 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+void showAppleInfoAlert(BuildContext context) {
+  AwesomeDialog(
+    context: context,
+    dialogType: DialogType.infoReverse,
+    animType: AnimType.bottomSlide,
+    title: 'INFO',
+    reverseBtnOrder: true,
+    btnOkOnPress: () {},
+    desc:
+        'En estos momentos este servicio no está disponible (no tengo apple device). Perdone las molestias ocasionadas.',
+  ).show();
 }

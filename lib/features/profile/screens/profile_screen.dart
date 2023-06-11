@@ -161,14 +161,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                           ),
                         ),
-                        // Center(
-                        //   child: IconButton(
-                        //     onPressed: () {
-
-                        //     },
-                        //     icon: const Icon(Icons.exit_to_app),
-                        //   ),
-                        // ),
                       ),
                     ),
                   ],
@@ -179,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             return Center(
               child: Image.asset(
                 'assets/images/profile-animated.gif',
-                width: 150,
+                height: 150,
               ),
             );
           }

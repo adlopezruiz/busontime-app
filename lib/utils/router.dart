@@ -1,3 +1,4 @@
+import 'package:bot_main_app/features/auth/forgot_pw/forgot_password_screen.dart';
 import 'package:bot_main_app/features/auth/login/screens/login_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/image_picker_screen.dart';
 import 'package:bot_main_app/features/auth/register/screens/register_screen.dart';
@@ -62,6 +63,11 @@ GoRouter setupRouter() {
       path: '/favorites',
       builder: (BuildContext context, GoRouterState state) =>
           const FavoritesScreen(),
+    ),
+    GoRoute(
+      path: '/forgotPW',
+      builder: (BuildContext context, GoRouterState state) =>
+          const ForgotPasswordScreen(),
     ),
   ];
 
