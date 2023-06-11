@@ -56,7 +56,7 @@ class AuthRepository {
       throw CustomError(
         code: 'Exception',
         message: e.toString(),
-        plugin: 'Register repo method',
+        plugin: 'Register error',
       );
     }
   }
@@ -82,7 +82,7 @@ class AuthRepository {
       throw CustomError(
         code: 'Exception',
         message: e.toString(),
-        plugin: 'flutter_error/server_error',
+        plugin: 'Login error',
       );
     }
   }
@@ -123,7 +123,7 @@ class AuthRepository {
       throw CustomError(
         code: 'Exception',
         message: e.toString(),
-        plugin: 'flutter_error/server_error',
+        plugin: 'Login error',
       );
     }
   }
