@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1017991836538-nknkktrf87c4hitig0lfmrr1uato8pgp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.verygoodcore.bot_main_app",
+            "certificate_hash": "4ebd584247eb303b4976357c88b3a082bd66f79d"
+          }
+        },
+        {
           "client_id": "1017991836538-sn3v91kvjaghtc9n47q9g5jp596g38b8.apps.googleusercontent.com",
           "client_type": 3
         }
