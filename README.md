@@ -35,7 +35,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="assets/images/bot.gif" alt="Logo" width="150" height="150">
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `adlopezruiz`, `busontime-app`, `adrilopezdev`, `adrianlopezdev`, `gmail`, `adrianlopezruiz.dev@gmail.com`, `Bus On Time`, `Flutter APP for Jaén-Martos line schedule control.`
 
