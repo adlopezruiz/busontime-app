@@ -76,7 +76,7 @@ Distributed under the MIT License.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@adrilopezdev](https://twitter.com/adrilopezdev) - adrianlopezruiz.dev@gmail.com@gmail.com
+Adrián López - [@adrilopezdev](https://twitter.com/adrilopezdev) - adrianlopezruiz.dev@gmail.com@gmail.com
 
 Project Link: [https://github.com/adlopezruiz/busontime-app](https://github.com/adlopezruiz/busontime-app)
 
