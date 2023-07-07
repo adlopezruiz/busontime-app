@@ -11,7 +11,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/adlopezruiz/busontime_app">
+  <a href="https://github.com/adlopezruiz/busontime-app">
     <img src="assets/images/logo_final.png" alt="Logo" width="150" height="150">
   </a>
 
@@ -20,14 +20,14 @@
   <p align="center">
     Flutter APP for Jaén-Martos line schedule control.
     <br />
-    <a href="https://github.com/adlopezruiz/busontime_app"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/adlopezruiz/busontime-app"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/adlopezruiz/busontime_app">View Demo</a>
+    <a href="https://github.com/adlopezruiz/busontime-app">View Demo</a>
     ·
-    <a href="https://github.com/adlopezruiz/busontime_app/issues">Report Bug</a>
+    <a href="https://github.com/adlopezruiz/busontime-app/issues">Report Bug</a>
     ·
-    <a href="https://github.com/adlopezruiz/busontime_app/issues">Request Feature</a>
+    <a href="https://github.com/adlopezruiz/busontime-app/issues">Request Feature</a>
   </p>
 </div>
 
@@ -37,7 +37,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `adlopezruiz`, `busontime_app`, `adrilopezdev`, `adrianlopezdev`, `gmail`, `adrianlopezruiz.dev@gmail.com`, `Bus On Time`, `Flutter APP for Jaén-Martos line schedule control.`
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `adlopezruiz`, `busontime-app`, `adrilopezdev`, `adrianlopezdev`, `gmail`, `adrianlopezruiz.dev@gmail.com`, `Bus On Time`, `Flutter APP for Jaén-Martos line schedule control.`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -77,7 +77,7 @@ This is an example of how to list things you need to use the software and how to
 1. Get a free API Key at [https://example.com](https://example.com)
 2. Clone the repo
    ```sh
-   git clone https://github.com/adlopezruiz/busontime_app.git
+   git clone https://github.com/adlopezruiz/busontime-app.git
    ```
 3. Install NPM packages
    ```sh
@@ -111,7 +111,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Feature 3
     - [ ] Nested Feature
 
-See the [open issues](https://github.com/adlopezruiz/busontime_app/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/adlopezruiz/busontime-app/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -149,7 +149,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@adrilopezdev](https://twitter.com/adrilopezdev) - adrianlopezruiz.dev@gmail.com@gmail.com
 
-Project Link: [https://github.com/adlopezruiz/busontime_app](https://github.com/adlopezruiz/busontime_app)
+Project Link: [https://github.com/adlopezruiz/busontime-app](https://github.com/adlopezruiz/busontime-app)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -168,16 +168,16 @@ Project Link: [https://github.com/adlopezruiz/busontime_app](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/adlopezruiz/busontime_app.svg?style=for-the-badge
-[contributors-url]: https://github.com/adlopezruiz/busontime_app/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/adlopezruiz/busontime_app.svg?style=for-the-badge
-[forks-url]: https://github.com/adlopezruiz/busontime_app/network/members
-[stars-shield]: https://img.shields.io/github/stars/adlopezruiz/busontime_app.svg?style=for-the-badge
-[stars-url]: https://github.com/adlopezruiz/busontime_app/stargazers
-[issues-shield]: https://img.shields.io/github/issues/adlopezruiz/busontime_app.svg?style=for-the-badge
-[issues-url]: https://github.com/adlopezruiz/busontime_app/issues
-[license-shield]: https://img.shields.io/github/license/adlopezruiz/busontime_app.svg?style=for-the-badge
-[license-url]: https://github.com/adlopezruiz/busontime_app/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/adlopezruiz/busontime-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/adlopezruiz/busontime-app/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/adlopezruiz/busontime-app.svg?style=for-the-badge
+[forks-url]: https://github.com/adlopezruiz/busontime-app/network/members
+[stars-shield]: https://img.shields.io/github/stars/adlopezruiz/busontime-app.svg?style=for-the-badge
+[stars-url]: https://github.com/adlopezruiz/busontime-app/stargazers
+[issues-shield]: https://img.shields.io/github/issues/adlopezruiz/busontime-app.svg?style=for-the-badge
+[issues-url]: https://github.com/adlopezruiz/busontime-app/issues
+[license-shield]: https://img.shields.io/github/license/adlopezruiz/busontime-app.svg?style=for-the-badge
+[license-url]: https://github.com/adlopezruiz/busontime-app/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/adrianlopezdev
 [product-screenshot]: images/screenshot.png
