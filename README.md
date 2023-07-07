@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/adlopezruiz/busontime-app">
-    <img src="assets/images/logo_final.png" alt="Logo" width="150" height="150">
+    <img src="assets/images/logo_final.png" alt="Logo" width="200" height="200">
   </a>
 
 <h3 align="center">Bus On Time</h3>
@@ -34,115 +34,44 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-<img src="assets/images/bot.gif" alt="Logo" width="150" height="150">
-
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `adlopezruiz`, `busontime-app`, `adrilopezdev`, `adrianlopezdev`, `gmail`, `adrianlopezruiz.dev@gmail.com`, `Bus On Time`, `Flutter APP for Jaén-Martos line schedule control.`
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-### Built With
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+<p align="center">
+  <img src="assets/images/bot.gif" alt="Logo" >
+</p>
+Bus On Time is an application to keep the user informed of the
+schedule of the Jaén-Martos bus line at any time and
+stop.<br>
+Its interface is very friendly for all types of users, taking into account
+various display options for timetables, either along
+traditional (consortium timetable), consulting the stop on a map
+interactive or reviewing your favorite stops.<br>
+It is based on the geolocation of the user so that he can
+locate the nearest stop and check its schedules.<br>
+In the hidden part of the project, we have one remaining API developed with NodeJS Express.<br>
+The APP accesses the data in a hybrid way, launching direct requests to the
+Firebase services, to take advantage of its reactivity or
+launching requests to our Rest API, to get the data from
+more specific way and thus saves the APP load of processes.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Project Keys -->
+## Project Technologies and keys
 
-
-<!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
-### Installation
-
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/adlopezruiz/busontime-app.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
+- Flutter BloC for state management.
+- GetIt as dependency injection and service locator.
+- GoRouter as page router.
+- Atomic design.
+- Google Maps integration.
+- GeoLocator to track user position.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
-
-See the [open issues](https://github.com/adlopezruiz/busontime-app/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- CONTRIBUTING -->
-## Contributing
-
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- CONTACT -->
 ## Contact
@@ -154,15 +83,6 @@ Project Link: [https://github.com/adlopezruiz/busontime-app](https://github.com/
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-* []()
-* []()
-* []()
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
